@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Portfolio;
 use App\Models\User;
 use App\Models\VcardDetail;
+
 class HomeController extends Controller
 {
     public function index()
@@ -30,11 +31,10 @@ class HomeController extends Controller
 
     public function adminDashboard()
     {
-
-       // Get counts for documents, services, and portfolios
-       $documents = Document::count(); 
-       $services = Service::count(); 
-       $portfolios = Portfolio::count(); 
+        // Get counts for documents, services, and portfolios
+        $documents = Document::count();
+        $services = Service::count();
+        $portfolios = Portfolio::count();
         #fetch details of user
         $total_users = User::where('role', 'user')->count();
         $total_organizations = User::where('role', 'organization')->count();
@@ -85,26 +85,97 @@ class HomeController extends Controller
     public function digitalId()
     {
         $user = Auth::user();
-    
-    // Perform a join between the 'users' and 'vcard_details' table
-    $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
-                        ->where('users.id', $user->id)
-                        ->select('users.*', 'vcard_details.*') // Select columns from both tables
-                        ->first();
 
-    return view('user.digital-id', compact('userDetails'));
-    }
-
-    public function card()
-    {
-        $user = Auth::user();
-    
         // Perform a join between the 'users' and 'vcard_details' table
         $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
-                            ->where('users.id', $user->id)
-                            ->select('users.*', 'vcard_details.*') // Select columns from both tables
-                            ->first();
-    
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->first();
+
+        return view('user.digital-id', compact('userDetails'));
+    }
+
+    public function card($username)
+    {
+        $user = User::where('username', $username)->first();
+
+        // Perform a join between the 'users' and 'vcard_details' table
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->first();
         return view('user.card', compact('userDetails'));
     }
+    public function businessCard($username)
+    {
+        $user = User::where('username', $username)->first();
+
+        // Perform a join between the 'users' and 'vcard_details' table
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->first();
+
+        return view('user.business-card', compact('userDetails'));
+    }
+    public function businessIdCard()
+    {
+        $user = Auth::user();
+
+        // Perform a join between the 'users' and 'vcard_details' table
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->first();
+        return view('user.business-id-card', compact('userDetails'));
+    }
+   
+
+    // Verify email
+    public function verifyEmail($token)
+    {
+
+        $tokenwithlink = 'http://localhost:8000/verify-email/verify/' . $token;
+        $user = User::where('email_verified_link', $tokenwithlink)->first();
+      
+        if ($user) {
+            $user->email_verified_at = now();
+            $user->email_verified_link = null;
+            $user->save();
+        }
+        return redirect()->route('login')->with('success', 'Email verified successfully');
+    }
+
+    public function organizationDashboard()
+    {
+        return view('organization.dashboard');
+    }
+
+    public function organizationProfile()
+    {
+        return view('organization.profile');
+    }
+
+    public function organizationEmployees()
+    {
+        $user = Auth::user();
+        $employees = User::where('parent_id', $user->id)->get();
+        return view('organization.employees', compact('employees'));
+    }
+
+    public function organizationDepartments()
+    {
+        return view('organization.departments');
+    }
+
+    public function organizationDesignations()
+    {
+        return view('organization.designations');
+    }
+
+    public function organizationLeads()
+    {
+        return view('organization.leads');
+    }
+
 }

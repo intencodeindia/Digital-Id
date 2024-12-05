@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('phone')->nullable(); // Phone number
             $table->string('relationship')->nullable(); // Relationship to the user
             $table->foreignId('parent_id')->nullable()->constrained('users'); // Parent ID should be user primary key and not nullable
+            $table->string('organization_logo')->nullable(); // Organization logo path
+            $table->string('email_verified_link')->nullable(); // Email verification link
             $table->rememberToken();
             $table->timestamps();
         });

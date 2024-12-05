@@ -8,6 +8,9 @@ use App\Models\User;  // Assuming the appointments are linked to users (clients)
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\GeneralHtmlEmail;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -15,12 +18,36 @@ class AppointmentController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        // Fetch all appointments
-        $user = Auth::user();
-        $appointments = Appointment::with('user', 'service')->where('user_id', $user->id)->orderBy('appointment_time', 'desc')->get();  // Load all appointments for the user and orderby
+{
+    // Fetch the authenticated user
+    $user = Auth::user();
+    $userDetails = User::find($user->id);
 
-        return view('user.appointment', compact('appointments'));
+    // Fetch upcoming appointments (appointments in the future)
+    $upcomingAppointments = Appointment::with('user', 'service')  // eager load user and service relationships
+        ->where('user_id', $user->id)
+        ->where('status', '!=', 'cancelled')
+        ->where('appointment_time', '>', Carbon::now())  // Only appointments in the future
+        ->orderBy('appointment_time', 'asc')  // Order by earliest appointment first
+        ->get();
+
+    // Fetch past appointments (appointments in the past)
+    $pastAppointments = Appointment::with('user', 'service')  // eager load user and service relationships
+        ->where('user_id', $user->id)
+        ->where('status', '!=', 'cancelled')
+        ->where('appointment_time', '<', Carbon::now())  // Only appointments in the past
+        ->orderBy('appointment_time', 'desc')  // Order by most recent appointment first
+        ->get();
+
+    // Fetch cancelled appointments
+    $cancelledAppointments = Appointment::with('user', 'service')  // eager load user and service relationships
+        ->where('user_id', $user->id)
+        ->where('status', 'cancelled')  // Only cancelled appointments
+        ->orderBy('appointment_time', 'desc')  // Order by most recent cancelled appointment first
+        ->get();
+
+    // Return the view with the relevant data
+        return view('user.appointment', compact('upcomingAppointments', 'userDetails', 'pastAppointments', 'cancelledAppointments'));
     }
 
     /**
@@ -39,30 +66,31 @@ class AppointmentController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
         }
 
         // Create appointment
-        $appointment = Appointment::create([
+        $data = [
             'user_id' => $request->user_id,
             'service_id' => $request->service_id,
             'appointment_time' => $request->appointment_time,
             'duration_minutes' => $request->duration_minutes,
             'status' => $request->status ?? 'pending',
             'notes' => $request->notes,
-        ]);
+        ];
+        // dd($data);
+        Appointment::create($data);
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment created successfully!');
+        $subject = "Appointment Booked Successfully";
+        $content = "<strong>Hello User,</strong><br>Your appointment has been booked successfully. This is an example of an HTML email.";
+
+        // Send the email using the GeneralHtmlEmail Mailable
+        Mail::to('daritor331@kindomd.com')->send(new GeneralHtmlEmail($subject, $content));
+
+        session()->flash('message', 'Appointment booked successfully!');
+        return redirect()->route('public.profile', ['username' => 'user']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Appointment $appointment)
-    {
-        // Show the appointment details
-        return view('appointments.show', compact('appointment'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -104,7 +132,7 @@ class AppointmentController extends Controller
             'notes' => $request->notes,
         ]);
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment updated successfully!');
+        return response()->json(['message' => 'Appointment updated successfully!'], 200);
     }
 
     /**
@@ -117,4 +145,6 @@ class AppointmentController extends Controller
 
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully!');
     }
+
+   
 }

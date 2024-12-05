@@ -8,13 +8,13 @@
                     <div class="row gy-5 align-items-center gx-0">
                         <div class="col-sm-6">
                             <div class="pe-5">
-                                <h1 class="text-gray-900 fw-bold fs-3x fs-lg-4tx mb-14 ms-n1" id="home">
-                                    Digital Identity<br />
-                                    For Your Business<br />
-                                    And Employees
+                                <h1 class="text-gray-900 fw-bold fs-2tx mb-14 ms-n1" id="home" style="text-shadow: 1.5px 0px 1px #767272;">
+                                    Digital Identity
+                                    For <span style="color:#ac1af0">Proffesional</span>, <br /> <span style="color:#1330f8">Business</span>
+                                    And Your <br><span style="color:#04a2f1">Employees</span>
                                 </h1>
                                 <div class="d-flex flex-shrink-0 me-5">
-                                    <a href="{{ url('/organization/register') }}" class="btn btn-primary flex-shrink-0 fw-bold me-2 me-md-4 my-1">Create Organization</a>
+                                    <a href="{{ url('/register') }}" class="btn btn-primary flex-shrink-0 fw-bold me-2 me-md-4 my-1" style="background-color: #04a2f1; color: #fff;">Create Organization</a>
                                     <a href="#how-it-works" class="btn btn-white btn-color-gray-700 flex-shrink-0 my-1 fw-bold btn-active-light-primary">Learn More</a>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                             <div class="text-center mb-10 mb-md-0">
                                 <img src="{{ asset('assets/media/svg/illustrations/easy-2/1.svg') }}" class="mb-11 h-125px" alt="Create Organization" />
                                 <div class="d-flex flex-center mb-5">
-                                    <span class="badge badge-circle badge-light-danger fw-bold p-5 me-3 fs-3">1</span>
+                                    <span class="badge badge-circle fw-bold p-5 me-3 fs-3" style="background-color: #d3ddf9;color: #ca10f9;">1</span>
                                     <div class="fs-5 fs-lg-3 fw-bold text-gray-900">Create Organization</div>
                                 </div>
                                 <div class="fw-semibold fs-6 fs-lg-4 text-gray-700">
@@ -53,7 +53,7 @@
                             <div class="text-center mb-10 mb-md-0">
                                 <img src="{{ asset('assets/media/svg/illustrations/easy-2/2.svg') }}" class="mb-11 h-125px" alt="Add Employees" />
                                 <div class="d-flex flex-center mb-5">
-                                    <span class="badge badge-circle badge-light-danger fw-bold p-5 me-3 fs-3">2</span>
+                                    <span class="badge badge-circle fw-bold p-5 me-3 fs-3" style="background-color: #d3ddf9;color: #ca10f9;">2</span>
                                     <div class="fs-5 fs-lg-3 fw-bold text-gray-900">Add Employees</div>
                                 </div>
                                 <div class="fw-semibold fs-6 fs-lg-4 text-gray-700">
@@ -67,7 +67,7 @@
                             <div class="text-center mb-10 mb-md-0">
                                 <img src="{{ asset('assets/media/svg/illustrations/easy-2/3.svg') }}" class="mb-11 h-125px" alt="Access Digital IDs" />
                                 <div class="d-flex flex-center mb-5">
-                                    <span class="badge badge-circle badge-light-danger fw-bold p-5 me-3 fs-3">3</span>
+                                    <span class="badge badge-circle fw-bold p-5 me-3 fs-3" style="background-color: #d3ddf9;color: #ca10f9;">3</span>
                                     <div class="fs-5 fs-lg-3 fw-bold text-gray-900">Access Digital IDs</div>
                                 </div>
                                 <div class="fw-semibold fs-6 fs-lg-4 text-gray-700">
@@ -132,14 +132,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card border-0 bg-primary overflow-hidden mb-lg-15 z-index-2">
+                    <div class="card border-0 overflow-hidden mb-lg-15 z-index-2" style="background-color: #126bc6;">
                         <div class="card-body text-center my-9">
                             <div class="fs-lg-3tx fs-2x fw-bold text-white pt-lg-20 mt-lg-4 mb-lg-20 mb-10 pb-2 position-relative z-index-2">
                                 <span class="d-block mb-8">Transform Your Organization's Identity</span>
                                 <span class="d-block lh-0">Get Started Today</span>
                             </div>
                             <div class="mb-lg-20 position-relative z-index-2">
-                                <a href="{{ url('/organization/register') }}" class="btn btn-danger btn-lg h-55px pt-5">Create Organization Now</a>
+                                <a href="{{ url('/organization/register') }}" class="btn btn-lg h-55px pt-5" style="background-color:#d493f3; color: #fff;">Create Organization Now</a>
                             </div>
                             <img src="{{ asset('assets/media/product/3.svg') }}" class="position-absolute bottom-0 end-0" alt="CTA Background" />
                         </div>
@@ -154,8 +154,8 @@
                                 One Stop Pricing For Your Business <br />
                                 Because
                                 <span class="d-inline-block position-relative ms-2">
-                                    <span class="d-inline-block mb-2 text-danger">It's Strong Quality</span>
-                                    <span class="d-inline-block position-absolute h-4px bottom-0 end-0 start-0 bg-danger translate rounded"></span>
+                                    <span class="d-inline-block mb-2" style="color: #7a0176;">It's Strong Quality</span>
+                                    <span class="d-inline-block position-absolute h-4px bottom-0 end-0 start-0 translate rounded" style="background-color: #2c9df5 !important;"></span>
                                 </span>
                             </h1>
                             <div class="text-center" id="kt_pricing">
@@ -170,7 +170,7 @@
                                 <div class="row g-5 g-lg-10 mx-20">
                                     <div class="col-xl-4">
                                         <div class="d-flex h-100 align-items-center">
-                                            <div class="w-100 d-flex flex-column flex-center rounded-3 bg-gray-100 py-15 px-10">
+                                            <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: #e7f1f9;">
                                                 <div class="mb-7 text-center">
                                                     <h1 class="text-gray-900 mb-5 fw-bolder">Startup</h1>
                                                     <div class="text-gray-500 fw-semibold mb-5">
@@ -217,7 +217,7 @@
                                     </div>
                                     <div class="col-xl-4">
                                         <div class="d-flex h-100 align-items-center">
-                                            <div class="w-100 d-flex flex-column flex-center rounded bg-danger py-20 px-10">
+                                            <div class="w-100 d-flex flex-column flex-center rounded py-20 px-10" style="background-color: #9727ff;">
                                                 <div class="mb-7 text-center">
                                                     <h1 class="text-white mb-5 fw-bolder">Business</h1>
                                                     <div class="text-white opacity-75 fw-semibold mb-5">
@@ -225,7 +225,7 @@
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="mb-2 text-white">$</span>
-                                                        <span class="fs-3x fw-bold text-white" data-kt-plan-price-month="199" data-kt-plan-price-annual="1999">
+                                                        <span class="fs-3x fw-bold" style="color: #92fbaa;" data-kt-plan-price-month="199" data-kt-plan-price-annual="1999">
                                                             199 </span>
                                                         <span class="fs-7 fw-semibold text-white opacity-75" data-kt-plan-price-month="Mon" data-kt-plan-price-annual="Ann">/
                                                             Mon </span>
@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="col-xl-4">
                                         <div class="d-flex h-100 align-items-center">
-                                            <div class="w-100 d-flex flex-column flex-center rounded-3 bg-gray-100 py-15 px-10">
+                                            <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: #e7f1f9;">
                                                 <div class="mb-7 text-center">
                                                     <h1 class="text-gray-900 mb-5 fw-bolder">Enterprise</h1>
                                                     <div class="text-gray-500 fw-semibold mb-5">

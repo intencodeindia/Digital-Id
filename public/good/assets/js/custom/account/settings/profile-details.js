@@ -1,1 +1,68 @@
-"use strict";var KTAccountSettingsProfileDetails=function(){var e,t;return{init:function(){(e=document.getElementById("kt_account_profile_details_form"))&&(e.querySelector("#kt_account_profile_details_submit"),t=FormValidation.formValidation(e,{fields:{fname:{validators:{notEmpty:{message:"First name is required"}}},lname:{validators:{notEmpty:{message:"Last name is required"}}},company:{validators:{notEmpty:{message:"Company name is required"}}},phone:{validators:{notEmpty:{message:"Contact phone number is required"}}},country:{validators:{notEmpty:{message:"Please select a country"}}},timezone:{validators:{notEmpty:{message:"Please select a timezone"}}},"communication[]":{validators:{notEmpty:{message:"Please select at least one communication method"}}},language:{validators:{notEmpty:{message:"Please select a language"}}}},plugins:{trigger:new FormValidation.plugins.Trigger,submitButton:new FormValidation.plugins.SubmitButton,bootstrap:new FormValidation.plugins.Bootstrap5({rowSelector:".fv-row",eleInvalidClass:"",eleValidClass:""})}}),$(e.querySelector('[name="country"]')).on("change",(function(){t.revalidateField("country")})),$(e.querySelector('[name="language"]')).on("change",(function(){t.revalidateField("language")})),$(e.querySelector('[name="timezone"]')).on("change",(function(){t.revalidateField("timezone")})))}}}();KTUtil.onDOMContentLoaded((function(){KTAccountSettingsProfileDetails.init()}));
+"use strict";
+
+var KTAccountSettingsProfileDetails = function() {
+    var e, t;
+    
+    return {
+        init: function() {
+            // Check if the form exists
+            if (e = document.getElementById("kt_account_profile_details_form")) {
+                
+                // Initialize the form validation
+                t = FormValidation.formValidation(e, {
+                    fields: {
+                        name: {
+                            validators: {
+                                notEmpty: {
+                                    message: "Full name is required"
+                                }
+                            }
+                        },
+                        phone: {
+                            validators: {
+                                notEmpty: {
+                                    message: "Phone number is required"
+                                },
+                                regexp: {
+                                    // Ensure valid phone number format
+                                    message: "Please enter a valid phone number",
+                                    regexp: /^[0-9+\-\s\(\)]*$/
+                                }
+                            }
+                        },
+
+                        // Avatar image upload
+                        profile_photo: {
+                            validators: {
+                                file: {
+                                    extension: "png,jpg,jpeg",
+                                    type: "image/png,image/jpg,image/jpeg",
+                                    message: "Only image files (png, jpg, jpeg) are allowed"
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        trigger: new FormValidation.plugins.Trigger(),
+                        submitButton: new FormValidation.plugins.SubmitButton(),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: ".fv-row",
+                            eleInvalidClass: "",
+                            eleValidClass: ""
+                        })
+                    }
+                });
+
+                // Handle avatar file input changes (for validation)
+                $(e.querySelector('[name="profile_photo"]')).on("change", function() {
+                    t.revalidateField("profile_photo");
+                });
+            }
+        }
+    };
+}();
+
+// Initialize when DOM is ready
+KTUtil.onDOMContentLoaded(function() {
+    KTAccountSettingsProfileDetails.init();
+});

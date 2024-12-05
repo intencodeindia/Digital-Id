@@ -7,10 +7,22 @@
             <div class="d-flex justify-content-center flex-column p-15 bg-body shadow-sm rounded w-100 w-md-550px mx-auto">
                 <div class="text-center mb-2">
                     <a href="/" class="mb-5 d-inline-block">
-                        <img alt="Logo" src="{{ asset('assets/media/logos/logo.jpg') }}" class="h-80px" />
+                        <img alt="Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-80px" />
                     </a>
                 </div>
-
+                @if(session('register_status'))
+                    <script>
+                        Swal.fire({
+                            text: "{{ session('register_status') }}",
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                    </script>
+                @endif
                 <form class="form" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}" method="POST">
                     @csrf
                     @if ($errors->any())

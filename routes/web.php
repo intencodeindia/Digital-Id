@@ -10,6 +10,13 @@ use App\Http\Controllers\{
     AppointmentController,
     FamilymemberController,
     AppointmentSettingController,
+    CustomOrganizationController,
+    EmployeeController,
+    DesignationController,
+    ContactController,
+    DepartmentController,
+    LeadController,
+    EntryLogController,
     Auth\LoginController,
     Auth\RegisterController
 };
@@ -20,7 +27,11 @@ Route::get('/', function () {
 })->middleware('guest');
 
 Route::get('/in/{username}', [ProfileController::class, 'publicProfile'])->name('public.profile');
-
+Route::post('/in/{username}/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
+Route::post('/in/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/card/{username}', [HomeController::class, 'card'])->name('card');
+Route::get('/business-card/{username}', [HomeController::class, 'businessCard'])->name('business-card');
+Route::get('/verify-email/verify/{token}', [HomeController::class, 'verifyEmail'])->name('verify.email');
 // Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -34,11 +45,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'profileUpdate'])->name('profileupdate');
     // Common routes
     Route::get('/digital-id', [HomeController::class, 'digitalId'])->name('digital-id');
-
-    Route::get('/card', [HomeController::class, 'card'])->name('card');
+    Route::get('/business-id-card', [HomeController::class, 'businessIdCard'])->name('business-id-card');
 
     // Admin routes
     Route::middleware(['role:admin', 'auth'])->prefix('admin')->group(function () {
@@ -46,7 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/users', [HomeController::class, 'users'])->name('admin.users');
         Route::get('/organizations', [HomeController::class, 'organizations'])->name('admin.organizations');
         Route::get('/organization/view/{id}', [HomeController::class, 'organizationView'])->name('admin.organization.view');
-        Route::get('/employees', [HomeController::class, 'employees'])->name('admin.employees');
+       
         Route::get('/settings', [HomeController::class, 'settings'])->name('admin.settings');
         Route::get('/transactions', [HomeController::class, 'transactions'])->name('admin.transactions');
         Route::get('/users/view/{id}', [HomeController::class, 'userView'])->name('admin.users.view');
@@ -58,9 +69,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/subscription', function () {
             return view('user.subscription');
         });
-        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
-        Route::put('/profile', [ProfileController::class, 'profileUpdate'])->name('profile.update');
 
+        Route::get('/organizations', [CustomOrganizationController::class, 'index'])->name('user.organizations');
+        Route::post('/organization/store', [CustomOrganizationController::class, 'store'])->name('user.organization.store');
+        Route::get('/organization/view/{id}', [CustomOrganizationController::class, 'show'])->name('user.organization.view');
+        Route::put('/organization/update/{id}', [CustomOrganizationController::class, 'update'])->name('user.organization.update');
+        Route::delete('/organization/delete/{id}', [CustomOrganizationController::class, 'destroy'])->name('user.organization.delete');
         // Document management
         Route::controller(DocumentController::class)->prefix('documents')->name('user.documents')->group(function () {
             Route::get('/', 'index');
@@ -108,10 +122,33 @@ Route::middleware('auth')->group(function () {
     });
 
     // Organization routes
-    Route::middleware(['role:organization', 'auth'])->group(function () {});
+    Route::middleware(['role:organization', 'auth'])->group(function () {
+        Route::get('dashboard', [HomeController::class, 'organizationDashboard'])->name('organization.dashboard');
+    
+        // Employees routes
+        Route::get('/employees', [EmployeeController::class, 'index'])->name('organization.employees');
+        Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
+        Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.view');
+        Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('employees.update');
+        // Departments routes
+        Route::get('/departments', [DepartmentController::class, 'index'])->name('organization.departments');
+        Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
+    
+        // Designations routes
+        Route::get('/designations', [DesignationController::class, 'index'])->name('organization.designations');
+        Route::post('/designations/store', [DesignationController::class, 'store'])->name('designations.store');
+        // Entry logs routes
+        Route::get('/entry-logs', [EntryLogController::class, 'index'])->name('organization.entry-logs');
+    
+        Route::get('/leads', [LeadController::class, 'index'])->name('organization.leads');
+    });
+    
 
     // Employee routes
-    Route::middleware(['role:employee', 'auth'])->group(function () {});
+    Route::middleware(['role:employee', 'auth'])->group(function () {
+        Route::get('/leads', [LeadController::class, 'index'])->name('employee.leads');
+        Route::get('/entry-logs', [EntryLogController::class, 'index'])->name('employee.entry-logs');
+    });
 
     // Family member routes
     Route::middleware(['role:familymember', 'auth'])->group(function () {

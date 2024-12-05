@@ -18,6 +18,12 @@
 
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Include SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.7/dist/sweetalert2.min.css">
+
+    <!-- Include SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.7/dist/sweetalert2.min.js"></script>
+
 
     <script>
         if (window.top != window.self) {
@@ -52,23 +58,20 @@
 
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <div class="m-0">
-            <div class="landing-header mb-13" data-kt-sticky="true" data-kt-sticky-name="landing-header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
 
-            </div>
 
             @yield('content')
             <div class="mb-0">
                 <div class="landing-dark-bg pt-lg-20">
-
                     <div class="separator separator-solid"></div>
                     <div class="container">
                         <div class="d-flex flex-column flex-md-row flex-stack py-8">
                             <div class="d-flex align-items-center order-2 order-md-1">
                                 <a href="/">
-                                    <img alt="Logo" src="{{ asset('assets/media/logos/logo.jpg') }}" class="h-40px h-md-60px" />
+                                    <img alt="Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-30px h-md-50px" />
                                 </a>
                                 <span class="mx-5 fs-6 fw-semibold text-gray-700 pt-1" href="https://digitalid.com">
-                                    Copyright &copy; Digital ID 2024
+                                    Copyright &copy; Proffid 2024
                                 </span>
                             </div>
                             <ul class="menu menu-gray-700 menu-hover-primary fw-semibold fs-5 fs-md-5 order-1 mb-5 mb-md-0">
@@ -84,6 +87,7 @@
             <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
             <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
             <script src="{{ asset('assets/js/custom/authentication/sign-in/general.js') }}"></script>
+            <!-- <script src="{{ asset('assets/js/custom/authentication/sign-up/appointment.js') }}"></script> -->
             @stack('scripts')
 </body>
 

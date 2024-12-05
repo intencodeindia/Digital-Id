@@ -14,7 +14,6 @@
                     Appointment Settings
                 </button>
             </div>
-
             <!-- Appointment Settings Modal -->
             <div class="modal fade" id="appointmentSettingsModal" tabindex="-1" aria-labelledby="appointmentSettingsModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -37,12 +36,12 @@
                                     <label class="form-label">Available Days</label>
                                     <div class="d-flex flex-wrap gap-3">
                                         @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="available_days[]" value="{{ strtolower($day) }}" id="day_{{ strtolower($day) }}">
-                                                <label class="form-check-label" for="day_{{ strtolower($day) }}">
-                                                    {{ $day }}
-                                                </label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="available_days[]" value="{{ strtolower($day) }}" id="day_{{ strtolower($day) }}">
+                                            <label class="form-check-label" for="day_{{ strtolower($day) }}">
+                                                {{ $day }}
+                                            </label>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -76,34 +75,61 @@
                 </div>
             </div>
             <div class="row g-5 g-xxl-10">
-                <div class="col-xl-12 col-xxl-12 mb-5 mb-xxl-10">
-                    <div class="alert alert-success d-flex align-items-center p-5 mb-5">
-                        <i class="ki-duotone ki-shield-tick fs-2hx text-success me-4"><span class="path1"></span><span class="path2"></span></i>
-                        <div class="d-flex flex-column">
-                            <h4 class="mb-1 text-dark">Appointment Successful</h4>
-                            <span>Your appointment was processed successfully</span>
-                            <span class="text-muted mt-1">Appointment time: Dec 15, 2023 14:30:25</span>
+
+                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                    <li class="nav-item">
+                        <a class="nav-link fw-bolder active" data-bs-toggle="tab" href="#kt_tab_pane_1">Upcoming</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bolder" data-bs-toggle="tab" href="#kt_tab_pane_2">Past</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bolder" data-bs-toggle="tab" href="#kt_tab_pane_3">Cancelled</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                        @foreach($upcomingAppointments as $appointment)
+                        <div class="alert alert-success d-flex align-items-center p-5 mb-5">
+                            <i class="ki-duotone ki-shield-tick fs-2hx text-success me-4"><span class="path1"></span><span class="path2"></span></i>
+                            <div class="d-flex flex-column">
+                                <h4 class="mb-1 text-dark">Appointment Successful</h4>
+                                <span>Your appointment was processed successfully</span>
+                                <span class="text-muted mt-1">Appointment time: {{ $appointment->appointment_time }}</span>
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-                    <div class="alert alert-danger d-flex align-items-center p-5 mb-5">
-                        <i class="ki-duotone ki-shield-cross fs-2hx text-danger me-4"><span class="path1"></span><span class="path2"></span></i>
-                        <div class="d-flex flex-column">
-                            <h4 class="mb-1 text-dark">Appointment Failed</h4>
-                            <span>Your appointment was declined. Please try again.</span>
-                            <span class="text-muted mt-1">Appointment time: Dec 15, 2023 15:45:12</span>
+                    <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+                        @foreach($pastAppointments as $appointment)
+                        <div class="alert alert-info d-flex align-items-center p-5 mb-5">
+                            <i class="ki-duotone ki-shield-tick fs-2hx text-info me-4"><span class="path1"></span><span class="path2"></span></i>
+                            <div class="d-flex flex-column">
+                                <h4 class="mb-1 text-dark">Appointment Completed</h4>
+                                <span>Your appointment was completed successfully</span>
+                                <span class="text-muted mt-1">Appointment time: {{ $appointment->appointment_time }}</span>
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-                    <div class="alert alert-warning d-flex align-items-center p-5">
-                        <i class="ki-duotone ki-shield-slash fs-2hx text-warning me-4"><span class="path1"></span><span class="path2"></span></i>
-                        <div class="d-flex flex-column">
-                            <h4 class="mb-1 text-dark">Appointment Pending</h4>
-                            <span>Your appointment is being processed</span>
-                            <span class="text-muted mt-1">Appointment time: Dec 15, 2023 16:20:45</span>
+                    <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel">
+                        @foreach($cancelledAppointments as $appointment)
+                        <div class="alert alert-danger d-flex align-items-center p-5 mb-5">
+                            <i class="ki-duotone ki-shield-cross fs-2hx text-danger me-4"><span class="path1"></span><span class="path2"></span></i>
+                            <div class="d-flex flex-column">
+                                <h4 class="mb-1 text-dark">Appointment Failed</h4>
+                                <span>Your appointment was declined. Please try again.</span>
+                                <span class="text-muted mt-1">Appointment time: {{ $appointment->appointment_time }}</span>
+                            </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
-</div>
-@endsection
+
+    @endsection

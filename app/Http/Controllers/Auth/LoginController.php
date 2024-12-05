@@ -55,9 +55,9 @@ class LoginController extends Controller
     
         // Get the redirect URL based on role
         $redirectUrl = match($user->role) {
-            'admin' => '/admin/dashboard',
-            'organization' => '/organization/dashboard',
-            'employee' => '/employee/dashboard',
+            'admin' => '/home',
+            'organization' => '/home',
+            'employee' => '/home',
             'familymember' => '/home',
             default => '/home',
         };

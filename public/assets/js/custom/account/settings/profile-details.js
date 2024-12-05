@@ -17,11 +17,7 @@ var KTAccountSettingsProfileDetails = function () {
                     // Submit form using fetch API
                     fetch(e.action, {
                         method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        },
-                        credentials: 'same-origin'
+                        body: formData
                     })
                     .then(response => response.json())
                     .then(data => {

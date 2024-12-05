@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-center flex-column p-15 bg-body shadow-sm rounded w-100 w-md-550px mx-auto">
                 <div class="text-center mb-2">
                     <a href="/" class="mb-5 d-inline-block">
-                        <img alt="Logo" src="{{ asset('assets/media/logos/logo.jpg') }}" class="h-80px" />
+                        <img alt="Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-80px" />
                     </a>
                 </div>
 
@@ -33,6 +33,12 @@
                     </div>
                     <!--end::Input group-->
 
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                        <label class="form-label fw-bold text-gray-900 fs-6">Username</label>
+                        <input class="form-control form-control-lg form-control-solid" data-kt-redirect-url="/login" type="text" placeholder="" name="username" autocomplete="off" />
+                    </div>
+                    <!--end::Input group-->
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
                         <label class="form-label fw-bold text-gray-900 fs-6">Email</label>

@@ -1,189 +1,51 @@
 "use strict";
 
-// Class definition
-var KTSignupGeneral = function() {
-    // Elements
-    var form;
-    var submitButton;
+var KTSignupGeneral = function () {
+    var form = document.querySelector('#kt_free_trial_form');
+    var submitButton = document.querySelector('#kt_sign_up_submit');
     var validator;
-    var passwordMeter;
 
-    // Handle form
-    var handleForm  = function(e) {
-        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-        validator = FormValidation.formValidation(
-            form,
-            {
-                fields: {
-                    'first-name': {
-                        validators: {
-                            notEmpty: {
-                                message: 'First Name is required'
-                            }
-                        }
-                    },
-                    'last-name': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Last Name is required'
-                            }
-                        }
-                    },
-                    'email': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Email address is required'
-                            },
-                            emailAddress: {
-                                message: 'The value is not a valid email address'
-                            }
-                        }
-                    },
-                    'password': {
-                        validators: {
-                            notEmpty: {
-                                message: 'The password is required'
-                            },
-                            stringLength: {
-                                min: 8,
-                                message: 'The password must be more than 8 characters'
-                            }
-                        }
-                    },
-                    'confirm-password': {
-                        validators: {
-                            notEmpty: {
-                                message: 'The password confirmation is required'
-                            },
-                            identical: {
-                                compare: function() {
-                                    return form.querySelector('[name="password"]').value;
-                                },
-                                message: 'The password and its confirm are not the same'
-                            }
-                        }
-                    },
-                    'toc': {
-                        validators: {
-                            notEmpty: {
-                                message: 'You must accept the terms and conditions'
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
-                    bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: '.fv-row',
-                        eleInvalidClass: '',
-                        eleValidClass: ''
-                    })
-                }
-            }
-        );
+    var handleValidation = function () {
+        validator = FormValidation.formValidation(form, {
+            fields: {
+                'first-name': { validators: { notEmpty: { message: 'First Name is required' } } },
+                'last-name': { validators: { notEmpty: { message: 'Last Name is required' } } },
+                'email': { validators: { notEmpty: { message: 'Email is required' }, emailAddress: { message: 'Invalid email' } } },
+                'password': { validators: { notEmpty: { message: 'Password is required' }, stringLength: { min: 8, message: 'Password must be at least 8 characters' } } },
+                'confirm-password': { validators: { notEmpty: { message: 'Password confirmation required' }, identical: { compare: function () { return form.querySelector('[name="password"]').value; }, message: 'Passwords do not match' } } },
+                'toc': { validators: { choice: { min: 1, max: 1, message: 'You must accept terms' } } }
+            },
+            plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: '.fv-row' }) }
+        });
+    };
 
-        // Handle form submit
+    var handleFormSubmit = function () {
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
-
-            validator.validate().then(function(status) {
-                if (status == 'Valid') {
-                    // Show loading indication
+            validator.validate().then(function (status) {
+                if (status === 'Valid') {
                     submitButton.setAttribute('data-kt-indicator', 'on');
-
-                    // Disable button to avoid multiple click 
                     submitButton.disabled = true;
 
-                    // Send ajax request
                     axios.post(form.getAttribute('action'), new FormData(form))
-                    .then(function (response) {
-                        if (response) {
-                            form.reset();  
-
-                            // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                            Swal.fire({
-                                text: "You have successfully signed up!",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                },
-                                redirectUrl: form.getAttribute('data-kt-redirect-url')
-                            }).then(function (result) {
-                                if (result.isConfirmed) { 
-                                    // Redirect to customer's page
-                                    form.reset();  
-                                    const redirectUrl = form.getAttribute('data-kt-redirect-url');
-                                    if (redirectUrl) {
-                                        location.href = redirectUrl;
-                                    }
-                                }
-                            });
-                        } else {
-                            // Show error popup
-                            Swal.fire({
-                                text: "Sorry, looks like there are some errors detected, please try again.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
-                        }
-                    })
-                    .catch(function (error) {
-                        Swal.fire({
-                            text: "Sorry, looks like there are some errors detected, please try again.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
-                    })
-                    .then(function () {
-                        // Hide loading indication
-                        submitButton.removeAttribute('data-kt-indicator');
-
-                        // Enable button
-                        submitButton.disabled = false;
-                    });
+                        .then(function (response) {
+                            Swal.fire({ text: response.data.success ? "Signup successful!" : response.data.error, icon: response.data.success ? "success" : "error", confirmButtonText: "Ok" })
+                                .then(function (result) { if (result.isConfirmed) window.location.href = response.data.redirectUrl || '/'; });
+                        })
+                        .catch(function (error) {
+                            Swal.fire({ text: error.response?.data?.errors ? Object.values(error.response.data.errors).join('\n') : 'Error. Please try again.', icon: "error", confirmButtonText: "Ok" });
+                        })
+                        .finally(function () { submitButton.removeAttribute('data-kt-indicator'); submitButton.disabled = false; });
                 } else {
-                    Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
+                    Swal.fire({ text: 'Please fill in all required fields correctly.', icon: "error", confirmButtonText: "Ok" });
                 }
             });
         });
-    }
+    };
 
-    // Public functions
     return {
-        // Initialization
-        init: function() {
-            // Elements
-            form = document.querySelector('#kt_free_trial_form');
-            submitButton = document.querySelector('#kt_sign_up_submit');
-
-            if (!form) {
-                return;
-            }
-
-            handleForm();
-        }
+        init: function () { if (form) { handleValidation(); handleFormSubmit(); } }
     };
 }();
 
-// On document ready
-document.addEventListener('DOMContentLoaded', function() {
-    KTSignupGeneral.init();
-});
+document.addEventListener('DOMContentLoaded', function () { KTSignupGeneral.init(); });

@@ -4,22 +4,41 @@
 <div id="kt_app_content" class="app-content  flex-column-fluid ">
     <div id="kt_app_content_container" class="app-container  container-xxl ">
         <div class="row g-5 g-xxl-10">
-            <div class="text-end">
-                <a href="{{ url('profile') }}" class="btn btn-sm btn-danger hover-scale flex-shrink-0">Update Profile</a>
-            </div>
             <div class="col-xl-12 mb-xl-10">
-                <div class="card card-flush h-xl-100">
-                    <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px" style="background-image:url('/good/assets/media/svg/shapes/top-green.png')">
-                        <h3 class="card-title align-items-start flex-column pt-15">
-                            <span class="fw-bold fs-2x">My Digital ID</span>
-                        </h3>
+                <div class="card card-flush mb-5">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <h2 class="text-center mb-0">Digital ID Card</h2>
+                        <button class="btn" onclick="shareCard('{{ url('card/'.$userDetails->username) }}')">
+                            <i class="ki-duotone ki-send fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                            Share Card
+                        </button>
+                        <script>
+                                function shareCard(url) {
+                                    if (navigator.share) {
+                                        navigator.share({
+                                                title: 'My Digital ID Card',
+                                                text: 'Check out my digital ID card!',
+                                                url: url,
+                                            })
+                                            .catch(error => console.log('Error sharing:', error));
+                                    } else {
+                                        // Fallback for browsers that don't support Web Share API
+                                        navigator.clipboard.writeText(url)
+                                            .then(() => alert('Digital ID Card link copied to clipboard!'))
+                                            .catch(err => alert('Failed to copy link'));
+                                    }
+                                }
+                            </script>
                     </div>
-                    <div class="card-body mt-n20">
+                </div>
+                <div class="card card-flush h-xl-100">
+                    <div class="card-body">
+                        <h2 class="text-center">Digital ID Card</h2>
+
                         <div class="mt-n20 position-relative">
-                            <div class="row g-3 g-lg-6">
-                                
+                            <div class="row mt-5">
+                                <iframe src="{{ url('card/'.$userDetails->username) }}" frameborder="0" width="100%" height="700px"></iframe>
                             </div>
-                        <iframe src="{{ url('card') }}" frameborder="0" width="100%" height="500px"></iframe>
                         </div>
                     </div>
                 </div>

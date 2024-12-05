@@ -81,7 +81,7 @@
                 <div class="d-flex flex-wrap">
                     <!--begin::Avatar-->
                     <div class="symbol symbol-125px mb-7 me-7 position-relative">
-                        <img src="/good/assets/media/avatars/300-1.jpg" alt="image">
+                        <img src="/assets/media/avatars/300-1.webp" alt="image">
                     </div>
                     <!--end::Avatar-->
 
@@ -330,7 +330,7 @@
                         <!--begin::Image input-->
                         <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/good/assets/media/svg/avatars/blank.svg')">
                             <!--begin::Preview existing avatar-->
-                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url(/good/assets/media/avatars/300-1.jpg)"></div>
+                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url(/assets/media/avatars/300-1.webp)"></div>
                             <!--end::Preview existing avatar-->
 
                             <!--begin::Label-->

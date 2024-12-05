@@ -15,25 +15,11 @@
                     style="background-position: 100% 100%;background-size: 500px auto;background-image:url('/good/assets/media/misc/city.png')">
                     <div class="card-body d-flex flex-column justify-content-center align-items-start ps-lg-15">
                         <h3 class="text-gray-800 d-flex fs-2x fw-bolder mb-2 mb-lg-4">
-                            @php
-                            $mytime = Carbon\Carbon::now();
-                            $hour = $mytime->hour;
-                            $greeting = '';
-                            if ($hour >= 5 && $hour < 12) {
-                                $greeting='Good Morning' ;
-                                } elseif ($hour>= 12 && $hour
-                                < 18) {
-                                    $greeting='Good Afternoon' ;
-                                    } else {
-                                    $greeting='Good Evening' ;
-                                    }
-                                    @endphp
-                                    {{ $greeting }} <br /> {{ ucfirst(Auth::user()->name) }}
+                            Hello <br /> {{ ucfirst(Auth::user()->name) }}
                         </h3>
                     </div>
                 </div>
             </div>
-          
         </div>
         <div class="row g-5 g-xxl-10">
             <!--begin::Col-->
@@ -140,152 +126,7 @@
             </div>
         </div>
         <!--end::Row-->
-        <!--begin::Row-->
-        <div class="row g-5 g-xxl-10">
-            <!--begin::Col-->
-            <div class="px-5">
-                <div id="kt_carousel_2_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
-                    <!--begin::Heading-->
-                    <div class="d-flex align-items-center justify-content-between flex-wrap">
-                        <!--begin::Label-->
-                        <span class="fs-4 fw-bold pe-2">Our Team</span>
-                        <!--end::Label-->
-
-                        <!--begin::Carousel Indicators-->
-                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-bullet">
-                            <li data-bs-target="#kt_carousel_2_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
-                            <li data-bs-target="#kt_carousel_2_carousel" data-bs-slide-to="1" class="ms-1"></li>
-                            <li data-bs-target="#kt_carousel_2_carousel" data-bs-slide-to="2" class="ms-1"></li>
-                        </ol>
-                        <!--end::Carousel Indicators-->
-                    </div>
-                    <!--end::Heading-->
-
-                    <!--begin::Carousel-->
-                    <div class="carousel-inner pt-8">
-                        <!--begin::Item 1-->
-                        <div class="carousel-item active">
-                            <div class="col-xl-6 col-xxl-6 mb-5 mb-xxl-10">
-                                <div class="card bg-white border shadow-lg rounded-4 overflow-hidden">
-                                    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center" id="business-card">
-                                        <!-- User Image -->
-                                        <div class="symbol symbol-120px me-md-5 mb-3 mb-md-0">
-                                            <img src="{{ Auth::user()->profile_photo_url ?? asset('UserUploads/UserProfile/namanmahi.jpeg') }}" class="rounded-circle border border-4 border-primary" alt="User Photo" />
-                                        </div>
-
-                                        <!-- User Details -->
-                                        <div class="flex-grow-1 me-md-5 text-center text-md-start mb-3 mb-md-0">
-                                            <h3 class="fs-4 text-gray-800 fw-bold mb-2">{{ ucfirst($userDetails->name) }}</h3>
-                                            <div class="text-muted fs-6 mb-2"><strong>Role:</strong> Web Developer</div>
-                                            <div class="text-muted fs-6 mb-2"><i class="bi bi-envelope"></i> {{ $userDetails->email }}</div>
-                                            <div class="text-muted fs-6"><i class="bi bi-phone"></i> {{ $userDetails->phone }}</div>
-                                        </div>
-
-                                        <!-- QR Code -->
-                                        <div class="symbol symbol-125px">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode('BEGIN:VCARD
-                                        VERSION:3.0
-                                        N:' . $userDetails->name . '
-                                        FN:' . $userDetails->name . '
-                                        EMAIL:' . $userDetails->email . '
-                                        REV:' . $userDetails->created_at->format('Y-m-d') . '
-                                        END:VCARD') }}" alt="QR Code" />
-                                        </div>
-                                    </div>
-
-                                    <!-- Download Button -->
-                                    <div class="text-center text-md-end p-3">
-                                        <button onclick="downloadBusinessCard()" class="btn btn-outline-primary btn-sm">Download Business Card</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Item 1-->
-
-                        <!--begin::Item 2-->
-                        <div class="carousel-item">
-                            <div class="col-xl-6 col-xxl-6 mb-5 mb-xxl-10">
-                                <div class="card bg-white border shadow-lg rounded-4 overflow-hidden">
-                                    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center" id="business-card">
-                                        <!-- User Image -->
-                                        <div class="symbol symbol-120px me-md-5 mb-3 mb-md-0">
-                                            <img src="{{ Auth::user()->profile_photo_url ?? asset('UserUploads/UserProfile/namanmahi.jpeg') }}" class="rounded-circle border border-4 border-primary" alt="User Photo" />
-                                        </div>
-
-                                        <!-- User Details -->
-                                        <div class="flex-grow-1 me-md-5 text-center text-md-start mb-3 mb-md-0">
-                                            <h3 class="fs-4 text-gray-800 fw-bold mb-2">{{ ucfirst($userDetails->name) }}</h3>
-                                            <div class="text-muted fs-6 mb-2"><strong>Role:</strong> Graphic Designer</div>
-                                            <div class="text-muted fs-6 mb-2"><i class="bi bi-envelope"></i> {{ $userDetails->email }}</div>
-                                            <div class="text-muted fs-6"><i class="bi bi-phone"></i> {{ $userDetails->phone }}</div>
-                                        </div>
-
-                                        <!-- QR Code -->
-                                        <div class="symbol symbol-125px">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode('BEGIN:VCARD
-                                        VERSION:3.0
-                                        N:' . $userDetails->name . '
-                                        FN:' . $userDetails->name . '
-                                        EMAIL:' . $userDetails->email . '
-                                        REV:' . $userDetails->created_at->format('Y-m-d') . '
-                                        END:VCARD') }}" alt="QR Code" />
-                                        </div>
-                                    </div>
-
-                                    <!-- Download Button -->
-                                    <div class="text-center text-md-end p-3">
-                                        <button onclick="downloadBusinessCard()" class="btn btn-outline-primary btn-sm">Download Business Card</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Item 2-->
-
-                        <!--begin::Item 3-->
-                        <div class="carousel-item">
-                            <div class="col-xl-6 col-xxl-6 mb-5 mb-xxl-10">
-                                <div class="card bg-white border shadow-lg rounded-4 overflow-hidden">
-                                    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center" id="business-card">
-                                        <!-- User Image -->
-                                        <div class="symbol symbol-120px me-md-5 mb-3 mb-md-0">
-                                            <img src="{{ Auth::user()->profile_photo_url ?? asset('UserUploads/UserProfile/namanmahi.jpeg') }}" class="rounded-circle border border-4 border-primary" alt="User Photo" />
-                                        </div>
-
-                                        <!-- User Details -->
-                                        <div class="flex-grow-1 me-md-5 text-center text-md-start mb-3 mb-md-0">
-                                            <h3 class="fs-4 text-gray-800 fw-bold mb-2">{{ ucfirst($userDetails->name) }}</h3>
-                                            <div class="text-muted fs-6 mb-2"><strong>Role:</strong> Project Manager</div>
-                                            <div class="text-muted fs-6 mb-2"><i class="bi bi-envelope"></i> {{ $userDetails->email }}</div>
-                                            <div class="text-muted fs-6"><i class="bi bi-phone"></i> {{ $userDetails->phone }}</div>
-                                        </div>
-
-                                        <!-- QR Code -->
-                                        <div class="symbol symbol-125px">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode('BEGIN:VCARD
-                                        VERSION:3.0
-                                        N:' . $userDetails->name . '
-                                        FN:' . $userDetails->name . '
-                                        EMAIL:' . $userDetails->email . '
-                                        REV:' . $userDetails->created_at->format('Y-m-d') . '
-                                        END:VCARD') }}" alt="QR Code" />
-                                        </div>
-                                    </div>
-
-                                    <!-- Download Button -->
-                                    <div class="text-center text-md-end p-3">
-                                        <button onclick="downloadBusinessCard()" class="btn btn-outline-primary btn-sm">Download Business Card</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Item 3-->
-                    </div>
-                    <!--end::Carousel-->
-                </div>
-            </div>
-        </div>
-        <!--end::Row-->
-
+      
     </div>
     <!--end::Content container-->
 </div>

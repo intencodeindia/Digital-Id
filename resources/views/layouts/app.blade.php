@@ -10,7 +10,7 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Digital ID - Digital Identity Platform" />
-    <meta property="og:url" content="https://digitalid.com" />
+    <meta property="og:url" content="https://proffid.com" />
     <meta property="og:site_name" content="Digital ID" />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
@@ -62,7 +62,7 @@
                             </button>
 
                             <a href="/">
-                                <img alt="Digital ID Logo" src="{{ asset('assets/media/logos/logo.jpg') }}" class="h-80px" />
+                                <img alt="Digital ID Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-60px" />
                             </a>
                         </div>
 
@@ -88,8 +88,8 @@
                             </div>
                         </div>
                         <div class="flex-equal text-end ms-1 position-relative z-index-2">
-                            <a href="{{ url('/login') }}" class="btn btn-danger btn-sm">Login</a>
-                            <a href="{{ url('/register') }}" class="btn btn-danger btn-sm">Sign Up</a>
+                            <a href="{{ url('/login') }}" class="btn btn-primary fw-bolder btn-sm" style="background: #fff; border: 2px solid #c206fd; color: #c206fd;">Login</a>
+                            <a href="{{ url('/register') }}" class="btn btn-primary fw-bolder btn-sm" style="background: #fff; border: 2px solid #c206fd; color: #c206fd;">Sign Up</a>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                                     <h2 class="text-gray-900 fw-semibold mb-3">Would you need a Digital Identity Solution?</h2>
                                     <span class="fw-normal fs-4 text-gray-600">
                                         Email us to
-                                        <a href="https://digitalid.com/support" class="fw-semibold fs-4 text-gray-800 text-hover-primary">support@digitalid.com</a>
+                                        <a href="https://proffid.com/support" class="fw-semibold fs-4 text-gray-800 text-hover-primary">support@proffid.com</a>
                                     </span>
                                 </div>
                             </div>
@@ -113,33 +113,33 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="d-flex fw-semibold flex-column me-20">
                                         <h4 class="fw-bold text-gray-900 mb-6">More for Good</h4>
-                                        <a href="https://digitalid.com/faqs" class="text-gray-700 text-hover-primary fs-5 mb-6">FAQ</a>
-                                        <a href="/good/documentation/getting-started.html" class="text-gray-700 text-hover-primary fs-5 mb-6">Documentaions</a>
-                                        <a href="https://www.youtube.com/c/KeenThemesTuts/videos" class="text-gray-700 text-hover-primary fs-5 mb-6">Video Tuts</a>
-                                        <a href="/good/documentation/getting-started/changelog.html" class="text-gray-700 text-hover-primary fs-5 mb-6">Changelog</a>
-                                        <a href="https://devs.digitalid.com/" class="text-gray-700 text-hover-primary fs-5 mb-6">Support Forum</a>
-                                        <a href="https://digitalid.com/blog" class="text-gray-700 text-hover-primary fs-5">Blog</a>
+                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">FAQ</a>
+                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Documentaions</a>
+                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Video Tuts</a>
+                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Changelog</a>
+                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Support Forum</a>
+                                        <a href="#" class="text-gray-700 text-hover-primary fs-5">Blog</a>
                                     </div>
                                     <div class="d-flex fw-semibold flex-column ms-lg-20">
                                         <h4 class="fw-bold text-gray-900 mb-6">Stay Connected</h4>
-                                        <a href="https://www.facebook.com/digitalid.com" class="mb-6">
-                                            <img src="/good/assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-2" alt="" />
+                                        <a href="https://www.facebook.com/proffid.com" class="mb-6">
+                                            <img src="/assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-2" alt="" />
                                             <span class="text-gray-700 text-hover-primary fs-5 mb-6">Facebook</span>
                                         </a>
-                                        <a href="https://github.com/digitalid.com" class="mb-6">
-                                            <img src="/good/assets/media/svg/brand-logos/github.svg" class="h-20px me-2" alt="" />
+                                        <a href="https://github.com/proffid.com" class="mb-6">
+                                            <img src="/assets/media/svg/brand-logos/github.svg" class="h-20px me-2" alt="" />
                                             <span class="text-gray-700 text-hover-primary fs-5 mb-6">Github</span>
                                         </a>
-                                        <a href="https://twitter.com/digitalid.com" class="mb-6">
-                                            <img src="/good/assets/media/svg/brand-logos/twitter.svg" class="h-20px me-2" alt="" />
+                                        <a href="https://twitter.com/proffid.com" class="mb-6">
+                                            <img src="/assets/media/svg/brand-logos/twitter.svg" class="h-20px me-2" alt="" />
                                             <span class="text-gray-700 text-hover-primary fs-5 mb-6">Twitter</span>
                                         </a>
-                                        <a href="https://dribbble.com/digitalid.com" class="mb-6">
-                                            <img src="/good/assets/media/svg/brand-logos/dribbble-icon-1.svg" class="h-20px me-2" alt="" />
+                                        <a href="https://dribbble.com/proffid.com" class="mb-6">
+                                            <img src="/assets/media/svg/brand-logos/dribbble-icon-1.svg" class="h-20px me-2" alt="" />
                                             <span class="text-gray-700 text-hover-primary fs-5 mb-6">Dribbble</span>
                                         </a>
-                                        <a href="https://www.instagram.com/digitalid.com" class="mb-6">
-                                            <img src="/good/assets/media/svg/brand-logos/instagram-2016.svg" class="h-20px me-2" alt="" />
+                                        <a href="https://www.instagram.com/proffid.com" class="mb-6">
+                                            <img src="/assets/media/svg/brand-logos/instagram-2016.svg" class="h-20px me-2" alt="" />
                                             <span class="text-gray-700 text-hover-primary fs-5 mb-6">Instagram</span>
                                         </a>
                                     </div>
@@ -152,16 +152,15 @@
                         <div class="d-flex flex-column flex-md-row flex-stack py-8">
                             <div class="d-flex align-items-center order-2 order-md-1">
                                 <a href="/">
-                                    <img alt="Logo" src="{{ asset('assets/media/logos/logo.jpg') }}" class="h-40px h-md-60px" />
+                                    <img alt="Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-30px h-md-40px" />
                                 </a>
-                                <span class="mx-5 fs-6 fw-semibold text-gray-700 pt-1" href="https://digitalid.com">
+                                <span class="mx-5 fs-6 fw-semibold text-gray-700 pt-1" href="https://proffid.com">
                                     Copyright &copy; Digital ID 2024
                                 </span>
                             </div>
                             <ul class="menu menu-gray-700 menu-hover-primary fw-semibold fs-5 fs-md-5 order-1 mb-5 mb-md-0">
-                                <li class="menu-item"><a href="https://digitalid.com/" target="_blank" class="menu-link px-2">About</a></li>
-                                <li class="menu-item"><a href="https://digitalid.com/" target="_blank" class="menu-link px-2">Support</a></li>
-                                <li class="menu-item"><a href="https://digitalid.com/" target="_blank" class="menu-link px-2">Purchase</a></li>
+                                <li class="menu-item"><a href="https://proffid.com/" target="_blank" class="menu-link px-2">About</a></li>
+                                <li class="menu-item"><a href="https://proffid.com/" target="_blank" class="menu-link px-2">Support</a></li>
                             </ul>
                         </div>
                     </div>
