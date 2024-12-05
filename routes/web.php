@@ -146,8 +146,8 @@ Route::middleware('auth')->group(function () {
 
     // Employee routes
     Route::middleware(['role:employee', 'auth'])->group(function () {
-        Route::get('/leads', [LeadController::class, 'index'])->name('employee.leads');
-        Route::get('/entry-logs', [EntryLogController::class, 'index'])->name('employee.entry-logs');
+        Route::get('/employee/leads', [LeadController::class, 'index'])->name('employee.leads');
+        Route::get('/employee/entry-logs', [EntryLogController::class, 'index'])->name('employee.entry-logs');
     });
 
     // Family member routes

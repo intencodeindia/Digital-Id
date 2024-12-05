@@ -394,10 +394,10 @@
                                 @elseif(Auth::user()->hasRole('employee'))
 
 
-                                <div class="menu-item"><a class="menu-link" href="/leads" title="Organization Leads" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <div class="menu-item"><a class="menu-link" href="/employee/leads" title="Organization Leads" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon"><i class="ki-duotone ki-user-tick fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                         <span class="menu-title">Leads</span></a></div>
-                                <div class="menu-item"><a class="menu-link" href="/entry-logs" title="Organization Entry Logs" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <div class="menu-item"><a class="menu-link" href="/employee/entry-logs" title="Organization Entry Logs" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon"><i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                         <span class="menu-title">Entry Logs</span></a></div>
                                 @endif
