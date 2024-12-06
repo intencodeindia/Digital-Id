@@ -12,12 +12,26 @@
                             <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle h-15px w-15px"></div>
                         </div>
                     </div>
+
+
                     <div class="flex-grow-1">
                         <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                             <div class="d-flex flex-column">
                                 <div class="d-flex align-items-center mb-2">
                                     <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bold me-1">
                                         <h1 class="name">{{ $userDetails->name ?? 'Your Name' }}</h1>
+                                        <?php
+                                        // Get the current URL
+                                        $currentUrl = url()->current();
+
+                                        // Check if the current URL is either '/two-factor-authentication' or '/two-factor-authentication-disable'
+                                        if ($currentUrl == url('/two-factor-authentication') || $currentUrl == url('/two-factor-authentication-disable')) {
+                                            // Redirect to the '/profile' page
+                                            return redirect()->to('/profile');
+                                        }
+                                        ?>
+
+
                                     </a>
                                     <a href="#"><i class="ki-duotone ki-verify fs-1 text-primary"><span class="path1"></span><span class="path2"></span></i></a>
                                 </div>
@@ -36,8 +50,8 @@
                         </div>
                         <div class="d-flex flex-wrap justify-content-between">
                             <div class="d-flex flex-column flex-grow-1 pe-8">
-                            @if(Auth::check())
-                            @if(Auth::user()->hasRole('organization'))
+                                @if(Auth::check())
+                                @if(Auth::user()->hasRole('organization'))
                                 <div class="d-flex flex-wrap">
                                     <div class="border border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                         <div class="fs-1 fw-bold counted" data-kt-countup="true" data-kt-countup-value="300" data-kt-initialized="1">300</div>
@@ -64,7 +78,7 @@
                                     </div>
                                 </div>
                                 @endif
-                            @endif
+                                @endif
                             </div>
                             <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                                 <div class="d-flex justify-content-between w-100 mt-auto mb-2">
@@ -177,13 +191,33 @@
                                 </div>
                             </div>
                             <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed  p-6">
+                                @if($userDetails->two_factor_authentication == 0)
                                 <i class="ki-duotone ki-shield-tick fs-2tx text-primary me-4"><span class="path1"></span><span class="path2"></span></i>
+                                @endif
+                                @if($userDetails->two_factor_authentication == 1)
+                                <i class="ki-duotone ki-shield-tick fs-2tx text-primary me-4"><span class="path1"></span><span class="path2"></span></i>
+                                @endif
                                 <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
                                     <div class="mb-3 mb-md-0 fw-semibold">
                                         <h4 class="text-gray-900 fw-bold">Secure Your Account</h4>
                                         <div class="fs-6 text-gray-700 pe-7">Two-factor authentication adds an extra layer of security to your account. To log in, in addition you'll need to provide a 6 digit code</div>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm px-6 align-self-center text-nowrap" data-bs-toggle="modal" data-bs-target="#kt_modal_two_factor_authentication">Enable</a>
+                                    @if($userDetails->two_factor_authentication == 0)
+                                    <form action="{{ route('twofactor') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm px-6 align-self-center text-nowrap">
+                                            Enable
+                                        </button>
+                                    </form>
+                                    @endif
+                                    @if($userDetails->two_factor_authentication == 1)
+                                    <form action="{{ route('twofactordisable') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm px-6 align-self-center text-nowrap">
+                                            Disable
+                                        </button>
+                                    </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>

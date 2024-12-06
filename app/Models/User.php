@@ -27,6 +27,7 @@ class User extends Authenticatable
         'parent_id',
         'email_verified_link',
         'organization_logo',
+        'two_factor_authentication',
     ];
 
     protected $hidden = [

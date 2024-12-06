@@ -19,6 +19,8 @@
     <script src="https://naman-mahi.github.io/CodeShareHub/bd14b0bdaa-own.js"></script>
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         if (window.top != window.self) {
@@ -296,6 +298,8 @@
                             <div class="menu menu-rounded menu-column menu-lg-row menu-active-bg menu-state-primary menu-title-gray-700 menu-icon-gray-500 menu-arrow-gray-500 menu-bullet-gray-300 fw-semibold my-5 my-lg-0 align-items-stretch"
                                 id="#kt_header_menu"
                                 data-kt-menu="true">
+                                @if(Auth::check())
+                                @if(!Auth::user()->hasRole('admin'))
                                 <div class="menu-item"><a class="menu-link" href="/home" title="View analytics and key metrics for your account" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon"><i class="ki-duotone ki-chart-line-star fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
                                         <span class="menu-title">Dashboard</span></a></div>
@@ -346,11 +350,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
+                                @endif
                                 @if(Auth::check())
                                 @if(Auth::user()->hasRole('admin'))
-                                <div class="menu-item"><a class="menu-link" href="/admin/dashboard" title="Admin Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon"><i class="ki-duotone ki-settings fs-2"></i></span>
-                                        <span class="menu-title">Admin Dashboard</span></a></div>
+
+                                <div class="menu-item">
+                                    <a class="menu-link" href="/admin/dashboard">
+                                        <span class="menu-icon"><i class="ki-duotone ki-chart-line-star fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                        <span class="menu-title">Dashboard</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item"><a class="menu-link" href="/admin/organizations">
+                                        <span class="menu-icon"><i class="ki-duotone ki-abstract-26 fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                        <span class="menu-title">Organizations</span>
+                                    </a>
+                                </div>
+
+
+                                <div class="menu-item"><a class="menu-link" href="/admin/users" title="User users" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-icon"><i class="ki-duotone ki-emoji-happy fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                        <span class="menu-title">Users</span></a></div>
+
+                                <div class="menu-item"><a class="menu-link" href="/admin/transactions" title="User transactions" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-icon"><i class="ki-duotone ki-bank fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                        <span class="menu-title">Transactions</span></a></div>
                                 @elseif(Auth::user()->hasRole('user'))
                                 <div class="menu-item"><a class="menu-link" href="/user/dashboard" title="User Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon"><i class="ki-duotone ki-user fs-2"></i></span>
@@ -411,31 +435,41 @@
                 <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
                     <div class="d-flex flex-column flex-column-fluid">
                         @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: "{{ session('success') }}",
+                                showConfirmButton: false,
+                                timer: 3000 // Optional: the alert will auto-close after 3 seconds
+                            });
+                        </script>
                         @endif
+
                         @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                html: "<ul class='mb-0'>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>",
+                                showConfirmButton: true
+                            });
+                        </script>
                         @endif
+
                         @yield('content')
                     </div>
+
                 </div>
                 <div id="kt_app_footer" class="app-footer ">
                     <div class="app-container  container-xxl d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
                         <div class="text-gray-900 order-2 order-md-1">
                             <span class="text-muted fw-semibold me-1">2024&copy;</span>
-                            <a href="https://proffid.com" target="_blank" class="text-gray-800 text-hover-primary fw-semibold">Digital Id</a>
+                            <a href="https://proffid.com" target="_blank" class="text-gray-800 text-hover-primary fw-semibold">Proffid</a>
                         </div>
                         <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                            <li class="menu-item"><a href="https://proffid.com" target="_blank" class="menu-link px-2">About</a></li>
-                            <li class="menu-item"><a href="https://devs.proffid.com" target="_blank" class="menu-link px-2">Support</a></li>
+                            <li class="menu-item"><a href="https://proffid.com/about" target="_blank" class="menu-link px-2">About</a></li>
+                            <li class="menu-item"><a href="https://proffid.com/support" target="_blank" class="menu-link px-2">Support</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
 @section('title', 'Dashboard')
 
@@ -12,7 +12,7 @@
         <div class="row g-5 g-xxl-10">
             <!-- Card 1 - Total Documents -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -33,7 +33,7 @@
 
             <!-- Card 2 - Total Services -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -54,7 +54,7 @@
 
             <!-- Card 3 - Total Portfolios -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -75,7 +75,7 @@
 
             <!-- Card 4 - Total Revenue (Placeholder) -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -96,7 +96,7 @@
 
             <!-- Card 5 - Total Users -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -117,7 +117,7 @@
 
             <!-- Card 6 - Total Organizations -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -138,7 +138,7 @@
 
             <!-- Card 7 - Total Employees -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -159,7 +159,7 @@
 
             <!-- Card 8 - Total Family Members -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">
@@ -180,7 +180,7 @@
 
             <!-- Card 9 - Total Admins -->
             <div class="col-xl-3 col-md-6">
-                <div class="card card-flush h-xl-100">
+                <div class="card card-flush h-xl-100 shadow-sm">
                     <div class="card-body pt-7">
                         <div class="d-flex align-items-sm-center mb-7">
                             <div class="symbol symbol-50px symbol-2by3 me-4">

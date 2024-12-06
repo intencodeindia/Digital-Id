@@ -16,6 +16,7 @@
                     <div class="card-body d-flex flex-column justify-content-center align-items-start ps-lg-15">
                         <h3 class="text-gray-800 d-flex fs-2x fw-bolder mb-2 mb-lg-4">
                             Hello <br /> {{ ucfirst(Auth::user()->name) }}
+
                         </h3>
                     </div>
                 </div>

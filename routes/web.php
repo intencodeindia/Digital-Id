@@ -32,6 +32,13 @@ Route::post('/in/contact', [ContactController::class, 'store'])->name('contact.s
 Route::get('/card/{username}', [HomeController::class, 'card'])->name('card');
 Route::get('/business-card/{username}', [HomeController::class, 'businessCard'])->name('business-card');
 Route::get('/verify-email/verify/{token}', [HomeController::class, 'verifyEmail'])->name('verify.email');
+Route::get('/support', [HomeController::class, 'support'])->name('support');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+// Route to show the OTP verification page
+// Route to handle OTP verification
+Route::post('/two-factor-authentication-verify', [LoginController::class, 'verifyOtp'])->name('two-factor-authentication-verify');
+Route::get('/two-factor-authentication-code', [LoginController::class, 'showOtpVerificationForm'])->name('two-factor-authentication-code');
+
 // Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -50,14 +57,15 @@ Route::middleware('auth')->group(function () {
     // Common routes
     Route::get('/digital-id', [HomeController::class, 'digitalId'])->name('digital-id');
     Route::get('/business-id-card', [HomeController::class, 'businessIdCard'])->name('business-id-card');
-
+    Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
+    Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
     // Admin routes
     Route::middleware(['role:admin', 'auth'])->prefix('admin')->group(function () {
         Route::get('/dashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
         Route::get('/users', [HomeController::class, 'users'])->name('admin.users');
         Route::get('/organizations', [HomeController::class, 'organizations'])->name('admin.organizations');
         Route::get('/organization/view/{id}', [HomeController::class, 'organizationView'])->name('admin.organization.view');
-       
+
         Route::get('/settings', [HomeController::class, 'settings'])->name('admin.settings');
         Route::get('/transactions', [HomeController::class, 'transactions'])->name('admin.transactions');
         Route::get('/users/view/{id}', [HomeController::class, 'userView'])->name('admin.users.view');
@@ -124,7 +132,7 @@ Route::middleware('auth')->group(function () {
     // Organization routes
     Route::middleware(['role:organization', 'auth'])->group(function () {
         Route::get('dashboard', [HomeController::class, 'organizationDashboard'])->name('organization.dashboard');
-    
+
         // Employees routes
         Route::get('/employees', [EmployeeController::class, 'index'])->name('organization.employees');
         Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
@@ -133,16 +141,16 @@ Route::middleware('auth')->group(function () {
         // Departments routes
         Route::get('/departments', [DepartmentController::class, 'index'])->name('organization.departments');
         Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
-    
+
         // Designations routes
         Route::get('/designations', [DesignationController::class, 'index'])->name('organization.designations');
         Route::post('/designations/store', [DesignationController::class, 'store'])->name('designations.store');
         // Entry logs routes
         Route::get('/entry-logs', [EntryLogController::class, 'index'])->name('organization.entry-logs');
-    
+
         Route::get('/leads', [LeadController::class, 'index'])->name('organization.leads');
     });
-    
+
 
     // Employee routes
     Route::middleware(['role:employee', 'auth'])->group(function () {

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\VcardDetail;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\GeneralHtmlEmail;
+use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
@@ -105,5 +107,93 @@ class ProfileController extends Controller
                 'message' => $e->getMessage()
             ], 422);
         }
+    }
+
+    public function twoFactorAuthentication()
+    {
+        $user = Auth::user(); // Get the logged-in user
+
+        // Update the two_factor_authentication field directly on the $user object
+        $user->update([
+            'two_factor_authentication' => 1
+        ]);
+
+        $user = User::where('username', $user->username)->firstOrFail();
+        $services = Service::where('user_id', $user->id)->get();
+        $portfolios = Portfolio::where('user_id', $user->id)->get();
+        $userDetails = User::find($user->id);
+        $vcardDetails = VcardDetail::where('user_id', $user->id)->first();
+
+        // Subject of the email
+        $subject = "Two-factor authentication enabled successfully";
+
+        // Dynamic content for the email body
+        $content = "
+        <strong>Hello {$user->username},</strong><br>
+        Your two-factor authentication has been successfully enabled on your Proffid account. This will enhance the security of your account by requiring an additional step to verify your identity whenever you log in.<br><br>
+    
+        <strong>What is Two-Factor Authentication?</strong><br>
+        Two-factor authentication (2FA) adds an extra layer of security to your account. Now, in addition to your password, you'll need to enter a verification code sent to your mobile device or authentication app.<br><br>
+    
+        <strong>How it works:</strong><br>
+        <ul>
+            <li>When you log in, you will be prompted to enter a verification code that is sent to your mobile device or authentication app.</li>
+            <li>The code changes every 30 seconds, providing a higher level of security for your account.</li>
+        </ul>
+    
+        <p>If you didn't request this change, please contact our support team immediately at <a href='mailto:support@proffid.com'>support@proffid.com</a>.</p>
+    
+        <p>We recommend keeping your authentication app up to date for the best security experience.</p>
+    
+        <p>If you have any issues or questions, feel free to reach out to our <a href='https://proffid.com/support'>Support Team</a>.</p>
+    
+        <br>Thank you for securing your account!<br>
+        Best regards,<br>The Proffid Team
+        ";
+
+        // Send the email using the GeneralHtmlEmail Mailable
+        Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
+        session()->flash('success', 'Two-factor authentication enabled successfully');
+
+        return redirect()->route('profile');
+    }
+
+    public function twoFactorAuthenticationDisable()
+    {
+        $user = Auth::user(); // Get the logged-in user
+
+        // Update the two_factor_authentication field directly on the $user object
+        $user->update([
+            'two_factor_authentication' => 0
+        ]);
+
+        $user = User::where('username', $user->username)->firstOrFail();
+        $services = Service::where('user_id', $user->id)->get();
+        $portfolios = Portfolio::where('user_id', $user->id)->get();
+        $userDetails = User::find($user->id);
+        $vcardDetails = VcardDetail::where('user_id', $user->id)->first();
+
+        // Subject of the email
+        $subject = "Two-factor authentication disabled successfully";
+
+        // Dynamic content for the email body
+        $content = "
+     <strong>Hello {$user->username},</strong><br>
+     Your two-factor authentication has been successfully disabled on your Proffid account. This means that you will no longer be required to enter a verification code to log in.<br><br>
+ 
+     <strong>Important Note:</strong><br>
+     We highly recommend keeping two-factor authentication enabled to enhance the security of your account. If you have disabled it by mistake, please consider enabling it again to protect your account from unauthorized access.<br><br>
+ 
+     <p>If you didn't request this change, please contact our support team immediately at <a href='mailto:support@proffid.com'>support@proffid.com</a>.</p>
+ 
+     <p>If you have any issues or questions, feel free to reach out to our <a href='https://proffid.com/support'>Support Team</a>.</p>
+ 
+     <br>Thank you for using Proffid!<br>
+     Best regards,<br>The Proffid Team
+     ";
+        // Send the email using the GeneralHtmlEmail Mailable
+        Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
+        session()->flash('success', 'Two-factor authentication disabled successfully');
+        return redirect()->route('profile');
     }
 }

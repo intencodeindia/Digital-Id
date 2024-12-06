@@ -178,4 +178,14 @@ class HomeController extends Controller
         return view('organization.leads');
     }
 
+    public function about()
+    {
+        return view('about');
+    }
+
+    public function support()
+    {
+        return view('support');
+    }
+
 }

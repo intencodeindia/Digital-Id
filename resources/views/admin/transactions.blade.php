@@ -1,56 +1,18 @@
-@extends('layouts.admin')
-@section('title', 'Organizations')
+@extends('layouts.user')
+@section('title', 'Transactions')
 @section('content')
 <div id="kt_app_content" class="app-content  flex-column-fluid ">
     <div id="kt_app_content_container" class="app-container  container-xxl ">
         <div class="col-xl-12 col-xxl-12 mb-5 mb-xxl-10">
-            <h2 class="mb-5">Organizations</h2>
+            <h2 class="mb-5">Transactions</h2>
         </div>
         <div class="row g-5 g-xxl-10">
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
                         <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5"><span class="path1"></span><span class="path2"></span></i> <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Organization">
+                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5"><span class="path1"></span><span class="path2"></span></i> <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Transaction">
                         </div>
-                    </div>
-                    <div class="card-toolbar">
-                        <div class="d-flex justify-content-end" data-kt-subscription-table-toolbar="base">
-
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_organization">
-                                <i class="ki-duotone ki-plus fs-2"><span class="path1"></span><span class="path2"></span></i>Add Organization
-                            </button>
-                        </div>
-                        <!-- Add Organization Modal -->
-                        <div class="modal fade" id="kt_modal_add_organization" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered mw-650px">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h2 class="fw-bold">Add Organization</h2>
-                                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
-                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                                        <form id="kt_modal_add_organization_form" class="form" action="#">
-                                            <div class="fv-row mb-7">
-                                                <label class="required fw-semibold fs-6 mb-2">Organization Name</label>
-                                                <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter organization name" />
-                                            </div>
-                                            <div class="text-center pt-15">
-                                                <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-primary" data-kt-organizations-modal-action="submit">
-                                                    <span class="indicator-label">Submit</span>
-                                                    <span class="indicator-progress">Please wait...
-                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div class="card-body pt-0">

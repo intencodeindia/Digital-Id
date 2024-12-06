@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 @section('title', 'Organizations')
 @section('content')
 <div id="kt_app_content" class="app-content  flex-column-fluid ">

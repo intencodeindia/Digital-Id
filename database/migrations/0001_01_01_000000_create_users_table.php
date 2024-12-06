@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('users'); // Parent ID should be user primary key and not nullable
             $table->string('organization_logo')->nullable(); // Organization logo path
             $table->string('email_verified_link')->nullable(); // Email verification link
+            $table->boolean('two_factor_authentication')->default(false); // Two factor authentication
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 @section('title', 'Organizations')
 @section('content')
 <div id="kt_app_content" class="app-content  flex-column-fluid ">
@@ -11,14 +11,14 @@
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
                         <div class="d-flex align-items-center position-relative my-1">
-                            <i class="fa-duotone fa-magnifying-glass fs-3 position-absolute ms-5"></i> <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Organization">
+                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5"><span class="path1"></span><span class="path2"></span></i> <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Organization">
                         </div>
                     </div>
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-subscription-table-toolbar="base">
 
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_organization">
-                                <i class="fa-duotone fa-plus fs-2"></i>Add Organization
+                            <button type="button" class="btn btn-primary shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_organization">
+                                <i class="ki-duotone ki-plus fs-2"><span class="path1"></span><span class="path2"></span></i>Add Organization
                             </button>
                         </div>
                         <!-- Add Organization Modal -->

@@ -2,17 +2,74 @@
 <html lang="en">
 
 <head>
-    <title>Digital ID</title>
+    <title>Proffid - Digital Identity Platform for Business & Employee Management</title>
+
+    <!-- Meta Tags for SEO -->
     <meta charset="utf-8" />
-    <meta name="description" content="Digital ID - Digital Identity Platform for Business Cards and Employee Management" />
-    <meta name="keywords" content="Digital ID, Business Cards, Employee Directory, Digital Identity" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Proffid offers a cutting-edge Digital Identity Platform for secure online business cards, employee management, and digital identities. Simplify identity management for your team and clients." />
+    <meta name="keywords" content="Proffid, Digital Identity, Business Cards, Employee Directory, Digital ID, Secure Identity, Employee Management, Digital Business Card Platform, Organizational Identity, Blockchain Identity" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Proffid" />
+    <meta name="copyright" content="Proffid" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph Meta Tags (For Social Media Sharing) -->
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Digital ID - Digital Identity Platform" />
+    <meta property="og:title" content="Proffid - Digital Identity Platform for Business & Employee Management" />
+    <meta property="og:description" content="Proffid provides businesses with secure digital identities for employees, digital business cards, and centralized directory management. Revolutionize your organizational identity today!" />
     <meta property="og:url" content="https://proffid.com" />
-    <meta property="og:site_name" content="Digital ID" />
+    <meta property="og:site_name" content="Proffid" />
+    <meta property="og:image" content="https://proffid.com/assets/images/og-image.jpg" /> <!-- Replace with actual image URL -->
+    <meta property="og:image:alt" content="Proffid Digital Identity Platform" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@Proffid" />
+    <meta name="twitter:title" content="Proffid - Digital Identity Platform for Business & Employee Management" />
+    <meta name="twitter:description" content="Streamline employee management and improve security with Proffid's digital identity solutions. Manage business cards, employee profiles, and organizational identity." />
+    <meta name="twitter:image" content="https://proffid.com/assets/images/twitter-card.jpg" /> <!-- Replace with actual image URL -->
+    <meta name="twitter:image:alt" content="Proffid Digital Identity Platform" />
+
+    <!-- Meta Tags for Mobile Optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#126bc6" /> <!-- Sets the color of the browser toolbar on mobile devices -->
+
+    <!-- Apple-Specific Meta Tags for iOS Devices -->
+    <meta name="apple-mobile-web-app-title" content="Proffid" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" href="https://proffid.com/assets/images/apple-icon.png" /> <!-- Update with actual icon URL -->
+
+    <!-- Additional Meta Tags for Web Applications -->
+    <meta name="application-name" content="Proffid" />
+    <meta name="msapplication-TileColor" content="#126bc6" />
+    <meta name="msapplication-TileImage" content="https://proffid.com/assets/images/ms-icon.png" /> <!-- Update with actual icon URL -->
+    <meta name="msapplication-config" content="https://proffid.com/browserconfig.xml" />
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Proffid",
+            "url": "https://proffid.com",
+            "description": "Proffid is a digital identity platform designed to streamline employee management, provide secure digital identities, and enable modern business cards and directories for organizations.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Proffid",
+                "logo": "https://proffid.com/assets/images/logo.png"
+            },
+            "sameAs": [
+                "https://www.facebook.com/Proffid",
+                "https://twitter.com/Proffid",
+                "https://www.linkedin.com/company/proffid"
+            ]
+        }
+    </script>
+
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 
@@ -54,8 +111,9 @@
         <div class="m-0">
             <div class="landing-header mb-13" data-kt-sticky="true" data-kt-sticky-name="landing-header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
                 <div class="container-xxl">
-                    
+
                     <div class="d-flex align-items-center">
+                        @if(request()->url() !== url('/two-factor-authentication-code'))
                         <div class="d-flex align-items-center me-8">
                             <button class="btn btn-icon btn-active-color-primary me-3 d-flex d-lg-none ms-n2" id="kt_landing_menu_toggle">
                                 <i class="ki-duotone ki-abstract-14 fs-1"><span class="path1"></span><span class="path2"></span></i>
@@ -65,7 +123,6 @@
                                 <img alt="Digital ID Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-60px" />
                             </a>
                         </div>
-
                         <div class="d-lg-block" id="kt_header_nav_wrapper">
                             <div class="d-lg-block p-lg-0" data-kt-drawer="true" data-kt-drawer-name="landing-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="200px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">
 
@@ -91,6 +148,7 @@
                             <a href="{{ url('/login') }}" class="btn btn-primary fw-bolder btn-sm" style="background: #fff; border: 2px solid #c206fd; color: #c206fd;">Login</a>
                             <a href="{{ url('/register') }}" class="btn btn-primary fw-bolder btn-sm" style="background: #fff; border: 2px solid #c206fd; color: #c206fd;">Sign Up</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -98,6 +156,7 @@
             @yield('content')
             <div class="mb-0">
                 <div class="landing-dark-bg pt-lg-20 pt-5">
+                    @if(request()->url() !== url('/two-factor-authentication-code'))
                     <div class="container">
                         <div class="row py-10 py-lg-20">
                             <div class="col-lg-6 mb-10 mb-lg-0">
@@ -147,6 +206,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="separator separator-solid"></div>
                     <div class="container">
                         <div class="d-flex flex-column flex-md-row flex-stack py-8">
@@ -155,12 +215,12 @@
                                     <img alt="Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-30px h-md-40px" />
                                 </a>
                                 <span class="mx-5 fs-6 fw-semibold text-gray-700 pt-1" href="https://proffid.com">
-                                    Copyright &copy; Digital ID 2024
+                                    Copyright &copy; Proffid 2024
                                 </span>
                             </div>
                             <ul class="menu menu-gray-700 menu-hover-primary fw-semibold fs-5 fs-md-5 order-1 mb-5 mb-md-0">
-                                <li class="menu-item"><a href="https://proffid.com/" target="_blank" class="menu-link px-2">About</a></li>
-                                <li class="menu-item"><a href="https://proffid.com/" target="_blank" class="menu-link px-2">Support</a></li>
+                                <li class="menu-item"><a href="{{ url('/about') }}" target="_blank" class="menu-link px-2">About</a></li>
+                                <li class="menu-item"><a href="{{ url('/support') }}" target="_blank" class="menu-link px-2">Support</a></li>
                             </ul>
                         </div>
                     </div>
