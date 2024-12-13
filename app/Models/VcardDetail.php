@@ -17,5 +17,6 @@ class VcardDetail extends Model
         'social_media_linkedin',
         'social_media_instagram',
         'note',
+        'banner_photo',
     ];
 }

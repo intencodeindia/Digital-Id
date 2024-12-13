@@ -12,37 +12,69 @@
                     </div>
                     <!-- Add Organization Modal -->
                     <div class="modal fade" id="addOrganizationModal" tabindex="-1" aria-labelledby="addOrganizationModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addOrganizationModalLabel">Add Organization</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="organizationForm" action="{{ route('user.organization.store') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Organization Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addOrganizationModalLabel">Add Organization</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Form for adding a new organization -->
+                                <form id="organizationForm" action="{{ route('user.organization.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+
+                                    <!-- Logo Field: Display placeholder image -->
+                                    <div class="image-input image-input-outline mb-4" data-kt-image-input="true" style="background-image: url('https://ui-avatars.com/api/?name=New+Organization')">
+                                        <div class="image-input-wrapper w-100 w-sm-125px h-100 h-sm-125px" style="background-image: url('https://ui-avatars.com/api/?name=New+Organization')"></div>
+                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change Logo">
+                                            <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
+                                            <input type="file" name="logo" id="image-upload" accept=".png, .jpg, .jpeg">
+                                            <input type="hidden" name="logo_remove">
+                                        </label>
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel Logo">
+                                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                        </span>
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove Logo">
+                                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                        </span>
+                                    </div>
+                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+
+                                    <!-- Organization Name Field -->
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Organization Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+
+                                    <!-- Address Field -->
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address" required>
+                                        <input type="hidden" class="form-control" id="created_by" name="created_by" value="{{ $user->id }}">
+                                    </div>
+
+                                    <!-- Image Colors Selection -->
+                                    <div class="mb-3">
+                                        <label for="colors" class="form-label">Card borderColors:</label>
+                                        <small>top, right, bottom, left</small>
+                                        <div id="colors-container" class="d-flex flex-wrap mb-3">
+                                            <!-- Color swatches will be added here -->
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="logo" class="form-label">Logo</label>
-                                            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
-                                            <small class="text-muted">Only JPG, JPEG, and PNG images are allowed.</small>
+                                        <div id="selected-colors" class="d-flex mb-3">
+                                            <!-- Selected colors will appear here -->
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address" name="address" required>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="submit-btn">Save</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
 
                 <div class="row g-5 gx-xl-10 mb-5 mb-xl-10">
@@ -52,7 +84,7 @@
                         <div class="card card-flush h-xl-100">
                             <div class="card-body text-center pb-5">
                                 <div class="d-block overlay">
-                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7" style="height: 266px; background-image: url('{{ asset('storage/' . $organization->logo) }}');">
+                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7" style="height: 266px; background-image: url('{{ asset($organization->logo) }}');">
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-end flex-stack mb-1">
@@ -98,7 +130,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ url('user/organization/update/'.$organization->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ url('organization/update/'.$organization->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="mb-3">
@@ -146,4 +178,123 @@
         </div>
     </div>
 </div>
+
+<!-- Color Thief CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+
+<script>
+    const fileInput = document.getElementById('image-upload');
+    const form = document.getElementById('organizationForm');
+    const colorsContainer = document.getElementById('colors-container');
+    const selectedColorsContainer = document.getElementById('selected-colors');
+
+    // Event listener for file input change (when user selects an image)
+    fileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function () {
+                    const colorThief = new ColorThief();
+                    const colors = colorThief.getPalette(img, 10); // Get 10 dominant colors
+
+                    // Empty the colors container before adding new colors
+                    colorsContainer.innerHTML = '';
+                    selectedColorsContainer.innerHTML = '';
+
+                    // Create color swatches and display them
+                    colors.forEach((color, index) => {
+                        const colorDiv = document.createElement('div');
+                        colorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                        colorDiv.style.width = '50px';
+                        colorDiv.style.height = '50px';
+                        colorDiv.style.marginRight = '10px';
+                        colorDiv.style.cursor = 'pointer';
+                        colorDiv.title = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+
+                        // Add click event to select colors
+                        colorDiv.addEventListener('click', function () {
+                            if (selectedColorsContainer.children.length < 4) {
+                                const selectedColorDiv = document.createElement('div');
+                                selectedColorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                                selectedColorDiv.style.width = '30px';
+                                selectedColorDiv.style.height = '30px';
+                                selectedColorDiv.style.marginRight = '5px';
+                                selectedColorsContainer.appendChild(selectedColorDiv);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'You can only select 4 colors!',
+                                });
+                            }
+                        });
+
+                        colorsContainer.appendChild(colorDiv);
+                    });
+
+                    // Reset selected colors button
+                    const resetButton = document.createElement('button');
+                    resetButton.textContent = 'Reset Selected Colors';
+                    resetButton.style.marginTop = '10px';
+                    resetButton.style.backgroundColor = '#007bff';
+                    resetButton.style.color = 'white';
+                    resetButton.style.padding = '5px 10px';
+                    resetButton.style.borderRadius = '20px';
+                    resetButton.style.cursor = 'pointer';
+
+                    // Reset button event handler to only reset selected colors
+                    resetButton.addEventListener('click', function (event) {
+                        event.preventDefault();  // Prevent the form from being submitted
+                        selectedColorsContainer.innerHTML = '';  // Reset the selected colors
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Colors Reset',
+                            text: 'Selected colors have been reset!',
+                        });
+                    });
+
+                    colorsContainer.appendChild(resetButton);
+                };
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Prevent form submission if no colors are selected
+    form.addEventListener('submit', function(event) {
+        if (selectedColorsContainer.children.length === 0) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'No Colors Selected',
+                text: 'Please select at least one color before submitting the form.',
+            });
+        } else {
+            // Set the selected colors as hidden fields in the form
+            const colorsArray = Array.from(selectedColorsContainer.children).map(function (div) {
+                return div.style.backgroundColor;
+            });
+
+            // Add selected colors as hidden input fields
+            const colorFields = colorsArray.map(function (color, index) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = `border_color_${index}`;
+                input.value = color;
+                return input;
+            });
+
+            colorFields.forEach(function (input) {
+                form.appendChild(input);
+            });
+        }
+    });
+</script>
 @endsection

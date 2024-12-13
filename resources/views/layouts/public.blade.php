@@ -10,8 +10,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Digital ID - Digital Identity Platform" />
-    <meta property="og:url" content="https://digitalid.com" />
-    <meta property="og:site_name" content="Digital ID" />
+    <meta property="og:url" content="{{ url('/') }}" />
+    <meta property="og:site_name" content="Proffid ID" />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -75,9 +75,8 @@
                                 </span>
                             </div>
                             <ul class="menu menu-gray-700 menu-hover-primary fw-semibold fs-5 fs-md-5 order-1 mb-5 mb-md-0">
-                                <li class="menu-item"><a href="https://digitalid.com/" target="_blank" class="menu-link px-2">About</a></li>
-                                <li class="menu-item"><a href="https://digitalid.com/" target="_blank" class="menu-link px-2">Support</a></li>
-                                <li class="menu-item"><a href="https://digitalid.com/" target="_blank" class="menu-link px-2">Purchase</a></li>
+                                <li class="menu-item"><a href="{{ url('/about') }}" target="_blank" class="menu-link px-2">About</a></li>
+                                <li class="menu-item"><a href="{{ url('/support') }}" target="_blank" class="menu-link px-2">Support</a></li>
                             </ul>
                         </div>
                     </div>

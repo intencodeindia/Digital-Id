@@ -99,9 +99,7 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#signin_method" aria-selected="true" role="tab">Sign-in Method</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#digital_id" aria-selected="false" role="tab" tabindex="-1">Digital ID</a>
-                </li>
+              
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#profile_details" data-kt-initialized="1" aria-selected="false" role="tab" tabindex="-1">Profile Details</a>
                 </li>
@@ -223,48 +221,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="digital_id" role="tabpanel">
-                    <div class="card pt-4 mb-6 mb-xl-9">
-                        <div class="card-header border-0 cursor-pointer" role="button">
-                            <div class="card-title m-0">
-                                <h3 class="fw-bold m-0">Sign-in Method</h3>
-                            </div>
-                        </div>
-                        <div class="card-body border-top p-9">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div id="kt_signin_email">
-                                    <div class="fs-6 fw-bold mb-1">Digital ID Settings</div>
-                                </div>
-                            </div>
-                            <div class="row mb-6">
-                                <label class="col-lg-4 col-form-label fw-semibold fs-6">Brand Logo</label>
-                                <div class="col-lg-8">
-                                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('https://ui-avatars.com/api/?name={{ $userDetails->name }}')">
-                                        <div class="image-input-wrapper w-125px h-125px"
-                                            style="background-image: url('{{ $userDetails->profile_photo ? asset("uploads/avatars/" . $userDetails->profile_photo) : 'https://ui-avatars.com/api/?name=' . $userDetails->name }}')">
-                                        </div>
-                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                            data-kt-image-input-action="change"
-                                            data-bs-toggle="tooltip"
-                                            aria-label="Change avatar"
-                                            data-bs-original-title="Change avatar">
-                                            <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
-                                            <input type="file" name="profile_photo" accept=".png, .jpg, .jpeg">
-                                            <input type="hidden" name="avatar_remove">
-                                        </label>
-                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar">
-                                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                        </span>
-                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar">
-                                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                        </span>
-                                    </div>
-                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              
             </div>
             <div class="tab-pane fade" id="profile_details" role="tabpanel">
                 <div class="card mb-6 mb-xl-9">

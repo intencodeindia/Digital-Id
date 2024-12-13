@@ -11,6 +11,7 @@ use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\GeneralHtmlEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -111,12 +112,11 @@ class ProfileController extends Controller
 
     public function twoFactorAuthentication()
     {
-        $user = Auth::user(); // Get the logged-in user
+        $user = User::find(Auth::id());
 
-        // Update the two_factor_authentication field directly on the $user object
-        $user->update([
-            'two_factor_authentication' => 1
-        ]);
+        // Update the two_factor_authentication field
+        $user->two_factor_authentication = 1;
+        $user->save();
 
         $user = User::where('username', $user->username)->firstOrFail();
         $services = Service::where('user_id', $user->id)->get();
@@ -160,12 +160,11 @@ class ProfileController extends Controller
 
     public function twoFactorAuthenticationDisable()
     {
-        $user = Auth::user(); // Get the logged-in user
+        $user = User::find(Auth::id());
 
-        // Update the two_factor_authentication field directly on the $user object
-        $user->update([
-            'two_factor_authentication' => 0
-        ]);
+        // Update the two_factor_authentication field
+        $user->two_factor_authentication = 0;
+        $user->save();
 
         $user = User::where('username', $user->username)->firstOrFail();
         $services = Service::where('user_id', $user->id)->get();
@@ -195,5 +194,64 @@ class ProfileController extends Controller
         Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
         session()->flash('success', 'Two-factor authentication disabled successfully');
         return redirect()->route('profile');
+    }
+
+    public function PortfolioSetting()
+    {
+        $user = Auth::user();
+        $vcardDetails = VcardDetail::where('user_id', $user->id)->first();
+        return view('user.PortfolioSetting', ['user' => $user, 'vcardDetails' => $vcardDetails]);
+    }
+
+    public function updateBanner(Request $request)
+    {
+        try {
+            $request->validate([
+                'banner' => 'required|image|mimes:jpeg,png,jpg|max:10240', // 10MB max
+            ]);
+
+            $user = Auth::user();
+            $vcardDetails = VcardDetail::where('user_id', $user->id)->first();
+
+            // Handle banner photo upload
+            if ($request->hasFile('banner')) {
+                // Delete old banner if exists
+                if ($vcardDetails && $vcardDetails->banner_photo && file_exists(public_path('uploads/banners/' . $vcardDetails->banner_photo))) {
+                    unlink(public_path('uploads/banners/' . $vcardDetails->banner_photo));
+                }
+
+                $banner = $request->file('banner');
+                $bannerName = time() . '.' . $banner->getClientOriginalExtension();
+                
+                // Create directory if it doesn't exist
+                if (!file_exists(public_path('uploads/banners'))) {
+                    mkdir(public_path('uploads/banners'), 0777, true);
+                }
+
+                $banner->move(public_path('uploads/banners'), $bannerName);
+
+                // Create or update VcardDetail
+                VcardDetail::updateOrCreate(
+                    ['user_id' => $user->id],
+                    ['banner_photo' => $bannerName]
+                );
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Banner updated successfully'
+                ]);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'No banner image provided'
+            ], 422);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 422);
+        }
     }
 }

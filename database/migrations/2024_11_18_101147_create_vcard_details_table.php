@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('address')->nullable(); // Physical address
             $table->string('organization')->nullable(); // Organization name
             $table->string('title')->nullable(); // Job title
+            $table->string('banner_photo')->nullable(); // Job title
             $table->string('website')->nullable(); // Website URL
             $table->string('social_media_facebook')->nullable(); // Facebook profile URL
             $table->string('social_media_twitter')->nullable(); // Twitter handle

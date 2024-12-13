@@ -114,7 +114,7 @@
                         <div class="card-body text-center my-9">
                             <div class="fs-lg-3tx fs-2x fw-bold text-white pt-lg-20 mt-lg-4 mb-lg-20 mb-10 pb-2 position-relative z-index-2">
                                 <span class="d-block mb-8">Ready to Embrace the Future of Digital Identity?</span>
-                                <span class="d-block lh-0">Get Started Today and Secure Your Organization’s Future</span>
+                                <span class="d-block ">Get Started Today and Secure Your Organization’s Future</span>
                             </div>
                             <div class="mb-lg-20 position-relative z-index-2">
                                 <a href="{{ url('/organization/register') }}" class="btn btn-lg h-55px pt-5" style="background-color:#d493f3; color: #fff;">Create Your Digital Identity Now</a>

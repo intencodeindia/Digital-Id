@@ -20,6 +20,8 @@
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
@@ -74,153 +76,7 @@
                         </div>
 
                         <div class="app-navbar align-items-center flex-shrink-0">
-                            <div class="app-navbar-item ms-2 ms-lg-4">
-                                <a href="#" class="btn btn-icon btn-light fw-bold" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                                    <span class="fs-5"> <i class="ki-duotone ki-abstract-12 fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i></span>
-                                </a>
-                                <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true" id="kt_menu_notifications">
-                                    <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('/good/assets/media/misc/menu-header-bg.jpg')">
-                                        <h3 class="text-white fw-semibold px-9 mt-10 mb-6">
-                                            Business Card <span class="fs-8 opacity-75 ps-3"></span>
-                                        </h3>
-                                        <ul class="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-semibold px-9">
-                                            <li class="nav-item">
-                                                <a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active" data-bs-toggle="tab" href="#kt_topbar_notifications_1">Business card</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_2">Logs</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="kt_topbar_notifications_1" role="tabpanel">
-                                            <div class="scroll-y mh-325px my-5 px-8">
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-primary">
-                                                                <i class="ki-duotone ki-abstract-28 fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Project Alice</a>
-                                                            <div class="text-gray-500 fs-7">Phase 1 development</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">1 hr</span>
-                                                </div>
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-danger">
-                                                                <i class="ki-duotone ki-information fs-2 text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">HR Confidential</a>
-                                                            <div class="text-gray-500 fs-7">Confidential staff documents</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">2 hrs</span>
-                                                </div>
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-warning">
-                                                                <i class="ki-duotone ki-briefcase fs-2 text-warning"><span class="path1"></span><span class="path2"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Company HR</a>
-                                                            <div class="text-gray-500 fs-7">Corporeate staff profiles</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">5 hrs</span>
-                                                </div>
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-success">
-                                                                <i class="ki-duotone ki-abstract-12 fs-2 text-success"><span class="path1"></span><span class="path2"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Project Redux</a>
-                                                            <div class="text-gray-500 fs-7">New frontend admin theme</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">2 days</span>
-                                                </div>
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-primary">
-                                                                <i class="ki-duotone ki-colors-square fs-2 text-primary"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Project Breafing</a>
-                                                            <div class="text-gray-500 fs-7">Product launch status update</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">21 Jan</span>
-                                                </div>
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-info">
-                                                                <i class="ki-duotone ki-picture fs-2 text-info"><span class="path1"></span><span class="path2"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Banner Assets</a>
-                                                            <div class="text-gray-500 fs-7">Collection of banner images</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">21 Jan</span>
-                                                </div>
-                                                <div class="d-flex flex-stack py-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-35px me-4">
-                                                            <span class="symbol-label bg-light-warning">
-                                                                <i class="ki-duotone ki-color-swatch fs-2 text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span class="path17"></span><span class="path18"></span><span class="path19"></span><span class="path20"></span><span class="path21"></span></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-0 me-2">
-                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Icon Assets</a>
-                                                            <div class="text-gray-500 fs-7">Collection of SVG icons</div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="badge badge-light fs-8">20 March</span>
-                                                </div>
-                                            </div>
-                                            <div class="py-3 text-center border-top">
-                                                <a href="#" class="btn btn-color-gray-600 btn-active-color-primary">
-                                                    Download Card
-                                                    <i class="ki-duotone ki-cloud-download fs-5"><span class="path1"></span><span class="path2"></span></i> </a>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="kt_topbar_notifications_2" role="tabpanel">
-                                            <div class="d-flex flex-column px-9">
-                                                <div class="pt-10 pb-0">
-                                                    <h3 class="text-gray-900 text-center fw-bold">
-                                                        Get Pro Access
-                                                    </h3>
-                                                    <div class="text-center text-gray-600 fw-semibold pt-1">
-                                                        Outlines keep you honest. They stoping you from amazing poorly about drive
-                                                    </div>
-                                                    <div class="text-center mt-5 mb-9">
-                                                        <a href="#" class="btn btn-sm btn-primary px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Upgrade</a>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center px-4">
-                                                    <img class="mw-100 mh-200px" alt="image" src="/good/assets/media/illustrations/sketchy-1/1.png" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="app-navbar-item ms-2 ms-lg-4">
 
                                 <div class="btn btn-custom btn-icon symbol" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
@@ -263,6 +119,11 @@
                                     <div class="menu-item px-5">
                                         <a href="/organizations" class="menu-link px-5">
                                             My Organizations
+                                        </a>
+                                    </div>
+                                    <div class="menu-item px-5">
+                                        <a href="/PortfolioSetting" class="menu-link px-5">
+                                            My Portfolio Settings
                                         </a>
                                     </div>
                                     <div class="separator my-2"></div>
@@ -376,9 +237,6 @@
                                         <span class="menu-icon"><i class="ki-duotone ki-bank fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                         <span class="menu-title">Transactions</span></a></div>
                                 @elseif(Auth::user()->hasRole('user'))
-                                <div class="menu-item"><a class="menu-link" href="/user/dashboard" title="User Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon"><i class="ki-duotone ki-user fs-2"></i></span>
-                                        <span class="menu-title">User Dashboard</span></a></div>
 
                                 <div class="menu-item"><a class="menu-link" href="/family" title="Manage your family members and relationships" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon"><i class="ki-duotone ki-people fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
@@ -468,8 +326,8 @@
                             <a href="https://proffid.com" target="_blank" class="text-gray-800 text-hover-primary fw-semibold">Proffid</a>
                         </div>
                         <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                            <li class="menu-item"><a href="https://proffid.com/about" target="_blank" class="menu-link px-2">About</a></li>
-                            <li class="menu-item"><a href="https://proffid.com/support" target="_blank" class="menu-link px-2">Support</a></li>
+                            <li class="menu-item"><a href="{{ url('/about') }}" target="_blank" class="menu-link px-2">About</a></li>
+                            <li class="menu-item"><a href="{{ url('/support') }}" target="_blank" class="menu-link px-2">Support</a></li>
                         </ul>
                     </div>
                 </div>

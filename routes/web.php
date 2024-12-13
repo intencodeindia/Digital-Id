@@ -30,7 +30,9 @@ Route::get('/in/{username}', [ProfileController::class, 'publicProfile'])->name(
 Route::post('/in/{username}/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 Route::post('/in/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/card/{username}', [HomeController::class, 'card'])->name('card');
+Route::get('/card/{username}/{id}', [HomeController::class, 'cardorg'])->name('card');
 Route::get('/business-card/{username}', [HomeController::class, 'businessCard'])->name('business-card');
+Route::get('/business-card/{username}/{id}', [HomeController::class, 'businessCardorg'])->name('business-card');
 Route::get('/verify-email/verify/{token}', [HomeController::class, 'verifyEmail'])->name('verify.email');
 Route::get('/support', [HomeController::class, 'support'])->name('support');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
@@ -54,9 +56,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'profileUpdate'])->name('profileupdate');
+    Route::get('/PortfolioSetting', [ProfileController::class, 'PortfolioSetting'])->name('PortfolioSetting');
     // Common routes
     Route::get('/digital-id', [HomeController::class, 'digitalId'])->name('digital-id');
+    Route::get('/digital-id/{id}', [HomeController::class, 'digitalId'])->name('digital-id');
     Route::get('/business-id-card', [HomeController::class, 'businessIdCard'])->name('business-id-card');
+    Route::get('/business-id-card/{id}', [HomeController::class, 'businessIdCard'])->name('business-id-card.show');
+    Route::get('/business-card/{username}/{organizationId}', [HomeController::class, 'businessCardOrg'])->name('business-card.org');
     Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
     Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
     // Admin routes
@@ -162,4 +168,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:familymember', 'auth'])->group(function () {
         // Add specific family member routes here if needed
     });
+
+    Route::put('/profile/update-banner', [ProfileController::class, 'updateBanner'])->name('profile.update.banner');
 });

@@ -222,12 +222,12 @@
             <div class="front">
                 <div class="card-content">
                     <div class="right-content">
-                       <div width="100px" height="100px">
-                       <img
-                            id="front-logo"
-                            src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('assets/media/avatars/300-1.webp') }}"
-                            alt="Company Logo"
-                            class="logo"
+                        <div width="100px" height="100px">
+                            <img
+                                id="front-logo"
+                                src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('assets/media/avatars/300-1.webp') }}"
+                                alt="Company Logo"
+                                class="logo"
                                 style="border-radius: 50%;"
                                 crossorigin="anonymous" />
                         </div>
@@ -268,8 +268,8 @@
                     crossorigin="anonymous" />
 
                 <!-- QR Code Image -->
-                 <?php
-                 $qrCodeUrl = $userDetails->website ? $userDetails->website : 'https://proffid.com/';
+                <?php
+                $qrCodeUrl = $userDetails->website ? $userDetails->website : 'https://proffid.com/';
                 ?>
                 <img
                     src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $qrCodeUrl }}"

@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->text('address');
             $table->unsignedBigInteger('created_by');
+            $table->string('border_color_top')->nullable();
+            $table->string('border_color_right')->nullable();
+            $table->string('border_color_bottom')->nullable();
+            $table->string('border_color_left')->nullable();
             $table->timestamps();
 
             // Foreign key constraint to users table

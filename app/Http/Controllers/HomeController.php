@@ -10,6 +10,8 @@ use App\Models\Service;
 use App\Models\Portfolio;
 use App\Models\User;
 use App\Models\VcardDetail;
+use App\Models\CustomOrganization;
+
 
 class HomeController extends Controller
 {
@@ -85,15 +87,20 @@ class HomeController extends Controller
     public function digitalId()
     {
         $user = Auth::user();
-
-        // Perform a join between the 'users' and 'vcard_details' table
+    
         $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
             ->where('users.id', $user->id)
-            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->select('users.*', 'vcard_details.*')
             ->first();
-
-        return view('user.digital-id', compact('userDetails'));
+        if ($user->role == 'user') {
+            $organizations = CustomOrganization::where('created_by', $user->id)->get();
+        } else {
+            $organizations = [];
+        }
+    
+        return view('user.digital-id', compact('userDetails', 'organizations'));
     }
+    
 
     public function card($username)
     {
@@ -105,6 +112,21 @@ class HomeController extends Controller
             ->select('users.*', 'vcard_details.*') // Select columns from both tables
             ->first();
         return view('user.card', compact('userDetails'));
+    }
+    public function cardorg($username, $organizationId)
+    {
+        $user = User::where('username', $username)->first();
+
+        // Perform a join between the 'users' and 'vcard_details' table
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->first();
+
+        // Fetch the organization details
+        $organization = CustomOrganization::find($organizationId);
+
+        return view('user.card-org', compact('userDetails', 'organization'));
     }
     public function businessCard($username)
     {
@@ -118,18 +140,42 @@ class HomeController extends Controller
 
         return view('user.business-card', compact('userDetails'));
     }
+  
     public function businessIdCard()
     {
         $user = Auth::user();
 
-        // Perform a join between the 'users' and 'vcard_details' table
+        // Get user details with vcard information
         $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
             ->where('users.id', $user->id)
-            ->select('users.*', 'vcard_details.*') // Select columns from both tables
+            ->select('users.*', 'vcard_details.*')
             ->first();
-        return view('user.business-id-card', compact('userDetails'));
+
+        // Get organizations if user is a regular user
+        if ($user->role == 'user') {
+            $organizations = CustomOrganization::where('created_by', $user->id)->get();
+        } else {
+            $organizations = [];
+        }
+
+        return view('user.business-id-card', compact('userDetails', 'organizations'));
     }
-   
+
+    public function businessCardOrg($username, $organizationId)
+    {
+        $user = User::where('username', $username)->first();
+        
+        // Get user details with vcard information
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+
+        // Get the organization details
+        $organization = CustomOrganization::findOrFail($organizationId);
+
+        return view('user.business-card-org', compact('userDetails', 'organization'));
+    }
 
     // Verify email
     public function verifyEmail($token)
