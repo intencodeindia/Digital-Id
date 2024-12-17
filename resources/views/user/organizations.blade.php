@@ -12,69 +12,69 @@
                     </div>
                     <!-- Add Organization Modal -->
                     <div class="modal fade" id="addOrganizationModal" tabindex="-1" aria-labelledby="addOrganizationModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addOrganizationModalLabel">Add Organization</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Form for adding a new organization -->
-                                <form id="organizationForm" action="{{ route('user.organization.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addOrganizationModalLabel">Add Organization</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form for adding a new organization -->
+                                    <form id="organizationForm" action="{{ route('user.organization.store') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
 
-                                    <!-- Logo Field: Display placeholder image -->
-                                    <div class="image-input image-input-outline mb-4" data-kt-image-input="true" style="background-image: url('https://ui-avatars.com/api/?name=New+Organization')">
-                                        <div class="image-input-wrapper w-100 w-sm-125px h-100 h-sm-125px" style="background-image: url('https://ui-avatars.com/api/?name=New+Organization')"></div>
-                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change Logo">
-                                            <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
-                                            <input type="file" name="logo" id="image-upload" accept=".png, .jpg, .jpeg">
-                                            <input type="hidden" name="logo_remove">
-                                        </label>
-                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel Logo">
-                                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                        </span>
-                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove Logo">
-                                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                        </span>
-                                    </div>
-                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-
-                                    <!-- Organization Name Field -->
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Organization Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" required>
-                                    </div>
-
-                                    <!-- Address Field -->
-                                    <div class="mb-3">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" required>
-                                        <input type="hidden" class="form-control" id="created_by" name="created_by" value="{{ $user->id }}">
-                                    </div>
-
-                                    <!-- Image Colors Selection -->
-                                    <div class="mb-3">
-                                        <label for="colors" class="form-label">Card borderColors:</label>
-                                        <small>top, right, bottom, left</small>
-                                        <div id="colors-container" class="d-flex flex-wrap mb-3">
-                                            <!-- Color swatches will be added here -->
+                                        <!-- Logo Field: Display placeholder image -->
+                                        <div class="image-input image-input-outline mb-4" data-kt-image-input="true" style="background-image: url('https://ui-avatars.com/api/?name=New+Organization')">
+                                            <div class="image-input-wrapper w-100 w-sm-125px h-100 h-sm-125px" style="background-image: url('https://ui-avatars.com/api/?name=New+Organization')"></div>
+                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change Logo">
+                                                <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
+                                                <input type="file" name="logo" id="image-upload" accept=".png, .jpg, .jpeg">
+                                                <input type="hidden" name="logo_remove">
+                                            </label>
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel Logo">
+                                                <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove Logo">
+                                                <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
                                         </div>
-                                        <div id="selected-colors" class="d-flex mb-3">
-                                            <!-- Selected colors will appear here -->
-                                        </div>
-                                    </div>
+                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
 
-                                    <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="submit-btn">Save</button>
-                                    </div>
-                                </form>
+                                        <!-- Organization Name Field -->
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Organization Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" required>
+                                        </div>
+
+                                        <!-- Address Field -->
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label">Address</label>
+                                            <input type="text" class="form-control" id="address" name="address" required>
+                                            <input type="hidden" class="form-control" id="created_by" name="created_by" value="{{ $user->id }}">
+                                        </div>
+
+                                        <!-- Image Colors Selection -->
+                                        <div class="mb-3">
+                                            <label for="colors" class="form-label">Card borderColors:</label>
+                                            <small>top, right, bottom, left</small>
+                                            <div id="colors-container" class="d-flex flex-wrap mb-3">
+                                                <!-- Color swatches will be added here -->
+                                            </div>
+                                            <div id="selected-colors" class="d-flex mb-3">
+                                                <!-- Selected colors will appear here -->
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" id="submit-btn">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
 
                 <div class="row g-5 gx-xl-10 mb-5 mb-xl-10">
@@ -111,44 +111,101 @@
                                     <h5 class="modal-title" id="deleteOrganizationModalLabel{{ $organization->id }}">Delete Organization</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <p>Are you sure you want to delete this organization?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </div>
+                                <form action="{{ route('user.organization.delete', $organization->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete <strong>{{ $organization->name }}</strong>?</p>
+                                        <p class="text-danger">This action cannot be undone.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <!-- Edit Organization Modal -->
                     <div class="modal fade" id="editOrganizationModal{{ $organization->id }}" tabindex="-1" aria-labelledby="editOrganizationModalLabel{{ $organization->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editOrganizationModalLabel{{ $organization->id }}">Edit Organization</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ url('organization/update/'.$organization->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('user.organization.update', $organization->id) }}" method="POST" enctype="multipart/form-data" id="editOrganizationForm{{ $organization->id }}">
                                         @csrf
                                         @method('PUT')
+
+                                        <!-- Logo Field -->
+                                        <div class="image-input image-input-outline mb-4" data-kt-image-input="true" style="background-image: url('{{ asset($organization->logo) }}')">
+                                            <div class="image-input-wrapper w-100 w-sm-125px h-100 h-sm-125px" style="background-image: url('{{ asset($organization->logo) }}')"></div>
+                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change Logo">
+                                                <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
+                                                <input type="file" name="logo" accept=".png, .jpg, .jpeg">
+                                                <input type="hidden" name="logo_remove">
+                                            </label>
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel Logo">
+                                                <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove Logo">
+                                                <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                        </div>
+                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+
+                                        <!-- Organization Name Field -->
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Organization Name</label>
                                             <input type="text" class="form-control" id="name" name="name" value="{{ $organization->name }}" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="logo" class="form-label">Logo</label>
-                                            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
-                                            <small class="text-muted">Only JPG, JPEG, and PNG images are allowed.</small>
-                                        </div>
+
+                                        <!-- Address Field -->
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Address</label>
                                             <input type="text" class="form-control" id="address" name="address" value="{{ $organization->address }}" required>
                                         </div>
+
+                                        <!-- Image Colors Selection -->
+                                        <div class="mb-3">
+                                            <label for="colors" class="form-label">Card Border Colors:</label>
+                                            <small>top, right, bottom, left</small>
+                                            <div id="colors-container-{{ $organization->id }}" class="d-flex flex-wrap mb-3">
+                                                <!-- Color swatches will be added here -->
+                                            </div>
+                                            <div id="selected-colors-{{ $organization->id }}" class="d-flex mb-3">
+                                                @if($organization->border_color_top)
+                                                    <div class="color-preview" 
+                                                         data-color="{{ $organization->border_color_top }}" 
+                                                         style="background-color: {{ $organization->border_color_top }}">
+                                                    </div>
+                                                @endif
+                                                @if($organization->border_color_right)
+                                                    <div class="color-preview" 
+                                                         data-color="{{ $organization->border_color_right }}" 
+                                                         style="background-color: {{ $organization->border_color_right }}">
+                                                    </div>
+                                                @endif
+                                                @if($organization->border_color_bottom)
+                                                    <div class="color-preview" 
+                                                         data-color="{{ $organization->border_color_bottom }}" 
+                                                         style="background-color: {{ $organization->border_color_bottom }}">
+                                                    </div>
+                                                @endif
+                                                @if($organization->border_color_left)
+                                                    <div class="color-preview" 
+                                                         data-color="{{ $organization->border_color_left }}" 
+                                                         style="background-color: {{ $organization->border_color_left }}">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            <button type="submit" class="btn btn-primary">Update Organization</button>
                                         </div>
                                     </form>
                                 </div>
@@ -182,6 +239,35 @@
 <!-- Color Thief CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 
+<style>
+    .color-preview {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+
+    .color-preview:last-child {
+        margin-right: 0;
+    }
+
+    .color-swatch {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .reset-button {
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        border: none;
+    }
+</style>
+
 <script>
     const fileInput = document.getElementById('image-upload');
     const form = document.getElementById('organizationForm');
@@ -189,17 +275,17 @@
     const selectedColorsContainer = document.getElementById('selected-colors');
 
     // Event listener for file input change (when user selects an image)
-    fileInput.addEventListener('change', function (event) {
+    fileInput.addEventListener('change', function(event) {
         const file = event.target.files[0];
 
         if (file) {
             const reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 const img = new Image();
                 img.src = e.target.result;
 
-                img.onload = function () {
+                img.onload = function() {
                     const colorThief = new ColorThief();
                     const colors = colorThief.getPalette(img, 10); // Get 10 dominant colors
 
@@ -218,10 +304,10 @@
                         colorDiv.title = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
                         // Add click event to select colors
-                        colorDiv.addEventListener('click', function () {
+                        colorDiv.addEventListener('click', function() {
                             if (selectedColorsContainer.children.length < 4) {
                                 const selectedColorDiv = document.createElement('div');
-                                selectedColorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                                selectedColorDiv.style.backgroundColor = this.style.backgroundColor;
                                 selectedColorDiv.style.width = '30px';
                                 selectedColorDiv.style.height = '30px';
                                 selectedColorDiv.style.marginRight = '5px';
@@ -249,9 +335,9 @@
                     resetButton.style.cursor = 'pointer';
 
                     // Reset button event handler to only reset selected colors
-                    resetButton.addEventListener('click', function (event) {
-                        event.preventDefault();  // Prevent the form from being submitted
-                        selectedColorsContainer.innerHTML = '';  // Reset the selected colors
+                    resetButton.addEventListener('click', function(event) {
+                        event.preventDefault(); // Prevent the form from being submitted
+                        selectedColorsContainer.innerHTML = ''; // Reset the selected colors
                         Swal.fire({
                             icon: 'success',
                             title: 'Colors Reset',
@@ -278,12 +364,12 @@
             });
         } else {
             // Set the selected colors as hidden fields in the form
-            const colorsArray = Array.from(selectedColorsContainer.children).map(function (div) {
+            const colorsArray = Array.from(selectedColorsContainer.children).map(function(div) {
                 return div.style.backgroundColor;
             });
 
             // Add selected colors as hidden input fields
-            const colorFields = colorsArray.map(function (color, index) {
+            const colorFields = colorsArray.map(function(color, index) {
                 const input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = `border_color_${index}`;
@@ -291,9 +377,61 @@
                 return input;
             });
 
-            colorFields.forEach(function (input) {
+            colorFields.forEach(function(input) {
                 form.appendChild(input);
             });
+        }
+    });
+
+    document.querySelector('#editOrganizationModal{{ $organization->id }} input[name="logo"]').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = function() {
+                    const colorThief = new ColorThief();
+                    const colors = colorThief.getPalette(img, 10);
+
+                    const colorsContainer = document.getElementById('colors-container-{{ $organization->id }}');
+                    const selectedColorsContainer = document.getElementById('selected-colors-{{ $organization->id }}');
+
+                    colorsContainer.innerHTML = '';
+                    selectedColorsContainer.innerHTML = '';
+
+                    colors.forEach((color, index) => {
+                        const colorDiv = document.createElement('div');
+                        colorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                        colorDiv.style.width = '50px';
+                        colorDiv.style.height = '50px';
+                        colorDiv.style.marginRight = '10px';
+                        colorDiv.style.cursor = 'pointer';
+                        colorDiv.title = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+
+                        colorDiv.addEventListener('click', function() {
+                            if (selectedColorsContainer.children.length < 4) {
+                                const selectedColorDiv = document.createElement('div');
+                                selectedColorDiv.style.backgroundColor = this.style.backgroundColor;
+                                selectedColorDiv.style.width = '30px';
+                                selectedColorDiv.style.height = '30px';
+                                selectedColorDiv.style.marginRight = '5px';
+
+                                const input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = `border_color_${selectedColorsContainer.children.length}`;
+                                input.value = this.style.backgroundColor;
+
+                                selectedColorsContainer.appendChild(selectedColorDiv);
+                                selectedColorsContainer.appendChild(input);
+                            }
+                        });
+
+                        colorsContainer.appendChild(colorDiv);
+                    });
+                };
+            };
+            reader.readAsDataURL(file);
         }
     });
 </script>

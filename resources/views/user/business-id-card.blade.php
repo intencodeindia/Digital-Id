@@ -61,12 +61,11 @@
 </div>
 
 <!-- Modal for Selecting or Adding Organization -->
-<div class="modal fade" id="selectOrganizationModal" tabindex="-1" aria-labelledby="selectOrganizationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="selectOrganizationModal" tabindex="-1" aria-labelledby="selectOrganizationModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="selectOrganizationModalLabel">Select or Add Organization</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @if(count($organizations) == 0)
@@ -76,17 +75,16 @@
                     </a>
                 @else
                     <p>Select an organization from the list below.</p>
-                    <ul class="list-group">
+                    <div class="d-flex flex-wrap justify-content-center">
                         @foreach($organizations as $organization)
-                            <li class="list-group-item">
-                                <a href="javascript:void(0);" 
-                                   onclick="selectOrganization('{{ $organization->id }}')"
-                                   class="text-decoration-none">
-                                    {{ $organization->name }}
-                                </a>
-                            </li>
+                            <button type="button" 
+                                    class="btn btn-primary mb-3 me-3" 
+                                    style="width: 100%;" 
+                                    onclick="selectOrganization('{{ $organization->id }}')">
+                                {{ $organization->name }}
+                            </button>
                         @endforeach
-                    </ul>
+                    </div>
                 @endif
             </div>
         </div>
@@ -95,14 +93,12 @@
 
 @push('scripts')
 <script>
-    // Pass PHP variables to JavaScript safely
     const config = {
         organizationsCount: parseInt('{{ count($organizations) }}'),
         baseUrl: '{{ url("business-id-card") }}',
         cardUrl: '{{ url("business-card/".$userDetails->username) }}'
     };
 
-    // Function to get the organization ID from the URL
     function getOrganizationIdFromUrl() {
         const path = window.location.pathname;
         const parts = path.split('/');
@@ -113,15 +109,15 @@
         const organizationId = getOrganizationIdFromUrl();
         const isBusinessIdPage = window.location.pathname.includes('business-id-card');
 
-        // If no organization ID in the URL, no organizations linked, and on business-id page, show modal
-        if (isBusinessIdPage && config.organizationsCount === 0) {
-            var modal = new bootstrap.Modal(document.getElementById('selectOrganizationModal'));
-            modal.show();
-        }
+        if (isBusinessIdPage) {
+            if (config.organizationsCount === 0 || !organizationId) {
+                var modal = new bootstrap.Modal(document.getElementById('selectOrganizationModal'));
+                modal.show();
+            }
 
-        // If an organization ID is present, update the iframe
-        if (organizationId) {
-            updateIframe(organizationId);
+            if (organizationId) {
+                updateIframe(organizationId);
+            }
         }
     }
 

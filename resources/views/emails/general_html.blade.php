@@ -5,128 +5,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $subject }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #ffffff;
             margin: 0;
-            padding: 0;
-            color: #333;
+            padding: 20px;
+            color: #333333;
         }
 
         .email-container {
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 16px;
             max-width: 600px;
-            margin: auto;
+            margin: 0 auto 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #0069d9;
-            font-size: 26px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #666;
         }
 
         .footer {
             background: linear-gradient(135deg, #9727ff, #4b6cb7);
-            color: #fff;
-            padding: 30px 20px;
+            color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            max-width: 600px;
+            margin: 0 auto;
             text-align: center;
-            margin-top: 40px;
-            border-radius: 10px;
         }
 
-        .footer p {
-            font-size: 12px;
-            color: #eee;
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: 0.3s;
         }
 
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
-        .footer a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 22px;
-            transition: transform 0.3s ease;
+        .social-icon img {
+            width: 24px;
+            height: 24px;
         }
 
-        .footer a:hover {
-            transform: scale(1.2);
+        .about-section p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0 auto;
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo img {
-            max-width: 180px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo img:hover {
-            transform: scale(1.1);
-        }
-
-        /* Responsive Design for Mobile */
-        @media (max-width: 600px) {
-            .email-container {
-                padding: 20px;
+        @media screen and (max-width: 640px) {
+            .social-icon {
+                width: 40px;
+                height: 40px;
             }
 
-            .logo img {
-                max-width: 150px;
+            .social-icon img {
+                width: 20px;
+                height: 20px;
             }
 
-            h1 {
-                font-size: 22px;
+            .footer {
+                padding: 25px 20px;
             }
         }
+
     </style>
 </head>
 
 <body>
-    <!-- Main Email Container -->
     <div class="email-container">
-        <!-- Logo Section -->
-        <div class="logo">
-            <img src="https://proffid.com/assets/media/logos/logo-color.png" alt="Proffid Logo" />
-        </div>  
-        <!-- Render raw HTML content -->
-        <div>{!! $content !!}</div> <!-- Display raw HTML content here -->
-    </div>
-
-    <!-- Footer Section -->
-    <div class="footer">
-        <p>&copy; {{ date('Y') }} Proffid. All rights reserved.</p>
-        <div class="social-icons">
-            <!-- Facebook -->
-            <a href="https://facebook.com/proffid" target="_blank"><i class="bi bi-facebook"></i></a>
-            <!-- Twitter -->
-            <a href="https://twitter.com/proffid" target="_blank"><i class="bi bi-twitter"></i></a>
-            <!-- Instagram -->
-            <a href="https://instagram.com/proffid" target="_blank"><i class="bi bi-instagram"></i></a>
-            <!-- LinkedIn -->
-            <a href="https://linkedin.com/proffid" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <div class="text-center mb-4">
+            <img class="logo" src="https://proffid.com/assets/media/logos/logo-color.png" alt="Proffid Logo" style="max-width: 180px;" />
+        </div>
+        <div class="content mb-4">
+            {!! $content !!}
         </div>
     </div>
+
+    <div class="footer">
+        <div class="footer-logo mb-3">
+            <img src="https://proffid.com/assets/media/logos/logo-color.png" alt="Proffid Logo" style="max-width: 140px;" />
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <a href="https://facebook.com/proffid" class="social-icon" target="_blank">
+                <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" />
+            </a>
+            <a href="https://twitter.com/proffid" class="social-icon" target="_blank">
+                <img src="https://img.icons8.com/fluency/48/twitterx.png" alt="Twitter" />
+            </a>
+            <a href="https://instagram.com/proffid" class="social-icon" target="_blank">
+                <img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram" />
+            </a>
+            <a href="https://linkedin.com/proffid" class="social-icon" target="_blank">
+                <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn" />
+            </a>
+        </div>
+
+        <div class="about-section mb-3">
+            <p>Proffid is your premier digital identity management platform, empowering professionals and organizations to create, manage, and share digital identity cards securely. We're revolutionizing professional networking for the digital age.</p>
+        </div>
+
+        <div class="copyright">
+            &copy; 2024 Proffid. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -36,8 +36,8 @@
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <h2 class="text-center mb-0">Digital ID Card</h2>
                         <button type="button" class="btn" onclick="shareCard()">
-                        <i class="ki-duotone ki-send fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                             Share Card
+                            <i class="ki-duotone ki-send fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                            Share Card
                         </button>
                     </div>
                 </div>
@@ -59,12 +59,11 @@
 </div>
 
 <!-- Modal for Selecting or Adding Organization -->
-<div class="modal fade" id="selectOrganizationModal" tabindex="-1" aria-labelledby="selectOrganizationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="selectOrganizationModal" tabindex="-1" aria-labelledby="selectOrganizationModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="selectOrganizationModalLabel">Select or Add Organization</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @if(count($organizations) == 0)
@@ -74,16 +73,19 @@
                 </a>
                 @else
                 <p>Select an organization from the list below.</p>
-                <ul>
+                <div class="d-flex flex-wrap justify-content-center">
                     @foreach($organizations as $organization)
-                    <li><a href="javascript:void(0);" onclick="selectOrganization('{{ $organization->id }}')">{{ $organization->name }}</a></li>
+                    <button type="button" class="btn btn-primary mb-3 me-3" style="width: 100%;" onclick="selectOrganization('{{ $organization->id }}')">
+                        {{ $organization->name }}
+                    </button>
                     @endforeach
-                </ul>
+                </div>
                 @endif
             </div>
         </div>
     </div>
 </div>
+
 
 @push('scripts')
 <script>
@@ -104,32 +106,48 @@
     window.onload = function() {
         const organizationId = getOrganizationIdFromUrl();
         const isDigitalIdPage = window.location.pathname.includes('digital-id');
+        console.log(isDigitalIdPage); // For debugging
 
-        // If no organization ID in the URL, no organizations linked, and on digital-id page, show modal
-        if (isDigitalIdPage && config.organizationsCount === 0) {
-            var modal = new bootstrap.Modal(document.getElementById('selectOrganizationModal'));
-            modal.show();
-        }
+        // Check if the current page is 'digital-id'
+        if (isDigitalIdPage) {
+            // If no organizations linked, show the modal
+            if (config.organizationsCount === 0) {
+                var modal = new bootstrap.Modal(document.getElementById('selectOrganizationModal'));
+                modal.show(); // This opens the modal
+            } else {
+                // If there are organizations and no organization selected in URL, show the modal as well
+                if (!organizationId) {
+                    var modal = new bootstrap.Modal(document.getElementById('selectOrganizationModal'));
+                    modal.show(); // This opens the modal
+                }
+            }
 
-        // If an organization ID is present, update the iframe
-        if (organizationId) {
-            updateIframe(organizationId);
+            // If an organization ID is present, update the iframe
+            if (organizationId) {
+                updateIframe(organizationId);
+            }
         }
     }
 
-    function selectOrganization(organizationId) {
-        var newUrl = config.baseUrl + "/" + organizationId;
-        window.history.pushState({}, "", newUrl);
-        updateIframe(organizationId);
-        var modal = bootstrap.Modal.getInstance(document.getElementById('selectOrganizationModal'));
-        if (modal) {
-            modal.hide();
-        }
+    function getOrganizationIdFromUrl() {
+        const path = window.location.pathname;
+        const parts = path.split('/');
+        return parts.length > 2 ? parts[2] : null; // Extracts organization ID from the URL
     }
 
     function updateIframe(organizationId) {
         var iframeUrl = config.cardUrl + "/" + organizationId;
-        document.getElementById('digitalIdIframe').src = iframeUrl;
+        document.getElementById('digitalIdIframe').src = iframeUrl; // Updates iframe src to show the digital ID card
+    }
+
+    function selectOrganization(organizationId) {
+        var newUrl = config.baseUrl + "/" + organizationId;
+        window.history.pushState({}, "", newUrl); // Updates the URL without reloading the page
+        updateIframe(organizationId); // Updates iframe with the selected organization
+        var modal = bootstrap.Modal.getInstance(document.getElementById('selectOrganizationModal'));
+        if (modal) {
+            modal.hide(); // Close the modal once an organization is selected
+        }
     }
 
     function shareCard() {

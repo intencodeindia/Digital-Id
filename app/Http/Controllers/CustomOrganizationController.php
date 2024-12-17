@@ -19,48 +19,47 @@ class CustomOrganizationController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming data
         $request->validate([
             'name' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'address' => 'required|string',
-            'border_color_top' => 'nullable|string',
-            'border_color_right' => 'nullable|string',
-            'border_color_bottom' => 'nullable|string',
-            'border_color_left' => 'nullable|string',
+            'border_color_0' => 'required|string', // Top
+            'border_color_1' => 'required|string', // Right
+            'border_color_2' => 'required|string', // Bottom
+            'border_color_3' => 'required|string', // Left
         ]);
 
-        // Handle logo upload if it exists
-        if ($request->hasFile('logo')) {
-            // Get the file and generate a unique name
-            $logo = $request->file('logo');
-            $logoName = uniqid() . '.' . $logo->getClientOriginalExtension();
+        try {
+            // Handle logo upload
+            if ($request->hasFile('logo')) {
+                $logo = $request->file('logo');
+                $logoName = time() . '.' . $logo->getClientOriginalExtension();
+                $logo->move(public_path('uploads/logos'), $logoName);
+                $logoPath = 'uploads/logos/' . $logoName;
+            }
 
-            // Move the logo to the public folder
-            $logo->move(public_path('uploads/logos'), $logoName);
-            $logoPath = 'uploads/logos/' . $logoName; // Store relative path
+            // Create organization
+            $organization = CustomOrganization::create([
+                'name' => $request->name,
+                'logo' => $logoPath ?? null,
+                'address' => $request->address,
+                'created_by' => Auth::id(),
+                'border_color_top' => $request->border_color_0,
+                'border_color_right' => $request->border_color_1,
+                'border_color_bottom' => $request->border_color_2,
+                'border_color_left' => $request->border_color_3,
+                'background_color' => '#ffffff', // Default background color
+            ]);
+
+            return redirect()->route('user.organizations')
+                           ->with('success', 'Organization created successfully!');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                           ->with('error', 'Error creating organization: ' . $e->getMessage())
+                           ->withInput();
         }
-
-        // Get the current user's ID
-        $created_by = Auth::user()->id;
-
-        // Create the organization record
-        $organization = CustomOrganization::create([
-            'name' => $request->name,
-            'logo' => $logoPath ?? null,
-            'address' => $request->address,
-            'created_by' => $created_by,
-            'border_color_top' => $request->border_color_top ?? null,
-            'border_color_right' => $request->border_color_right ?? null,
-            'border_color_bottom' => $request->border_color_bottom ?? null,
-            'border_color_left' => $request->border_color_left ?? null,
-        ]);
-
-        // Redirect back with a success message
-        return redirect()->route('user.organizations')->with('success', 'Organization created successfully!');
     }
-
-
 
     // Display the specified organization
     public function show($id)
@@ -74,30 +73,73 @@ class CustomOrganizationController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'address' => 'required|string',
+            'border_color_0' => 'nullable|string',
+            'border_color_1' => 'nullable|string',
+            'border_color_2' => 'nullable|string',
+            'border_color_3' => 'nullable|string',
         ]);
 
-        $organization = CustomOrganization::findOrFail($id);
+        try {
+            $organization = CustomOrganization::findOrFail($id);
 
-        // Handle logo upload if it exists
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
-            $organization->logo = $logoPath;
+            // Handle logo upload
+            if ($request->hasFile('logo')) {
+                // Delete old logo if exists
+                if ($organization->logo && file_exists(public_path($organization->logo))) {
+                    unlink(public_path($organization->logo));
+                }
+
+                $logo = $request->file('logo');
+                $logoName = time() . '.' . $logo->getClientOriginalExtension();
+                $logo->move(public_path('uploads/logos'), $logoName);
+                $organization->logo = 'uploads/logos/' . $logoName;
+            }
+
+            // Update organization details
+            $organization->name = $request->name;
+            $organization->address = $request->address;
+            
+            // Update border colors if provided
+            if ($request->has('border_color_0')) {
+                $organization->border_color_top = $request->border_color_0;
+                $organization->border_color_right = $request->border_color_1;
+                $organization->border_color_bottom = $request->border_color_2;
+                $organization->border_color_left = $request->border_color_3;
+            }
+
+            $organization->save();
+
+            return redirect()->route('user.organizations')
+                            ->with('success', 'Organization updated successfully!');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                            ->with('error', 'Error updating organization: ' . $e->getMessage())
+                            ->withInput();
         }
-
-        // Update organization data
-        $organization->update($request->only(['name', 'address']));
-
-        return response()->json($organization);
     }
 
     // Remove the specified organization from storage
     public function destroy($id)
     {
-        $organization = CustomOrganization::findOrFail($id);
-        $organization->delete();
+        try {
+            $organization = CustomOrganization::findOrFail($id);
+            
+            // Delete logo file if exists
+            if ($organization->logo && file_exists(public_path($organization->logo))) {
+                unlink(public_path($organization->logo));
+            }
 
-        return response()->json(null, 204);
+            $organization->delete();
+
+            return redirect()->route('user.organizations')
+                           ->with('success', 'Organization deleted successfully!');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                           ->with('error', 'Error deleting organization: ' . $e->getMessage());
+        }
     }
 }
