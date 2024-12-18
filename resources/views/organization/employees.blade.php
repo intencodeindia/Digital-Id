@@ -279,7 +279,7 @@
                                             {{ $employee->work_type }}
                                         </td>
                                         <td class="text-end">
-                                            <a href="{{ route('employees', $employee->id) }}" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                            <a href="{{ route('employees.view', $employee->id) }}" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                 <i class="ki-duotone ki-eye fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                 <span class="ms-1">View</span>
                                             </a>

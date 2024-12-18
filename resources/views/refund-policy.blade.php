@@ -10,7 +10,7 @@
                         Refund Policy
                     </h3>
 
-                    <div class="fs-5 fw-semibold text-gray-600 mt-4">
+                    <div class="fs-5 fw-semibold text-gray-800 mt-4">
                         <!-- Introduction -->
                         <p class="mb-8">
                             At Proffid, we strive to ensure that our customers are completely satisfied with our services. However, if you are not satisfied with your purchase, we have established the following refund policy.

@@ -87,7 +87,7 @@ class HomeController extends Controller
     public function digitalId()
     {
         $user = Auth::user();
-    
+
         $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
             ->where('users.id', $user->id)
             ->select('users.*', 'vcard_details.*')
@@ -97,10 +97,10 @@ class HomeController extends Controller
         } else {
             $organizations = [];
         }
-    
+
         return view('user.digital-id', compact('userDetails', 'organizations'));
     }
-    
+
 
     public function card($username)
     {
@@ -140,7 +140,7 @@ class HomeController extends Controller
 
         return view('user.business-card', compact('userDetails'));
     }
-  
+
     public function businessIdCard()
     {
         $user = Auth::user();
@@ -164,7 +164,7 @@ class HomeController extends Controller
     public function businessCardOrg($username, $organizationId)
     {
         $user = User::where('username', $username)->first();
-        
+
         // Get user details with vcard information
         $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
             ->where('users.id', $user->id)
@@ -183,7 +183,7 @@ class HomeController extends Controller
 
         $tokenwithlink = 'http://localhost:8000/verify-email/verify/' . $token;
         $user = User::where('email_verified_link', $tokenwithlink)->first();
-      
+
         if ($user) {
             $user->email_verified_at = now();
             $user->email_verified_link = null;
@@ -235,18 +235,17 @@ class HomeController extends Controller
     }
 
     public function termsAndConditions()
-{
-    return view('terms-and-conditions');
-}
+    {
+        return view('terms-and-conditions');
+    }
 
-public function privacyPolicy()
-{
-    return view('privacy-policy');
-}
+    public function privacyPolicy()
+    {
+        return view('privacy-policy');
+    }
 
-public function refundPolicy()
-{
-    return view('refund-policy');
-}
-
+    public function refundPolicy()
+    {
+        return view('refund-policy');
+    }
 }

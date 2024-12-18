@@ -68,7 +68,7 @@
             <div class="modal-body">
                 @if(count($organizations) == 0)
                 <p>No organizations linked to your account. Click below to add a new organization.</p>
-                <a href="{{ url('add-organization') }}" class="btn btn-primary">
+                <a href="{{ url('organizations') }}" class="btn btn-primary">
                     Add Organization
                 </a>
                 @else

@@ -9,61 +9,150 @@
                     <h3 class="fs-lg-2tx fs-2x text-gray-900 text-center mb-16 lh-base" id="terms-and-conditions">
                         Terms and Conditions
                     </h3>
-                    
-                    <div class="fs-5 fw-semibold text-gray-600 mt-4">
-                        <!-- Introduction -->
+                    <div class="fs-5 fw-semibold text-gray-800 mt-4">
+                        <!-- Terms and Conditions Content -->
                         <p class="mb-8">
-                            Welcome to Proffid. By accessing or using our website and services, you agree to comply with and be bound by these Terms and Conditions. Please read them carefully before using our services.
+                            1. This document is an electronic record in terms of Information Technology Act, 2000 and rules
+                            there under as applicable and the amended provisions pertaining to electronic records in various
+                            statutes as amended by the Information Technology Act, 2000. This electronic record is generated
+                            by a computer system and does not require any physical or digital signatures.
                         </p>
-
-                        <!-- Use of Services -->
-                        <h5>Use of Services</h5>
                         <p class="mb-8">
-                            Our platform is designed to provide digital identity management services. You may use our services only for lawful purposes and in accordance with these Terms. You are responsible for ensuring that your use of our platform does not violate any laws or regulations.
+                            2. This document is published in accordance with the provisions of Rule 3 (1) of the Information
+                            Technology (Intermediaries guidelines) Rules, 2011 that require publishing the rules and
+                            regulations, privacy policy and Terms of Use for access or usage of domain name <strong>https://www.proffid.com</strong>
+                            ('Website'), including the related mobile site and mobile application (hereinafter
+                            referred to as 'Platform').
                         </p>
-
-                        <!-- Account Responsibilities -->
-                        <h5>Account Responsibilities</h5>
                         <p class="mb-8">
-                            You are responsible for maintaining the confidentiality of your account credentials. If you believe your account has been compromised, you must notify us immediately. You agree to take full responsibility for all activities conducted under your account.
+                            3. The Platform is owned by
+                            <b>Intencode India Private Limited</b>
+                            Companies Act, 1956 with its registered office at <b>Amrutha Arcade, Kachiguda Road, Hyderabad, India</b>
+                            (hereinafter referred to as ‘Platform Owner’, 'we', 'us', 'our')..
                         </p>
-
-                        <!-- Payment Terms -->
-                        <h5>Payment Terms</h5>
                         <p class="mb-8">
-                            Certain features or services on the platform may require a subscription or fee. Payments are due in advance, and failure to make timely payments may result in suspension or termination of your account.
+                            4. Your use of the Platform and services and tools are governed by the following terms and
+                            conditions (“Terms of Use”) as applicable to the Platform including the applicable policies which
+                            are incorporated herein by way of reference. If You transact on the Platform, You shall be subject
+                            to the policies that are applicable to the Platform for such transaction. By mere use of the Platform,
+                            You shall be contracting with the Platform Owner and these terms and conditions including the
+                            policies constitute Your binding obligations, with Platform Owner. These Terms of Use relate to
+                            your use of our website, goods (as applicable) or services (as applicable) (collectively, 'Services').
+                            Any terms and conditions proposed by You which are in addition to or which conflict with these
+                            Terms of Use are expressly rejected by the Platform Owner and shall be of no force or effect.
+                            These Terms of Use can be modified at any time without assigning any reason. It is your
+                            responsibility to periodically review these Terms of Use to stay informed of updates.
                         </p>
-
-                        <!-- Limitation of Liability -->
-                        <h5>Limitation of Liability</h5>
                         <p class="mb-8">
-                            Proffid will not be liable for any indirect, incidental, or consequential damages arising out of your use or inability to use our services. Our total liability to you will be limited to the amount you have paid for the service in the last 12 months.
+                            5. For the purpose of these Terms of Use, wherever the context so requires ‘you’, 'your' or ‘user’ shall
+                            mean any natural or legal person who has agreed to become a user/buyer on the Platform..
                         </p>
-
-                        <!-- Modifications -->
-                        <h5>Modifications</h5>
                         <p class="mb-8">
-                            We reserve the right to modify, suspend, or discontinue any part of our services at any time. We will notify you of significant changes, but it is your responsibility to review these Terms periodically.
+                            6. ACCESSING, BROWSING OR OTHERWISE USING THE PLATFORM INDICATES YOUR
+                            AGREEMENT TO ALL THE TERMS AND CONDITIONS UNDER THESE TERMS OF USE,
+                            SO PLEASE READ THE TERMS OF USE CAREFULLY BEFORE PROCEEDING..
                         </p>
-
-                        <!-- Termination -->
-                        <h5>Termination</h5>
                         <p class="mb-8">
-                            We may terminate or suspend your access to our services at our sole discretion, without notice, for any violation of these Terms or if we suspect fraudulent or unlawful activity on your account.
+                            7. The use of Platform and/or availing of our Services is subject to the following Terms of Use:
                         </p>
-
-                        <!-- Governing Law -->
-                        <h5>Governing Law</h5>
-                        <p class="mb-8">
-                            These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where Proffid operates. Any disputes will be resolved in the competent courts of that jurisdiction.
-                        </p>
-
-                        <!-- Contact Us -->
-                        <h5>Contact Us</h5>
-                        <p class="mb-8">
-                            If you have any questions regarding these Terms and Conditions, please contact us at:
-                        </p>
-                      
+                        <ul>
+                            <ol>
+                                <p class="mb-8">
+                                    1. To access and use the Services, you agree to provide true, accurate and complete information
+                                    to us during and after registration, and you shall be responsible for all acts done through the
+                                    use of your registered account on the Platform..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    2. Neither we nor any third parties provide any warranty or guarantee as to the accuracy,
+                                    timeliness, performance, completeness or suitability of the information and materials offered
+                                    on this website or through the Services, for any specific purpose. You acknowledge that such
+                                    information and materials may contain inaccuracies or errors and we expressly exclude
+                                    liability for any such inaccuracies or errors.
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    3. Your use of our Services and the Platform is solely and entirely at your own risk and
+                                    discretion for which we shall not be liable to you in any manner. You are required to
+                                    independently assess and ensure that the Services meet your requirements..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    4. The contents of the Platform and the Services are proprietary to us and are licensed to us.
+                                    You will not have any authority to claim any intellectual property rights, title, or interest in
+                                    its contents. The contents include and is not limited to the design, layout, look and graphics..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    5. You acknowledge that unauthorized use of the Platform and/or the Services may lead to
+                                    action against you as per these Terms of Use and/or applicable laws..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    6. You agree to pay us the charges associated with availing the Services..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    7. You agree not to use the Platform and/or Services for any purpose that is unlawful, illegal or
+                                    forbidden by these Terms, or Indian or local laws that might apply to you.
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    8. You agree and acknowledge that the website and the Services may contain links to other third
+                                    party websites. On accessing these links, you will be governed by the terms of use, privacy
+                                    policy and such other policies of such third-party websites. These links are provided for your
+                                    convenience to provide further information..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    9. You understand that upon initiating a transaction for availing the Services you are entering
+                                    into a legally binding and enforceable contract with the Platform Owner for the Services..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    10. You shall indemnify and hold harmless Platform Owner, its affiliates, group companies (as
+                                    applicable) and their respective officers, directors, agents, and employees, from any claim or
+                                    demand, or actions including reasonable attorney's fees, made by any third party or penalty
+                                    imposed due to or arising out of Your breach of this Terms of Use, privacy Policy and other
+                                    Policies, or Your violation of any law, rules or regulations or the rights (including
+                                    infringement of intellectual property rights) of a third party
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    11. Notwithstanding anything contained in these Terms of Use, the parties shall not be liable for
+                                    any failure to perform an obligation under these Terms if performance is prevented or
+                                    delayed by a force majeure event..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    12. These Terms and any dispute or claim relating to it, or its enforceability, shall be governed
+                                    by and construed in accordance with the laws of India..
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    13. All disputes arising out of or in connection with these Terms shall be subject to the exclusive
+                                    jurisdiction of the courts in <b>Hyderabad and Telangana, India.</b>
+                                </p>
+                            </ol>
+                            <ol>
+                                <p class="mb-8">
+                                    14. All concerns or communications relating to these Terms must be communicated to us using
+                                    the contact information provided on this website.
+                                </p>
+                            </ol>
+                        </ul>
                     </div>
                 </div>
             </div>

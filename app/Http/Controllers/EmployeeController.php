@@ -27,9 +27,6 @@ class EmployeeController extends Controller
             
         $departments = Department::where('user_id', $user->id)->get();
         $designations = Designation::where('user_id', $user->id)->get();
-
-        
-
         return view('organization.employees', compact('employees', 'departments', 'designations'));
     }
 

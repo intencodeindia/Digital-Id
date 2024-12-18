@@ -171,14 +171,26 @@
                             <div class="col-lg-6">
                                 <div class="d-flex justify-content-center">
                                     <div class="d-flex fw-semibold flex-column me-20">
-                                        <h4 class="fw-bold text-gray-900 mb-6">More for Good</h4>
-                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">FAQ</a>
-                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Documentaions</a>
-                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Video Tuts</a>
-                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Changelog</a>
-                                        <a href="#" class="text-gray-700 text-hover-primary fs-5 mb-6">Support Forum</a>
-                                        <a href="#" class="text-gray-700 text-hover-primary fs-5">Blog</a>
+                                        <h4 class="fw-bold text-gray-900 mb-6">More for Proffid</h4>
+                                        <a href="{{ url('/about') }}" target="_blank" class="text-gray-700 text-hover-primary fs-5 mb-6 position-relative">
+                                            About
+                                        </a>
+                                        <a href="{{ url('/support') }}" target="_blank" class="text-gray-700 text-hover-primary fs-5 mb-6 position-relative">
+                                            Support
+                                        </a>
+                                        <a href="{{ url('/terms-and-conditions') }}" target="_blank" class="text-gray-700 text-hover-primary fs-5 mb-6 position-relative">
+                                            Terms and Conditions
+                                        </a>
+                                        <a href="{{ url('/privacy-policy') }}" target="_blank" class="text-gray-700 text-hover-primary fs-5 mb-6 position-relative">
+                                            Privacy Policy
+                                        </a>
+                                        <a href="{{ url('/refund-policy') }}" target="_blank" class="text-gray-700 text-hover-primary fs-5 position-relative">
+                                            Refund Policy
+                                        </a>
                                     </div>
+
+
+
                                     <div class="d-flex fw-semibold flex-column ms-lg-20">
                                         <h4 class="fw-bold text-gray-900 mb-6">Stay Connected</h4>
                                         <a href="https://www.facebook.com/proffid.com" class="mb-6">
@@ -218,14 +230,6 @@
                                     Copyright &copy; Proffid 2024
                                 </span>
                             </div>
-                            <ul class="menu menu-gray-700 menu-hover-primary fw-semibold fs-5 fs-md-5 order-1 mb-5 mb-md-0">
-    <li class="menu-item"><a href="{{ url('/about') }}" target="_blank" class="menu-link px-2">About</a></li>
-    <li class="menu-item"><a href="{{ url('/support') }}" target="_blank" class="menu-link px-2">Support</a></li>
-    <li class="menu-item"><a href="{{ url('/terms-and-conditions') }}" target="_blank" class="menu-link px-2">Terms and Conditions</a></li>
-    <li class="menu-item"><a href="{{ url('/privacy-policy') }}" target="_blank" class="menu-link px-2">Privacy Policy</a></li>
-    <li class="menu-item"><a href="{{ url('/refund-policy') }}" target="_blank" class="menu-link px-2">Refund Policy</a></li>
-</ul>
-
                         </div>
                     </div>
                 </div>

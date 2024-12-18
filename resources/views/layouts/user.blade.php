@@ -177,21 +177,25 @@
                                     <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-300px">
                                         <div class="menu-state-bg py-3 px-3 py-lg-6 px-lg-6" data-kt-menu-dismiss="true">
                                             <div class="row pt-1">
+                                                @if(Auth::check())
+                                                @if(Auth::user()->hasRole('employee'))
+                                                <!-- If the user is an employee, show Employee Card and Business Card -->
                                                 <div class="col-lg-12 mb-3">
                                                     <div class="menu-item p-0 m-0">
-                                                        <a href="/digital-id" class="menu-link">
+                                                        <a href="/employee-id-card" class="menu-link">
                                                             <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
-                                                                <i class="ki-duotone ki-user-tick text-primary fs-1">
-                                                                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                                                <i class="ki-duotone ki-abstract-25 text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span>
                                                                 </i>
                                                             </span>
                                                             <span class="d-flex flex-column">
-                                                                <span class="fs-6 fw-bold text-gray-800">Digital ID</span>
-                                                                <span class="fs-7 fw-semibold text-muted">View and manage your digital ID</span>
+                                                                <span class="fs-6 fw-bold text-gray-800">Employee Card</span>
+                                                                <span class="fs-7 fw-semibold text-muted">View your employee card</span>
                                                             </span>
                                                         </a>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-lg-12 mb-3">
                                                     <div class="menu-item p-0 m-0">
                                                         <a href="/business-id-card" class="menu-link">
@@ -207,10 +211,80 @@
                                                         </a>
                                                     </div>
                                                 </div>
+                                                @elseif(Auth::user()->hasRole('organization'))
+                                                <!-- If the user is part of the organization, show Organization Card and Business Card -->
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/organization-id-card" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-abstract-25 text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Organization Card</span>
+                                                                <span class="fs-7 fw-semibold text-muted">Manage your organization's digital ID</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/business-id-card" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-abstract-26 text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Business Card</span>
+                                                                <span class="fs-7 fw-semibold text-muted">View your business card</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                @elseif(Auth::user()->hasRole('user'))
+                                                <!-- If the user is a regular user, show Digital ID and Business Card -->
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/digital-id" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-user-tick text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Digital ID</span>
+                                                                <span class="fs-7 fw-semibold text-muted">View and manage your digital ID</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/business-id-card" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-abstract-26 text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Business Card</span>
+                                                                <span class="fs-7 fw-semibold text-muted">View your business card</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
                                 @endif
                                 @endif
                                 @if(Auth::check())

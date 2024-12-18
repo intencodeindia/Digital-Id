@@ -159,150 +159,269 @@
                                 </span>
                             </h1>
                             <div class="text-center" id="kt_pricing">
-    <div class="rounded-1 d-inline-flex p-1 mb-10" data-kt-buttons="true" style="border: 1px dashed rgba(64, 61, 56, 0.2);">
-        <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold py-2 fs-6 px-5 me-2 active" data-kt-plan="month" id="monthlyBtn">
-            Monthly
-        </a>
-        <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold fs-5 py-2 px-5" data-kt-plan="annual" id="annualBtn">
-            Annual
-        </a>
-    </div>
-    <div class="row g-5 g-lg-10 mx-20" id="pricingPlans"></div>
-</div>
-
-<script>
-    // Pricing data with feature availability
-    const pricingData = [
-        {
-            name: "Personal",
-            monthlyPrice: 49,
-            annualPrice: 499,
-            features: [
-                { name: "Business card", available: true },
-                { name: "Digital card", available: true },
-                { name: "Document management", available: true },
-                { name: "Family management", available: false },
-                { name: "Service management", available: true },
-                { name: "Appointment", available: false },
-                { name: "Portfolio", available: true },
-                { name: "Public portfolio", available: true },
-                { name: "Employees Management", available: false },
-                { name: "Lead Management", available: true },
-                { name: "Access Log", available: true }
-            ],
-        },
-        {
-            name: "Business",
-            monthlyPrice: 99,
-            annualPrice: 999,
-            features: [
-                { name: "Business card", available: true },
-                { name: "Digital card", available: true },
-                { name: "Document management", available: true },
-                { name: "Family management", available: true },
-                { name: "Service management", available: true },
-                { name: "Appointment", available: true },
-                { name: "Portfolio", available: true },
-                { name: "Public portfolio", available: true },
-                { name: "Employees Management", available: true },
-                { name: "Lead Management", available: true },
-                { name: "Access Log", available: true },
-                { name: "Department Management", available: true },
-                { name: "Access Permission Management", available: true },
-                { name: "Designation Management", available: true }
-            ],
-        },
-        {
-            name: "Enterprise",
-            monthlyPrice: 199,
-            annualPrice: 1999,
-            features: [
-                { name: "Business card", available: true },
-                { name: "Digital card", available: true },
-                { name: "Document management", available: true },
-                { name: "Family management", available: true },
-                { name: "Service management", available: true },
-                { name: "Appointment", available: true },
-                { name: "Portfolio", available: true },
-                { name: "Public portfolio", available: true },
-                { name: "Employees Management", available: true },
-                { name: "Lead Management", available: true },
-                { name: "Access Log", available: true },
-                { name: "Department Management", available: true },
-                { name: "Access Permission Management", available: true },
-                { name: "Designation Management", available: true }
-            ],
-        }
-    ];
-
-    // Function to generate the pricing plans
-    function generatePlans(isAnnual) {
-        const pricingPlansContainer = document.getElementById('pricingPlans');
-        pricingPlansContainer.innerHTML = '';  // Clear the container
-
-        pricingData.forEach(plan => {
-            const planContainer = document.createElement('div');
-            planContainer.classList.add('col-xl-4');
-
-            // Check if the plan is 'Personal' or 'Enterprise' to use the same color
-            const backgroundColor = (plan.name === 'Personal' || plan.name === 'Enterprise') ? '#e7f1f9' : '#9727ff';
-            const textColor = (plan.name === 'Personal' || plan.name === 'Enterprise') ? 'gray' : 'white';
-
-            const planHTML = `
-                <div class="d-flex h-100 align-items-center">
-                    <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: ${backgroundColor};">
-                        <div class="mb-7 text-center">
-                            <h1 class="text-${textColor}-900 mb-5 fw-bolder">${plan.name}</h1>
-                            <div class="text-${textColor}-500 fw-semibold mb-5">
-                                Best Settings for ${plan.name} Use
-                            </div>
-                            <div class="text-center">
-                                <span class="mb-2 text-${textColor}">₹</span>
-                                <span class="fs-3x fw-bold text-${textColor}" id="planPrice${plan.name}">
-                                    ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
-                                </span>
-                                <span class="fs-7 fw-semibold opacity-50" id="planDuration${plan.name}">
-                                    / ${isAnnual ? 'Ann' : 'Mon'}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="w-100 mb-10">
-                            ${plan.features.map(feature => `
-                                <div class="d-flex flex-stack mb-5">
-                                    <span class="fw-semibold fs-6 text-${textColor}-600 text-start pe-3">${feature.name}</span>
-                                    <i class="ki-duotone ki-${feature.available ? 'check-circle' : 'cross-circle'} fs-2 text-${textColor}">
-                                        <span class="path1"></span><span class="path2"></span>
-                                    </i>
+                                <div class="rounded-1 d-inline-flex p-1 mb-10" data-kt-buttons="true" style="border: 1px dashed rgba(64, 61, 56, 0.2);">
+                                    <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold py-2 fs-6 px-5 me-2 active" data-kt-plan="month" id="monthlyBtn">
+                                        Monthly
+                                    </a>
+                                    <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold fs-5 py-2 px-5" data-kt-plan="annual" id="annualBtn">
+                                        Annual
+                                    </a>
                                 </div>
-                            `).join('')}
-                        </div>
-                        <a href="#" class="btn btn-primary btn-sm fw-bold rounded-1">Select</a>
+                                <div class="row g-5 g-lg-10 mx-20" id="pricingPlans"></div>
+                            </div>
+
+                            <script>
+                                // Pricing data with feature availability
+                                const pricingData = [{
+                                        name: "Personal",
+                                        monthlyPrice: 49,
+                                        annualPrice: 499,
+                                        features: [{
+                                                name: "Business card",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Digital card",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Document management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Family management",
+                                                available: false
+                                            },
+                                            {
+                                                name: "Service management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Appointment",
+                                                available: false
+                                            },
+                                            {
+                                                name: "Portfolio",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Public portfolio",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Employees Management",
+                                                available: false
+                                            },
+                                            {
+                                                name: "Lead Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Access Log",
+                                                available: true
+                                            }
+                                        ],
+                                    },
+                                    {
+                                        name: "Business",
+                                        monthlyPrice: 99,
+                                        annualPrice: 999,
+                                        features: [{
+                                                name: "Business card",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Digital card",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Document management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Family management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Service management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Appointment",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Portfolio",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Public portfolio",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Employees Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Lead Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Access Log",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Department Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Access Permission Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Designation Management",
+                                                available: true
+                                            }
+                                        ],
+                                    },
+                                    {
+                                        name: "Enterprise",
+                                        monthlyPrice: 199,
+                                        annualPrice: 1999,
+                                        features: [{
+                                                name: "Business card",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Digital card",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Document management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Family management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Service management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Appointment",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Portfolio",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Public portfolio",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Employees Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Lead Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Access Log",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Department Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Access Permission Management",
+                                                available: true
+                                            },
+                                            {
+                                                name: "Designation Management",
+                                                available: true
+                                            }
+                                        ],
+                                    }
+                                ];
+
+                                // Function to generate the pricing plans
+                                function generatePlans(isAnnual) {
+                                    const pricingPlansContainer = document.getElementById('pricingPlans');
+                                    pricingPlansContainer.innerHTML = ''; // Clear the container
+
+                                    pricingData.forEach(plan => {
+                                        const planContainer = document.createElement('div');
+                                        planContainer.classList.add('col-xl-4');
+
+                                        // Check if the plan is 'Personal' or 'Enterprise' to use the same color
+                                        const backgroundColor = (plan.name === 'Personal' || plan.name === 'Enterprise') ? '#e7f1f9' : '#9727ff';
+                                        const textColor = (plan.name === 'Personal' || plan.name === 'Enterprise') ? 'gray' : 'white';
+
+                                        // Conditional check for 'Business' plan to change button color and text color
+                                        const buttonBackgroundColor = (plan.name === 'Business') ? '#e7f1f9' : '#9727ff'; // Background color for Business plan
+                                        const buttonTextColor = (plan.name === 'Business') ? '#9727ff' : 'white'; // Text color for Business plan (use white for others too)
+
+                                        const planHTML = `
+        <div class="d-flex h-100 align-items-center">
+            <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: ${backgroundColor};">
+                <div class="mb-7 text-center">
+                    <h1 class="text-${textColor}-900 mb-5 fw-bolder">${plan.name}</h1>
+                    <div class="text-${textColor}-500 fw-semibold mb-5">
+                        Best Settings for ${plan.name} Use
+                    </div>
+                    <div class="text-center">
+                        <span class="mb-2 text-${textColor}">₹</span>
+                        <span class="fs-3x fw-bold text-${textColor}" id="planPrice${plan.name}">
+                            ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                        </span>
+                        <span class="fs-7 fw-semibold opacity-50" id="planDuration${plan.name}">
+                            / ${isAnnual ? 'Ann' : 'Mon'}
+                        </span>
                     </div>
                 </div>
-            `;
-            planContainer.innerHTML = planHTML;
-            pricingPlansContainer.appendChild(planContainer);
-        });
-    }
+                <div class="w-100 mb-10">
+                    ${plan.features.map(feature => `
+                        <div class="d-flex flex-stack mb-5">
+                            <span class="fw-semibold fs-6 text-${textColor}-600 text-start pe-3">${feature.name}</span>
+                            <i class="ki-duotone ki-${feature.available ? 'check-circle' : 'cross-circle'} fs-2 text-${textColor}">
+                                <span class="path1"></span><span class="path2"></span>
+                            </i>
+                        </div>
+                    `).join('')}
+                </div>
+                <a href="#" class="btn btn-sm fw-bold rounded-1" style="background-color: ${buttonBackgroundColor}; color: ${buttonTextColor};">Select</a>
+            </div>
+        </div>
+    `;
+                                        planContainer.innerHTML = planHTML;
+                                        pricingPlansContainer.appendChild(planContainer);
+                                    });
 
-    // Toggle between monthly and annual pricing
-    document.getElementById('monthlyBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        generatePlans(false);
-        document.getElementById('monthlyBtn').classList.add('active');
-        document.getElementById('annualBtn').classList.remove('active');
-    });
 
-    document.getElementById('annualBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        generatePlans(true);
-        document.getElementById('annualBtn').classList.add('active');
-        document.getElementById('monthlyBtn').classList.remove('active');
-    });
+                                }
 
-    // Initialize with Monthly Pricing
-    generatePlans(false);
-</script>
+                                // Toggle between monthly and annual pricing
+                                document.getElementById('monthlyBtn').addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    generatePlans(false);
+                                    document.getElementById('monthlyBtn').classList.add('active');
+                                    document.getElementById('annualBtn').classList.remove('active');
+                                });
+
+                                document.getElementById('annualBtn').addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    generatePlans(true);
+                                    document.getElementById('annualBtn').classList.add('active');
+                                    document.getElementById('monthlyBtn').classList.remove('active');
+                                });
+
+                                // Initialize with Monthly Pricing
+                                generatePlans(false);
+                            </script>
 
 
 
@@ -313,113 +432,204 @@
 
             <div class="d-flex flex-column flex-xl-row">
                 <div class="card bg-body mb-9 mb-xl-0 me-lg-9">
-                    <div class="card-body">
-                        <div class="m-0">
-                            <div class="mb-9">
-                                <h4 class="fs-2qx text-gray-800 w-bolder mb-6">
-                                    Digital ID FAQ
-                                </h4>
-                                <p class="fs-5 fw-semibold text-gray-500">
-                                    Common questions about our Digital ID solution and how it can help secure your digital identity.
-                                </p>
-                            </div>
-                            <div class="m-0">
-                                <div class="mb-12">
-                                    <h3 class="text-gray-800 fw-bold mb-2">
-                                        Getting Started
-                                    </h3>
-                                    <div class="m-0">
-                                        <div class="d-flex align-items-center collapsible py-3 toggle mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1_1">
-                                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
-                                                <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            </div>
-                                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                                What is Digital ID and how does it work?
-                                            </h4>
-                                        </div>
-                                        <div id="kt_job_1_1" class="collapse show fs-6 ms-1">
-                                            <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
-                                                Digital ID is a secure digital identity solution that allows you to prove who you are online. It uses advanced encryption and biometric verification to create a unique digital identity that you can use across multiple services and platforms.
-                                            </div>
-                                        </div>
-                                        <div class="separator separator-dashed"></div>
-                                    </div>
-                                    <div class="m-0">
-                                        <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1_2">
-                                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
-                                                <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            </div>
-                                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                                How secure is my digital identity?
-                                            </h4>
-                                        </div>
-                                        <div id="kt_job_1_2" class="collapse fs-6 ms-1">
-                                            <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
-                                                Your digital identity is protected by multiple layers of security including encryption, biometric authentication, and blockchain technology. We follow the highest industry standards for data protection and regularly undergo security audits.
-                                            </div>
-                                        </div>
-                                        <div class="separator separator-dashed"></div>
-                                    </div>
-                                    <div class="m-0">
-                                        <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1_3">
-                                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
-                                                <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            </div>
-                                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                                Where can I use my Digital ID?
-                                            </h4>
-                                        </div>
-                                        <div id="kt_job_1_3" class="collapse fs-6 ms-1">
-                                            <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
-                                                Digital ID is accepted by a growing network of government services, financial institutions, and businesses. You can use it for online banking, government services, age verification, and more. Our partnerships are constantly expanding to provide wider coverage.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-12">
-                                    <h3 class="text-gray-800 fw-bold mb-4">
-                                        Privacy & Data Protection
-                                    </h3>
-                                    <div class="m-0">
-                                        <div class="d-flex align-items-center collapsible py-3 toggle mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_2_1">
-                                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
-                                                <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            </div>
-                                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                                Who has access to my data?
-                                            </h4>
-                                        </div>
-                                        <div id="kt_job_2_1" class="collapse show fs-6 ms-1">
-                                            <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
-                                                You have complete control over your data. Only you can decide which information to share and with whom. We never sell your data to third parties and only share the specific information you authorize with verified service providers.
-                                            </div>
-                                        </div>
-                                        <div class="separator separator-dashed"></div>
-                                    </div>
-                                    <div class="m-0">
-                                        <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_2_2">
-                                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
-                                                <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            </div>
-                                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                                How can I revoke access to my data?
-                                            </h4>
-                                        </div>
-                                        <div id="kt_job_2_2" class="collapse fs-6 ms-1">
-                                            <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
-                                                You can easily manage and revoke access permissions through your Digital ID dashboard at any time. Once revoked, organizations will no longer have access to your shared information.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card-body">
+    <div class="m-0">
+        <div class="mb-9">
+            <h4 class="fs-2qx text-gray-800 w-bolder mb-6">
+                Digital ID FAQ
+            </h4>
+            <p class="fs-5 fw-semibold text-gray-500">
+                Common questions about our Digital ID solution and how it can help secure your digital identity.
+            </p>
+        </div>
+        <div class="m-0">
+            <div class="mb-12">
+                <h3 class="text-gray-800 fw-bold mb-4">
+                    Getting Started
+                </h3>
+
+                <!-- FAQ about Digital ID Product -->
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1_1">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            What is Digital ID and how does it work?
+                        </h4>
+                    </div>
+                    <div id="kt_job_1_1" class="collapse show fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            Digital ID is a secure digital identity solution that allows you to prove your identity online. It uses advanced encryption and biometric verification to create a unique digital identity that can be used across various platforms and services.
                         </div>
                     </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1_2">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            How secure is my digital identity?
+                        </h4>
+                    </div>
+                    <div id="kt_job_1_2" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            Your digital identity is protected using multi-layered security protocols such as encryption, biometric authentication, and blockchain technology. We implement industry-leading standards to ensure your data is secure.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1_3">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            Where can I use my Digital ID?
+                        </h4>
+                    </div>
+                    <div id="kt_job_1_3" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            Your Digital ID can be used across various platforms like government services, financial institutions, and businesses. It's perfect for online banking, age verification, government documentation, and more.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-gray-800 fw-bold mb-4">
+                    Features & Benefits
+                </h3>
+
+                <!-- FAQ about Features -->
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_2_1">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            What features are included in my Digital ID plan?
+                        </h4>
+                    </div>
+                    <div id="kt_job_2_1" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            Your plan includes a variety of features such as Business Card, Digital Card, Document Management, Family Management, Service Management, and Appointment scheduling. Additionally, you get access to Portfolio, Public Portfolio, Lead Management, Employee Management, and much more.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_2_2">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            Is "Family Management" included in all plans?
+                        </h4>
+                    </div>
+                    <div id="kt_job_2_2" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            Yes, "Family Management" is available with most plans. It allows you to manage multiple family members under a single account for streamlined access and control over services.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_2_3">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            What is "Lead Management" feature and how can it help me?
+                        </h4>
+                    </div>
+                    <div id="kt_job_2_3" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            "Lead Management" helps you track, manage, and nurture leads in your business. It simplifies the process of converting prospects into customers and enables better relationship management for sales teams.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_2_4">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            How does Document Management work?
+                        </h4>
+                    </div>
+                    <div id="kt_job_2_4" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            The Document Management feature allows you to securely store, organize, and manage your digital files. You can categorize documents, upload new files, and control who has access to them within your team or organization.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-gray-800 fw-bold mb-4">
+                    Privacy & Data Protection
+                </h3>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_3_1">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            How is my privacy protected?
+                        </h4>
+                    </div>
+                    <div id="kt_job_3_1" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            We take your privacy seriously. We employ end-to-end encryption and limit access to your data to only authorized personnel. All personal data is stored in compliance with GDPR and other international privacy standards.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_3_2">
+                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="ki-duotone ki-plus-square toggle-off fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        </div>
+                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
+                            Can I delete my Digital ID if I no longer want to use it?
+                        </h4>
+                    </div>
+                    <div id="kt_job_3_2" class="collapse fs-6 ms-1">
+                        <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
+                            Yes, you have the option to delete your Digital ID account at any time. All your personal data will be securely erased according to our data protection policies.
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 </div>
             </div>
         </div>
