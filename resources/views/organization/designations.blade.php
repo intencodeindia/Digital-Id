@@ -3,153 +3,250 @@
 @section('content')
 <div id="kt_app_content" class="app-content flex-column-fluid">
     <div id="kt_app_content_container" class="app-container container-xxl">
-        <div class="d-flex justify-content-between align-items-center mb-5 mb-xxl-10">
+        <div class="d-flex justify-content-between align-items-center mb-5">
             <h2>Designations</h2>
-            <div class="ms-auto">
-                <button class="btn btn-sm btn-primary" id="add_designation_btn">
-                    <i class="ki-duotone ki-plus fs-1"><span class="path1"></span><span class="path2"></span></i> Add Designation
-                </button>
-                <button class="btn btn-sm btn-info" id="import_designation_btn">
-                    <i class="ki-duotone ki-plus fs-1"><span class="path1"></span><span class="path2"></span></i> Import Designation
-                </button>
-            </div>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addDesignationModal">
+                <i class="ki-duotone ki-plus fs-2"><span class="path1"></span><span class="path2"></span></i>
+                Add Designation
+            </button>
         </div>
 
-        <!--begin::Drawer-->
-        <div
-            id="kt_drawer_example_permanent"
-            class="bg-white"
-            data-kt-drawer="true"
-            data-kt-drawer-activate="true"
-            data-kt-drawer-toggle="#add_designation_btn"
-            data-kt-drawer-close="#kt_drawer_example_permanent_close"
-            data-kt-drawer-overlay="true"
-            data-kt-drawer-permanent="true"
-            data-kt-drawer-width="{default:'300px', 'md': '500px'}">
-            <!--begin::Card-->
-            <div class="card rounded-0 w-100">
-                <!--begin::Card header-->
-                <div class="card-header pe-5">
-                    <!--begin::Title-->
-                    <div class="card-title">
-                        Add Designation
-                    </div>
-                    <!--end::Title-->
-
-                    <!--begin::Card toolbar-->
-                    <div class="card-toolbar">
-                        <!--begin::Close-->
-                        <div class="btn btn-sm btn-icon btn-active-light-primary" id="kt_drawer_example_permanent_close">
-                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
-                        </div>
-                        <!--end::Close-->
-                    </div>
-                    <!--end::Card toolbar-->
-                </div>
-                <!--end::Card header-->
-
-                <!--begin::Card body-->
-                <div class="card-body hover-scroll-overlay-y">
-                    <form id="kt_modal_add_designation_form" class="form" action="{{ route('designations.store') }}" method="POST">
-                        @csrf
-                        <div class="fv-row mb-7">
-                            <!-- Designation Name -->
-                            <label class="required fw-semibold fs-6 mb-2">Designation Name</label>
-                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter designation name" required />
-
-                            <!-- Designation Description -->
-                            <label class="required fw-semibold fs-6 mb-2">Description</label>
-                            <input type="text" name="description" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter designation description" required />
-
-                            <!-- Designation Status -->
-                            <label class="required fw-semibold fs-6 mb-2">Status</label>
-                            <select name="status" class="form-select form-select-solid mb-3 mb-lg-0" required>
-                                <option value="">Select Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                        </div>
-
-                        <div class="text-center pt-10">
-                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" data-kt-organizations-modal-action="submit">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                </span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!--end::Card body-->
-            </div>
-            <!--end::Card-->
-        </div>
-        <!--end::Drawer-->
-
-        <div class="row g-5 g-xxl-10">
-            <div class="card">
-                <div class="card-header border-0 pt-6">
-                    <div class="card-title">
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5"><span class="path1"></span><span class="path2"></span></i>
-                            <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Designation">
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body pt-0">
-                    <div id="kt_subscriptions_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
-                        <div id="" class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_subscriptions_table" style="width: 100%;">
-                                <colgroup>
-                                    <col data-dt-column="0">
-                                    <col data-dt-column="1">
-                                    <col data-dt-column="2">
-                                    <col data-dt-column="3">
-                                </colgroup>
-                                <thead>
-                                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0" role="row">
-                                        <th class="w-10px pe-2 dt-orderable-none" data-dt-column="0" rowspan="1" colspan="1" aria-label=""><span class="dt-column-title">
-                                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                    <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_subscriptions_table .form-check-input" value="1">
-                                                </div>
-                                            </span><span class="dt-column-order"></span></th>
-                                        <th class="dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1" aria-label="Designation: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Designation</span><span class="dt-column-order"></span></th>
-                                        <th class="dt-orderable-asc dt-orderable-desc" data-dt-column="3" rowspan="1" colspan="1" aria-label="Description: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Description</span><span class="dt-column-order"></span></th>
-                                        <th class="text-end min-w-70px dt-orderable-none" data-dt-column="4" rowspan="1" colspan="1" aria-label="Actions"><span class="dt-column-title">Actions</span><span class="dt-column-order"></span></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-gray-600 fw-semibold">
-                                    @foreach ($designations as $designation)
-                                    <tr>
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-gray-800 text-hover-primary mb-1">{{ $designation->name }}</a>
-                                        </td>
-                                       
-                                        <td>
-                                            {{ $designation->description }}
-                                        </td>
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                <i class="ki-duotone ki-eye fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                          
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot></tfoot>
-                            </table>
-                        </div>
-                    </div>
+        <!-- Designation List -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                        <thead>
+                            <tr class="fw-bold text-muted">
+                                <th>Designation Name</th>
+                                <th>Description</th>
+                                <th>Employees</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($designations as $designation)
+                            <tr>
+                                <td>{{ $designation->name }}</td>
+                                <td>{{ $designation->description }}</td>
+                                <td>
+                                    <span class="badge badge-light-primary">
+                                        {{ $designation->employees_count }} {{ Str::plural('Employee', $designation->employees_count) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-light-primary me-2" 
+                                            onclick="editDesignation('{{ $designation->id }}', '{{ addslashes($designation->name) }}', '{{ addslashes($designation->description) }}')">
+                                        <i class="ki-duotone ki-pencil fs-5"></i>
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-light-danger" 
+                                            onclick="deleteDesignation('{{ $designation->id }}')">
+                                        <i class="ki-duotone ki-trash fs-5"></i>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center">No designations found</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Add Designation Modal -->
+<div class="modal fade" id="addDesignationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="addDesignationForm">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Designation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Designation Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                        <div class="invalid-feedback" id="name_error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="3"></textarea>
+                        <div class="invalid-feedback" id="description_error"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Designation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Designation Modal -->
+<div class="modal fade" id="editDesignationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="editDesignationForm">
+                @csrf
+                @method('PUT')
+                <input type="hidden" id="edit_designation_id">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Designation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label required">Designation Name</label>
+                        <input type="text" class="form-control" name="name" id="edit_name" required>
+                        <div class="invalid-feedback" id="edit_name_error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" id="edit_description" rows="3"></textarea>
+                        <div class="invalid-feedback" id="edit_description_error"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update Designation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    // Add Designation Form Submit
+    $('#addDesignationForm').on('submit', function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const submitBtn = form.find('button[type="submit"]');
+        
+        $.ajax({
+            url: "{{ route('designations.store') }}",
+            type: 'POST',
+            data: form.serialize(),
+            beforeSend: function() {
+                submitBtn.attr('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+            },
+            success: function(response) {
+                if (response.success) {
+                    toastr.success(response.message);
+                    $('#addDesignationModal').modal('hide');
+                    location.reload();
+                }
+            },
+            error: function(xhr) {
+                const errors = xhr.responseJSON.errors;
+                Object.keys(errors).forEach(function(key) {
+                    $(`#${key}`).addClass('is-invalid');
+                    $(`#${key}_error`).text(errors[key][0]);
+                });
+            },
+            complete: function() {
+                submitBtn.attr('disabled', false).text('Save Designation');
+            }
+        });
+    });
+
+    // Edit Designation
+    function editDesignation(id, name, description) {
+        $('#edit_designation_id').val(id);
+        $('#edit_name').val(name);
+        $('#edit_description').val(description);
+        $('#editDesignationModal').modal('show');
+    }
+
+    // Update Designation Form Submit
+    $('#editDesignationForm').on('submit', function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const id = $('#edit_designation_id').val();
+        const submitBtn = form.find('button[type="submit"]');
+        
+        $.ajax({
+            url: `/designations/${id}`,
+            type: 'PUT',
+            data: form.serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                submitBtn.attr('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...');
+                $('.is-invalid').removeClass('is-invalid');
+                $('.invalid-feedback').text('');
+            },
+            success: function(response) {
+                if (response.success) {
+                    toastr.success(response.message);
+                    $('#editDesignationModal').modal('hide');
+                    location.reload();
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    const errors = xhr.responseJSON.errors;
+                    Object.keys(errors).forEach(function(key) {
+                        $(`#edit_${key}`).addClass('is-invalid');
+                        $(`#edit_${key}_error`).text(errors[key][0]);
+                    });
+                } else {
+                    toastr.error('An error occurred while updating the designation');
+                }
+            },
+            complete: function() {
+                submitBtn.attr('disabled', false).text('Update Designation');
+            }
+        });
+    });
+
+    // Delete Designation
+    function deleteDesignation(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `/designations/${id}`,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            location.reload();
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            toastr.error(xhr.responseJSON.message);
+                        } else {
+                            toastr.error('Error deleting designation');
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+@endpush
+
 @endsection

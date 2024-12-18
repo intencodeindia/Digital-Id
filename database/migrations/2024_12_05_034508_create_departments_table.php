@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->id(); // Auto-increment primary key
-            $table->string('name'); // Department name
-            $table->text('description')->nullable(); // Optional description for the department
-            $table->foreignId('user_id')->constrained('users');
-            $table->timestamps(); // Created_at and updated_at timestamps
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->boolean('status')->default(true);
+            $table->integer('employee_count')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

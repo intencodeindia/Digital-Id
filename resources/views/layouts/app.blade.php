@@ -219,9 +219,13 @@
                                 </span>
                             </div>
                             <ul class="menu menu-gray-700 menu-hover-primary fw-semibold fs-5 fs-md-5 order-1 mb-5 mb-md-0">
-                                <li class="menu-item"><a href="{{ url('/about') }}" target="_blank" class="menu-link px-2">About</a></li>
-                                <li class="menu-item"><a href="{{ url('/support') }}" target="_blank" class="menu-link px-2">Support</a></li>
-                            </ul>
+    <li class="menu-item"><a href="{{ url('/about') }}" target="_blank" class="menu-link px-2">About</a></li>
+    <li class="menu-item"><a href="{{ url('/support') }}" target="_blank" class="menu-link px-2">Support</a></li>
+    <li class="menu-item"><a href="{{ url('/terms-and-conditions') }}" target="_blank" class="menu-link px-2">Terms and Conditions</a></li>
+    <li class="menu-item"><a href="{{ url('/privacy-policy') }}" target="_blank" class="menu-link px-2">Privacy Policy</a></li>
+    <li class="menu-item"><a href="{{ url('/refund-policy') }}" target="_blank" class="menu-link px-2">Refund Policy</a></li>
+</ul>
+
                         </div>
                     </div>
                 </div>

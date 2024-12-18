@@ -234,4 +234,19 @@ class HomeController extends Controller
         return view('support');
     }
 
+    public function termsAndConditions()
+{
+    return view('terms-and-conditions');
+}
+
+public function privacyPolicy()
+{
+    return view('privacy-policy');
+}
+
+public function refundPolicy()
+{
+    return view('refund-policy');
+}
+
 }

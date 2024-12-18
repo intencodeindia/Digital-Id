@@ -117,7 +117,12 @@
 
                                                 <!-- Employee Designation -->
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Designation</label>
-                                                <input type="text" name="designation" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee designation" value="{{ $employee->designation }}" required />
+                                                <select name="designation" class="form-select form-select-solid mb-3 mb-lg-0" required>
+                                                    <option value="">Select Designation</option>
+                                                    @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->id }}" {{ $employee->designation_id == $designation->id ? 'selected' : '' }}>{{ $designation->name }}</option>
+                                                    @endforeach
+                                                </select>
 
                                                 <!-- Employee Joining Date -->
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Joining Date</label>

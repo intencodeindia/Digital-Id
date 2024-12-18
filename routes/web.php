@@ -36,6 +36,10 @@ Route::get('/business-card/{username}/{id}', [HomeController::class, 'businessCa
 Route::get('/verify-email/verify/{token}', [HomeController::class, 'verifyEmail'])->name('verify.email');
 Route::get('/support', [HomeController::class, 'support'])->name('support');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/terms-and-conditions', [HomeController::class, 'termsAndConditions'])->name('terms-and-conditions');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/refund-policy', [HomeController::class, 'refundPolicy'])->name('refund-policy');
+
 // Route to show the OTP verification page
 // Route to handle OTP verification
 Route::post('/two-factor-authentication-verify', [LoginController::class, 'verifyOtp'])->name('two-factor-authentication-verify');
@@ -141,16 +145,24 @@ Route::middleware('auth')->group(function () {
 
         // Employees routes
         Route::get('/employees', [EmployeeController::class, 'index'])->name('organization.employees');
-        Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
+        Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
         Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.view');
         Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('employees.update');
+        Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
         // Departments routes
         Route::get('/departments', [DepartmentController::class, 'index'])->name('organization.departments');
-        Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
+        Route::post('/departments', [DepartmentController::class, 'store'])->name('departments.store');
+        Route::put('/departments/{department}', [DepartmentController::class, 'update'])->name('departments.update');
+        Route::post('/departments/{department}/toggle-status', [DepartmentController::class, 'toggleStatus'])->name('departments.toggle-status');
+        Route::delete('/departments/{department}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
 
         // Designations routes
         Route::get('/designations', [DesignationController::class, 'index'])->name('organization.designations');
-        Route::post('/designations/store', [DesignationController::class, 'store'])->name('designations.store');
+        Route::post('/designations', [DesignationController::class, 'store'])->name('designations.store');
+        Route::put('/designations/{designation}', [DesignationController::class, 'update'])->name('designations.update');
+        Route::delete('/designations/{designation}', [DesignationController::class, 'destroy'])->name('designations.destroy');
+        Route::post('/designations/{designation}/toggle-status', [DesignationController::class, 'toggleStatus'])->name('designations.toggle-status');
+
         // Entry logs routes
         Route::get('/entry-logs', [EntryLogController::class, 'index'])->name('organization.entry-logs');
 

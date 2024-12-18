@@ -179,26 +179,26 @@
                                                 @if($organization->border_color_top)
                                                     <div class="color-preview" 
                                                          data-color="{{ $organization->border_color_top }}" 
-                                                         style="background-color: {{ $organization->border_color_top }}">
-                                                    </div>
+                                                         style="background-color:{{ $organization->border_color_top }}"
+                                                    ></div>
                                                 @endif
                                                 @if($organization->border_color_right)
                                                     <div class="color-preview" 
                                                          data-color="{{ $organization->border_color_right }}" 
-                                                         style="background-color: {{ $organization->border_color_right }}">
-                                                    </div>
+                                                         style="background-color:{{ $organization->border_color_right }}"
+                                                    ></div>
                                                 @endif
                                                 @if($organization->border_color_bottom)
                                                     <div class="color-preview" 
                                                          data-color="{{ $organization->border_color_bottom }}" 
-                                                         style="background-color: {{ $organization->border_color_bottom }}">
-                                                    </div>
+                                                         style="background-color:{{ $organization->border_color_bottom }}"
+                                                    ></div>
                                                 @endif
                                                 @if($organization->border_color_left)
                                                     <div class="color-preview" 
                                                          data-color="{{ $organization->border_color_left }}" 
-                                                         style="background-color: {{ $organization->border_color_left }}">
-                                                    </div>
+                                                         style="background-color:{{ $organization->border_color_left }}"
+                                                    ></div>
                                                 @endif
                                             </div>
                                         </div>

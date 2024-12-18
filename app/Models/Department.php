@@ -4,24 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Department extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    // By default, Laravel assumes the primary key column is 'id'. If you want to make it explicit:
-    
-    // Define the table associated with the model
-    protected $table = 'departments';
-
-    // Define the attributes that are mass assignable
     protected $fillable = [
         'name',
-        'id',          // Department name
-        'description',   // Department description (optional)
-        'user_id'        // User ID (foreign key)
+        'description',
+        'user_id',
+        'status'
     ];
 
-    // Optionally, if you want to automatically handle timestamps, you can enable this:
-    public $timestamps = true;
+    protected $casts = [
+        'status' => 'boolean'
+    ];
+
+    // Relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

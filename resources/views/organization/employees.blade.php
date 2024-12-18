@@ -51,80 +51,153 @@
 
                 <!--begin::Card body-->
                 <div class="card-body hover-scroll-overlay-y">
-                    <form id="kt_modal_add_employee_form" class="form" action="{{ route('employees.store') }}" method="POST">
+                    <form id="kt_modal_add_employee_form" class="form" action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="fv-row mb-7">
                             <!-- Employee Name -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Name</label>
-                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee name" required />
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Employee Name</label>
+                                <input type="text" name="name" class="form-control form-control-solid" 
+                                       placeholder="Enter employee name" value="{{ old('name') }}" required />
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             <!-- Employee Email -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Email</label>
-                            <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee email" required />
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Employee Email</label>
+                                <input type="email" name="email" class="form-control form-control-solid" 
+                                       placeholder="Enter employee email" value="{{ old('email') }}" required />
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             <!-- Employee Phone -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Phone</label>
-                            <input type="tel" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee phone" required />
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Employee Phone</label>
+                                <input type="tel" name="phone" class="form-control form-control-solid" 
+                                       placeholder="Enter employee phone" value="{{ old('phone') }}" required />
+                                @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             <!-- Employee Department -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Department</label>
-                            <select name="department" class="form-select form-select-solid mb-3 mb-lg-0" required>
-                                <option value="">Select Department</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Department</label>
+                                <select name="department_id" class="form-select form-select-solid" required>
+                                    <option value="">Select Department</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                            {{ $department->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('department_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             <!-- Employee Designation -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Designation</label>
-                            <input type="text" name="designation" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee designation" required />
-
-                            <!-- Employee Joining Date -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Joining Date</label>
-                            <input type="date" name="joining_date" class="form-control form-control-solid mb-3 mb-lg-0" required />
-
-                            <!-- Employee Profile Photo -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Profile Photo</label>
-                            <input type="file" name="profile_photo" class="form-control form-control-solid mb-3 mb-lg-0" />
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Designation</label>
+                                <select name="designation_id" class="form-select form-select-solid" required>
+                                    <option value="">Select Designation</option>
+                                    @foreach ($designations as $designation)
+                                        <option value="{{ $designation->id }}" {{ old('designation_id') == $designation->id ? 'selected' : '' }}>
+                                            {{ $designation->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('designation_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             <!-- Employee ID (Optional) -->
-                            <label class="fw-semibold fs-6 mb-2">Employee ID (Optional)</label>
-                            <input type="text" name="employee_id" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee ID (Optional)" />
-
-                            <!-- Employee Password -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Password</label>
-                            <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee password" required />
-
-                            <!-- Employee Confirm Password -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Confirm Password</label>
-                            <input type="password" name="confirm_password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee confirm password" required />
-
-                            <!-- Employee Status -->
-                            <label class="required fw-semibold fs-6 mb-5">Employee Status</label>
-                            <select name="status" class="form-select form-select-solid mb-3 mb-lg-0" required>
-                                <option value="">Select Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <br>
-                            <!-- Employee Work Type (Full Time / Part Time) -->
-                            <label class="required fw-semibold fs-6 mb-2">Employee Work Type</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="work_type" id="work_type_full_time" value="Full Time" required />
-                                <label class="form-check-label" for="work_type_full_time">Full Time</label>
+                            <div class="mb-5">
+                                <label class="fw-semibold fs-6 mb-2">Employee ID (Optional)</label>
+                                <input type="text" name="employee_id" class="form-control form-control-solid" 
+                                       placeholder="Enter employee ID" value="{{ old('employee_id') }}" />
+                                @error('employee_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="work_type" id="work_type_part_time" value="Part Time" required />
-                                <label class="form-check-label" for="work_type_part_time">Part Time</label>
+
+                            <!-- Joining Date -->
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Joining Date</label>
+                                <input type="date" name="joining_date" class="form-control form-control-solid" 
+                                       value="{{ old('joining_date') }}" required />
+                                @error('joining_date')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Profile Photo -->
+                            <div class="mb-5">
+                                <label class="fw-semibold fs-6 mb-2">Profile Photo</label>
+                                <input type="file" name="profile_photo" class="form-control form-control-solid" 
+                                       accept="image/*" />
+                                @error('profile_photo')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Password</label>
+                                <input type="password" name="password" class="form-control form-control-solid" 
+                                       placeholder="Enter password" required />
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Status -->
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Status</label>
+                                <select name="status" class="form-select form-select-solid" required>
+                                    <option value="">Select Status</option>
+                                    <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                                @error('status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Work Type -->
+                            <div class="mb-5">
+                                <label class="required fw-semibold fs-6 mb-2">Work Type</label>
+                                <div class="d-flex gap-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="work_type" 
+                                               value="Full Time" {{ old('work_type') == 'Full Time' ? 'checked' : '' }} required />
+                                        <label class="form-check-label">Full Time</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="work_type" 
+                                               value="Part Time" {{ old('work_type') == 'Part Time' ? 'checked' : '' }} required />
+                                        <label class="form-check-label">Part Time</label>
+                                    </div>
+                                </div>
+                                @error('work_type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="text-center pt-10">
-                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" data-kt-organizations-modal-action="submit">
+                        <div class="text-center pt-15">
+                            <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">
+                                Discard
+                            </button>
+                            <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                 <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                <span class="indicator-progress">
+                                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                 </span>
                             </button>
                         </div>
@@ -148,7 +221,7 @@
                 </div>
                 <div class="card-body pt-0">
                     <div id="kt_subscriptions_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
-                        <div id="" class="table-responsive">
+                        <div class="table-responsive">
                             <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_subscriptions_table" style="width: 100%;">
                                 <colgroup>
                                     <col data-dt-column="0">
@@ -185,7 +258,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="../customers/view.html" class="text-gray-800 text-hover-primary mb-1">{{ $employee->name }}</a>
+                                            <a href="{{ route('employees.view', $employee->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $employee->name }}</a>
                                         </td>
                                         <td>
                                             <div class="badge {{ $employee->status == 1 ? 'badge-light-success' : 'badge-light-danger' }}">
@@ -194,19 +267,19 @@
                                         </td>
 
                                         <td>
-                                            <div class="badge badge-light">{{ $employee->department }}</div>
+                                            <div class="badge badge-light">{{ $employee->department->name }}</div>
                                         </td>
                                         <td>
-                                            {{ $employee->designation }}
+                                            {{ $employee->designation->name }}
                                         </td>
-                                        <td data-order="2024-11-10T00:00:00+05:30">
+                                        <td data-order="{{ date('Y-m-d', strtotime($employee->joining_date)) }}">
                                             {{ date('d-m-Y', strtotime($employee->joining_date)) }}
                                         </td>
                                         <td>
                                             {{ $employee->work_type }}
                                         </td>
                                         <td class="text-end">
-                                            <a href="{{ route('employees.view', $employee->id) }}" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                            <a href="{{ route('employees', $employee->id) }}" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                 <i class="ki-duotone ki-eye fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                 <span class="ms-1">View</span>
                                             </a>
@@ -224,3 +297,64 @@
     </div>
 </div>
 @endsection
+
+<script>
+$('#kt_modal_add_employee_form').on('submit', function(e) {
+    e.preventDefault();
+    const form = $(this);
+    const submitBtn = form.find('button[type="submit"]');
+    
+    $.ajax({
+        url: "{{ route('employees.store') }}",
+        type: 'POST',
+        data: new FormData(this),
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+            submitBtn.attr('disabled', true)
+                .find('.indicator-label').hide()
+                .end()
+                .find('.indicator-progress').show();
+            // Clear previous errors
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').text('');
+        },
+        success: function(response) {
+            if (response.success) {
+                // Show success message
+                toastr.success(response.message);
+                
+                // Reset form
+                form[0].reset();
+                
+                // Close drawer
+                $('#kt_drawer_example_permanent').hide();
+                $('body').removeClass('drawer-on');
+                $('.drawer-overlay').remove();
+                
+                // Reload table
+                location.reload();
+            }
+        },
+        error: function(xhr) {
+            if (xhr.status === 422) {
+                const errors = xhr.responseJSON.errors;
+                Object.keys(errors).forEach(function(key) {
+                    const input = $(`[name="${key}"]`);
+                    input.addClass('is-invalid');
+                    input.siblings('.invalid-feedback').text(errors[key][0]);
+                });
+                toastr.error('Please check the form for errors');
+            } else {
+                toastr.error('Error adding employee. Please try again.');
+            }
+        },
+        complete: function() {
+            submitBtn.attr('disabled', false)
+                .find('.indicator-label').show()
+                .end()
+                .find('.indicator-progress').hide();
+        }
+    });
+});
+</script>

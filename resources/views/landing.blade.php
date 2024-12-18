@@ -147,7 +147,7 @@
                 </div>
             </div>
             <div class="mt-5 mt-lg-n20 z-index-2">
-                <div class="pt-lg-20 mb-15 ">
+                <div class="pt-lg-20 mb-15">
                     <div class="container px-0">
                         <div class="d-flex flex-column container pt-lg-20">
                             <h1 class="fs-lg-2tx fs-2x fw-bold text-gray-900 mb-7 mb-lg-13 text-center" id="pricing" data-kt-scroll-offset="{default: 100, lg: 150}">
@@ -159,162 +159,158 @@
                                 </span>
                             </h1>
                             <div class="text-center" id="kt_pricing">
-                                <div class="rounded-1 d-inline-flex p-1 mb-10" data-kt-buttons="true" style="border: 1px dashed rgba(64, 61, 56, 0.2);">
-                                    <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold py-2 fs-6 px-5 me-2 active" data-kt-plan="month">
-                                        Monthly
-                                    </a>
-                                    <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold fs-5 py-2 px-5" data-kt-plan="annual">
-                                        Annual
-                                    </a>
-                                </div>
-                                <div class="row g-5 g-lg-10 mx-20">
-                                    <div class="col-xl-4">
-                                        <div class="d-flex h-100 align-items-center">
-                                            <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: #e7f1f9;">
-                                                <div class="mb-7 text-center">
-                                                    <h1 class="text-gray-900 mb-5 fw-bolder">Startup</h1>
-                                                    <div class="text-gray-500 fw-semibold mb-5">
-                                                        Best Settings for Startups
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <span class="mb-2 text-primary">$</span>
-                                                        <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="99" data-kt-plan-price-annual="999">
-                                                            99 </span>
-                                                        <span class="fs-7 fw-semibold opacity-50" data-kt-plan-price-month="Mon" data-kt-plan-price-annual="Ann">/
-                                                            Mon </span>
-                                                    </div>
-                                                </div>
-                                                <div class="w-100 mb-10">
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Up to 10 Active Users </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Up to 30 Project Integrations </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600">
-                                                            Keen Analytics Platform </span>
-                                                        <i class="ki-duotone ki-cross-circle fs-2 text-gray-500"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600">
-                                                            Targets Timelines & Files </span>
-                                                        <i class="ki-duotone ki-cross-circle fs-2 text-gray-500"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack ">
-                                                        <span class="fw-semibold fs-6 text-gray-600">
-                                                            Unlimited Projects </span>
-                                                        <i class="ki-duotone ki-cross-circle fs-2 text-gray-500"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="btn btn-primary btn-sm fw-bold rounded-1">Select</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4">
-                                        <div class="d-flex h-100 align-items-center">
-                                            <div class="w-100 d-flex flex-column flex-center rounded py-20 px-10" style="background-color: #9727ff;">
-                                                <div class="mb-7 text-center">
-                                                    <h1 class="text-white mb-5 fw-bolder">Business</h1>
-                                                    <div class="text-white opacity-75 fw-semibold mb-5">
-                                                        Best Settings for Business
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <span class="mb-2 text-white">$</span>
-                                                        <span class="fs-3x fw-bold" style="color: #92fbaa;" data-kt-plan-price-month="199" data-kt-plan-price-annual="1999">
-                                                            199 </span>
-                                                        <span class="fs-7 fw-semibold text-white opacity-75" data-kt-plan-price-month="Mon" data-kt-plan-price-annual="Ann">/
-                                                            Mon </span>
-                                                    </div>
-                                                </div>
-                                                <div class="w-100 mb-10">
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-white opacity-75 text-start pe-3">
-                                                            Up to 10 Active Users </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-white"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-white opacity-75 text-start pe-3">
-                                                            Up to 30 Project Integrations </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-white"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-white opacity-75 text-start pe-3">
-                                                            Keen Analytics Platform </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-white"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-white opacity-75 text-start pe-3">
-                                                            Targets Timelines & Files </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-white"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack ">
-                                                        <span class="fw-semibold fs-6 text-white opacity-75">
-                                                            Unlimited Projects </span>
-                                                        <i class="ki-duotone ki-cross-circle fs-2 text-white"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="btn btn-color-primary btn-sm fw-bold btn-white rounded-1">Select</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4">
-                                        <div class="d-flex h-100 align-items-center">
-                                            <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: #e7f1f9;">
-                                                <div class="mb-7 text-center">
-                                                    <h1 class="text-gray-900 mb-5 fw-bolder">Enterprise</h1>
-                                                    <div class="text-gray-500 fw-semibold mb-5">
-                                                        Best Settings for Enterprise
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <span class="mb-2 text-primary">$</span>
-                                                        <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="999" data-kt-plan-price-annual="9999">
-                                                            999 </span>
-                                                        <span class="fs-7 fw-semibold opacity-50" data-kt-plan-price-month="Mon" data-kt-plan-price-annual="Ann">/
-                                                            Mon </span>
-                                                    </div>
-                                                </div>
-                                                <div class="w-100 mb-10">
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Up to 10 Active Users </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Up to 30 Project Integrations </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Keen Analytics Platform </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack mb-5">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Targets Timelines & Files </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <div class="d-flex flex-stack ">
-                                                        <span class="fw-semibold fs-6 text-gray-600 text-start pe-3">
-                                                            Unlimited Projects </span>
-                                                        <i class="ki-duotone ki-check-circle fs-2 text-primary"><span class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="btn btn-primary btn-sm fw-bold rounded-1">Select</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="rounded-1 d-inline-flex p-1 mb-10" data-kt-buttons="true" style="border: 1px dashed rgba(64, 61, 56, 0.2);">
+        <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold py-2 fs-6 px-5 me-2 active" data-kt-plan="month" id="monthlyBtn">
+            Monthly
+        </a>
+        <a href="#" class="btn btn-color-dark btn-sm btn-active btn-active-primary rounded-1 fw-bold fs-5 py-2 px-5" data-kt-plan="annual" id="annualBtn">
+            Annual
+        </a>
+    </div>
+    <div class="row g-5 g-lg-10 mx-20" id="pricingPlans"></div>
+</div>
+
+<script>
+    // Pricing data with feature availability
+    const pricingData = [
+        {
+            name: "Personal",
+            monthlyPrice: 49,
+            annualPrice: 499,
+            features: [
+                { name: "Business card", available: true },
+                { name: "Digital card", available: true },
+                { name: "Document management", available: true },
+                { name: "Family management", available: false },
+                { name: "Service management", available: true },
+                { name: "Appointment", available: false },
+                { name: "Portfolio", available: true },
+                { name: "Public portfolio", available: true },
+                { name: "Employees Management", available: false },
+                { name: "Lead Management", available: true },
+                { name: "Access Log", available: true }
+            ],
+        },
+        {
+            name: "Business",
+            monthlyPrice: 99,
+            annualPrice: 999,
+            features: [
+                { name: "Business card", available: true },
+                { name: "Digital card", available: true },
+                { name: "Document management", available: true },
+                { name: "Family management", available: true },
+                { name: "Service management", available: true },
+                { name: "Appointment", available: true },
+                { name: "Portfolio", available: true },
+                { name: "Public portfolio", available: true },
+                { name: "Employees Management", available: true },
+                { name: "Lead Management", available: true },
+                { name: "Access Log", available: true },
+                { name: "Department Management", available: true },
+                { name: "Access Permission Management", available: true },
+                { name: "Designation Management", available: true }
+            ],
+        },
+        {
+            name: "Enterprise",
+            monthlyPrice: 199,
+            annualPrice: 1999,
+            features: [
+                { name: "Business card", available: true },
+                { name: "Digital card", available: true },
+                { name: "Document management", available: true },
+                { name: "Family management", available: true },
+                { name: "Service management", available: true },
+                { name: "Appointment", available: true },
+                { name: "Portfolio", available: true },
+                { name: "Public portfolio", available: true },
+                { name: "Employees Management", available: true },
+                { name: "Lead Management", available: true },
+                { name: "Access Log", available: true },
+                { name: "Department Management", available: true },
+                { name: "Access Permission Management", available: true },
+                { name: "Designation Management", available: true }
+            ],
+        }
+    ];
+
+    // Function to generate the pricing plans
+    function generatePlans(isAnnual) {
+        const pricingPlansContainer = document.getElementById('pricingPlans');
+        pricingPlansContainer.innerHTML = '';  // Clear the container
+
+        pricingData.forEach(plan => {
+            const planContainer = document.createElement('div');
+            planContainer.classList.add('col-xl-4');
+
+            // Check if the plan is 'Personal' or 'Enterprise' to use the same color
+            const backgroundColor = (plan.name === 'Personal' || plan.name === 'Enterprise') ? '#e7f1f9' : '#9727ff';
+            const textColor = (plan.name === 'Personal' || plan.name === 'Enterprise') ? 'gray' : 'white';
+
+            const planHTML = `
+                <div class="d-flex h-100 align-items-center">
+                    <div class="w-100 d-flex flex-column flex-center rounded-3 py-15 px-10" style="background-color: ${backgroundColor};">
+                        <div class="mb-7 text-center">
+                            <h1 class="text-${textColor}-900 mb-5 fw-bolder">${plan.name}</h1>
+                            <div class="text-${textColor}-500 fw-semibold mb-5">
+                                Best Settings for ${plan.name} Use
                             </div>
+                            <div class="text-center">
+                                <span class="mb-2 text-${textColor}">₹</span>
+                                <span class="fs-3x fw-bold text-${textColor}" id="planPrice${plan.name}">
+                                    ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                                </span>
+                                <span class="fs-7 fw-semibold opacity-50" id="planDuration${plan.name}">
+                                    / ${isAnnual ? 'Ann' : 'Mon'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-10">
+                            ${plan.features.map(feature => `
+                                <div class="d-flex flex-stack mb-5">
+                                    <span class="fw-semibold fs-6 text-${textColor}-600 text-start pe-3">${feature.name}</span>
+                                    <i class="ki-duotone ki-${feature.available ? 'check-circle' : 'cross-circle'} fs-2 text-${textColor}">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <a href="#" class="btn btn-primary btn-sm fw-bold rounded-1">Select</a>
+                    </div>
+                </div>
+            `;
+            planContainer.innerHTML = planHTML;
+            pricingPlansContainer.appendChild(planContainer);
+        });
+    }
+
+    // Toggle between monthly and annual pricing
+    document.getElementById('monthlyBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        generatePlans(false);
+        document.getElementById('monthlyBtn').classList.add('active');
+        document.getElementById('annualBtn').classList.remove('active');
+    });
+
+    document.getElementById('annualBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        generatePlans(true);
+        document.getElementById('annualBtn').classList.add('active');
+        document.getElementById('monthlyBtn').classList.remove('active');
+    });
+
+    // Initialize with Monthly Pricing
+    generatePlans(false);
+</script>
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="d-flex flex-column flex-xl-row">
                 <div class="card bg-body mb-9 mb-xl-0 me-lg-9">
                     <div class="card-body">
