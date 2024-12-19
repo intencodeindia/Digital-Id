@@ -11,11 +11,45 @@
 
     <style>
         :root {
-            --border-top: {{ $organization->border_color_top ?? '#fbd45c' }};
-            --border-right: {{ $organization->border_color_right ?? '#010409' }};
-            --border-bottom: {{ $organization->border_color_bottom ?? '#010409' }};
-            --border-left: {{ $organization->border_color_left ?? '#fbd45c' }};
-            --bg-color: {{ $organization->background_color ?? '#ffffff' }};
+            --border-top: {
+                    {
+                    $organization->border_color_top ?? '#fbd45c'
+                }
+            }
+
+            ;
+
+            --border-right: {
+                    {
+                    $organization->border_color_right ?? '#010409'
+                }
+            }
+
+            ;
+
+            --border-bottom: {
+                    {
+                    $organization->border_color_bottom ?? '#010409'
+                }
+            }
+
+            ;
+
+            --border-left: {
+                    {
+                    $organization->border_color_left ?? '#fbd45c'
+                }
+            }
+
+            ;
+
+            --bg-color: {
+                    {
+                    $organization->background_color ?? '#ffffff'
+                }
+            }
+
+            ;
         }
 
         body {
@@ -210,20 +244,20 @@
                             </div>
                         </div>
                         <div class="right-section">
-                            <img class="profile-photo" 
-                                 src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('assets/media/avatars/300-1.webp') }}" 
-                                 alt="Profile Photo">
-                            <img class="org-logo" 
-                                 src="{{ $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}" 
-                                 alt="{{ $organization->name }}">
+                            <img class="profile-photo"
+                                src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('assets/media/avatars/300-1.webp') }}"
+                                alt="Profile Photo">
+                            <img class="org-logo"
+                                src="{{ $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}"
+                                alt="{{ $organization->name }}">
                         </div>
                     </div>
                 </div>
 
                 <div class="back">
-                    <img class="qr-code" 
-                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? $userDetails->website ?? 'https://proffid.com/' }}" 
-                         alt="QR Code">
+                    <img class="qr-code"
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? $userDetails->website ?? 'https://proffid.com/' }}"
+                        alt="QR Code">
                     <p class="scan-text">Scan to connect</p>
                 </div>
             </div>

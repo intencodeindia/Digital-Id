@@ -8,6 +8,7 @@ use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use App\Models\VcardDetail;
 use App\Models\Document;
+use App\Models\CustomOrganization;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\GeneralHtmlEmail;
 use Illuminate\Support\Facades\Mail;
@@ -28,6 +29,20 @@ class ProfileController extends Controller
         // $designations = Designation::where('organization_id', $user->id)->get();
 
         return view('public-portfolio', ['user' => $user, 'services' => $services, 'portfolios' => $portfolios, 'userDetails' => $userDetails, 'vcardDetails' => $vcardDetails]);
+    }
+    public function companyProfile($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        $services = Service::where('user_id', $user->id)->get();
+        $portfolios = Portfolio::where('user_id', $user->id)->get();
+        $userDetails = User::find($user->id);
+        $vcardDetails = VcardDetail::where('user_id', $user->id)->first();
+        $organization = CustomOrganization::where('created_by', $user->id)->first();
+        // $employees = User::where('organization_id', $user->id)->get();
+        // $departments = Department::where('organization_id', $user->id)->get();
+        // $designations = Designation::where('organization_id', $user->id)->get();
+
+        return view('public-portfolio-company', ['user' => $user, 'services' => $services, 'portfolios' => $portfolios, 'userDetails' => $userDetails, 'vcardDetails' => $vcardDetails, 'organization' => $organization]);
     }
 
     public function profile()

@@ -49,7 +49,7 @@
                                         <!-- Address Field -->
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address" name="address" required>
+                                            <input type="text" class="form-control" id="address" name="address" required maxlength="70">
                                             <input type="hidden" class="form-control" id="created_by" name="created_by" value="{{ $user->id }}">
                                         </div>
 
@@ -165,7 +165,7 @@
                                         <!-- Address Field -->
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address" name="address" value="{{ $organization->address }}" required>
+                                            <input type="text" class="form-control" id="address" name="address" value="{{ $organization->address }}" required maxlength="70">
                                         </div>
 
                                         <!-- Image Colors Selection -->

@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Business Card</title>
+    <title>Company Business Card</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --border-top: {{ $organization->border_color_top ?? '#fbd45c' }};
-            --border-right: {{ $organization->border_color_right ?? '#010409' }};
-            --border-bottom: {{ $organization->border_color_bottom ?? '#010409' }};
-            --border-left: {{ $organization->border_color_left ?? '#fbd45c' }};
-            --bg-color: {{ $organization->background_color ?? '#ffffff' }};
+            --border-top: {{ $organization->border_color_top ?? '#fbd45c' }}; 
+            --border-right: {{ $organization->border_color_right ?? '#010409' }}; 
+            --border-bottom: {{ $organization->border_color_bottom ?? '#010409' }}; 
+            --border-left: {{ $organization->border_color_left ?? '#fbd45c' }}; 
+            --bg-color: {{ $organization->background_color ?? '#ffffff' }}; 
         }
 
         body {
@@ -52,7 +52,7 @@
             height: 100%;
             backface-visibility: hidden;
             border-radius: 15px;
-            padding: 15px 20px;
+            padding: 10px 10px;
             background-color: var(--bg-color);
             border-width: 5px;
             border-style: solid;
@@ -71,13 +71,16 @@
         .card-content {
             display: flex;
             height: 100%;
+            flex-direction: row;
         }
 
         .left-section {
-            flex: 2.5;
-            padding-right: 20px;
+            flex: 2;
+            padding-right: 10px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .profile-info {
@@ -85,34 +88,28 @@
         }
 
         .right-section {
-            flex: 1;
+            flex: 3;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             gap: 12px;
-            padding-left: 20px;
+            padding-left: 10px;
             border-left: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .profile-photo {
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--border-top);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-        }
-
         .org-logo {
-            width: 90px;
+            width: 130px;
             height: auto;
             object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
             color: #1a1a1a;
             margin: 0;
         }
@@ -122,6 +119,13 @@
             color: #666;
             margin: 3px 0 12px;
             font-weight: 500;
+        }
+
+        .company-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--border-top);
+            margin: 0 0 5px;
         }
 
         .contact-info {
@@ -138,9 +142,6 @@
             text-decoration: none;
             font-size: 11px;
             transition: all 0.3s ease;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             line-height: 1.2;
         }
 
@@ -154,9 +155,18 @@
             color: var(--border-top);
             font-size: 12px;
             text-align: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item span {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-word;
         }
 
         .qr-code {
+            margin-top: 3rem;
             width: 120px;
             height: 120px;
             padding: 8px;
@@ -172,6 +182,13 @@
             font-weight: 500;
             letter-spacing: 0.5px;
         }
+
+        .company-info {
+            font-size: 10px;
+            color: #888;
+            text-align: center;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
@@ -182,10 +199,14 @@
                 <div class="front">
                     <div class="card-content">
                         <div class="left-section">
-                            <div class="profile-info">
-                                <h1 class="name">{{ $userDetails->name }}</h1>
-                                <p class="title">{{ $userDetails->title }}</p>
-                            </div>
+                            <img class="org-logo" 
+                                 src="{{ $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}" 
+                                 alt="{{ $organization->name }}">
+                            <small class="fs-sm-1">{{ $organization->name }}</small> <!-- Organization Name -->
+                        </div>
+                        <div class="right-section">
+                        <p class="title">{{ $userDetails->title }}</p> <!-- Title -->
+
                             <div class="contact-info">
                                 <a href="mailto:{{ $userDetails->email }}" class="contact-item">
                                     <i class="fas fa-envelope"></i>
@@ -195,36 +216,29 @@
                                     <i class="fas fa-phone"></i>
                                     <span>{{ $userDetails->phone }}</span>
                                 </a>
-                                @if($userDetails->website)
-                                <a href="{{ $userDetails->website }}" target="_blank" class="contact-item">
+                                @if($organization->website)
+                                <a href="{{ $organization->website }}" target="_blank" class="contact-item">
                                     <i class="fas fa-globe"></i>
-                                    <span>{{ $userDetails->website }}</span>
+                                    <span>{{ $organization->website }}</span>
                                 </a>
                                 @endif
-                                @if($userDetails->address)
+                                @if($organization->address)
                                 <div class="contact-item">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $userDetails->address }}</span>
+                                    <span>{{ $organization->address }}</span>
                                 </div>
                                 @endif
                             </div>
                         </div>
-                        <div class="right-section">
-                            <img class="profile-photo" 
-                                 src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('assets/media/avatars/300-1.webp') }}" 
-                                 alt="Profile Photo">
-                            <img class="org-logo" 
-                                 src="{{ $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}" 
-                                 alt="{{ $organization->name }}">
-                        </div>
                     </div>
                 </div>
 
-                <div class="back">
+                <div class="back pb-3">
                     <img class="qr-code" 
-                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? $userDetails->website ?? 'https://proffid.com/' }}" 
+                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? 'https://proffid.com/' }}" 
                          alt="QR Code">
                     <p class="scan-text">Scan to connect</p>
+                    <p class="company-info">{{ $organization->description }}</p> <!-- Company Info -->
                 </div>
             </div>
         </div>

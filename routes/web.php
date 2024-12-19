@@ -27,6 +27,7 @@ Route::get('/', function () {
 })->middleware('guest');
 
 Route::get('/in/{username}', [ProfileController::class, 'publicProfile'])->name('public.profile');
+Route::get('/company/{username}', [ProfileController::class, 'companyProfile'])->name('company.profile');
 Route::post('/in/{username}/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 Route::post('/in/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/card/{username}', [HomeController::class, 'card'])->name('card');
@@ -72,6 +73,12 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
     Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
+
+    Route::get('/organizations', [CustomOrganizationController::class, 'index'])->name('user.organizations');
+    Route::post('/organization/store', [CustomOrganizationController::class, 'store'])->name('user.organization.store');
+    Route::get('/organization/view/{id}', [CustomOrganizationController::class, 'show'])->name('user.organization.view');
+    Route::put('/organization/update/{id}', [CustomOrganizationController::class, 'update'])->name('user.organization.update');
+    Route::delete('/organization/delete/{id}', [CustomOrganizationController::class, 'destroy'])->name('user.organization.delete');
     // Admin routes
     Route::middleware(['role:admin', 'auth'])->prefix('admin')->group(function () {
         Route::get('/dashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
@@ -90,12 +97,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/subscription', function () {
             return view('user.subscription');
         });
-
-        Route::get('/organizations', [CustomOrganizationController::class, 'index'])->name('user.organizations');
-        Route::post('/organization/store', [CustomOrganizationController::class, 'store'])->name('user.organization.store');
-        Route::get('/organization/view/{id}', [CustomOrganizationController::class, 'show'])->name('user.organization.view');
-        Route::put('/organization/update/{id}', [CustomOrganizationController::class, 'update'])->name('user.organization.update');
-        Route::delete('/organization/delete/{id}', [CustomOrganizationController::class, 'destroy'])->name('user.organization.delete');
         // Document management
         Route::controller(DocumentController::class)->prefix('documents')->name('user.documents')->group(function () {
             Route::get('/', 'index');

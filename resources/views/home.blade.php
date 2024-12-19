@@ -33,6 +33,16 @@
                             <span>Share your amazing portfolio with others</span>
                         </div>
                         <div class="d-flex flex-column flex-sm-row gap-2">
+                            @if(Auth::user()->hasRole('organization'))
+                            <a href="{{ url('company/'.Auth::user()->username) }}" target="_blank" class="btn btn-sm hover-scale flex-shrink-0 w-100 w-sm-auto">
+                                <i class="ki-duotone ki-eye fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                <span class="ms-1">View Portfolio</span>
+                            </a>
+                            <a href="#" onclick="sharePortfolio('{{ url('company/'.Auth::user()->username) }}')" target="_blank" class="btn btn-md hover-scale flex-shrink-0 w-100 w-sm-auto">
+                                <i class="ki-duotone ki-send fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                <span class="ms-1">Share Portfolio</span>
+                            </a>
+                            @else
                             <a href="{{ url('in/'.Auth::user()->username) }}" target="_blank" class="btn btn-sm hover-scale flex-shrink-0 w-100 w-sm-auto">
                                 <i class="ki-duotone ki-eye fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                 <span class="ms-1">View Portfolio</span>
@@ -41,6 +51,7 @@
                                 <i class="ki-duotone ki-send fs-info fs-1 fw-bold text-dark"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                 <span class="ms-1">Share Portfolio</span>
                             </a>
+                            @endif
                             <script>
                                 function sharePortfolio(url) {
                                     if (navigator.share) {
@@ -127,7 +138,7 @@
             </div>
         </div>
         <!--end::Row-->
-      
+
     </div>
     <!--end::Content container-->
 </div>
