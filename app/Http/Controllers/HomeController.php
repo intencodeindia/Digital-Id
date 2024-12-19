@@ -141,6 +141,30 @@ class HomeController extends Controller
         return view('user.business-card', compact('userDetails'));
     }
 
+    public function organizationIdCard()
+    {
+
+        $user = Auth::user();
+        $organizations = CustomOrganization::where('created_by', $user->id)->get();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+
+        return view('user.organization-id-card', compact('organizations', 'userDetails'));
+    }
+
+    public function businessCardCompany($username)
+    {
+        $user = User::where('username', $username)->first();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+        $organization = CustomOrganization::where('created_by', $user->id)->first();
+        return view('user.business-card-company', compact('userDetails', 'organization'));
+    }
+
     public function businessIdCard()
     {
         $user = Auth::user();

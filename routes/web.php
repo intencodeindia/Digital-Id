@@ -65,8 +65,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/digital-id', [HomeController::class, 'digitalId'])->name('digital-id');
     Route::get('/digital-id/{id}', [HomeController::class, 'digitalId'])->name('digital-id');
     Route::get('/business-id-card', [HomeController::class, 'businessIdCard'])->name('business-id-card');
+    Route::get('/organization-id-card', [HomeController::class, 'organizationIdCard'])->name('organization-id-card');
+    Route::get('/company-business-card/{username}', [HomeController::class, 'businessCardCompany'])->name('company-business-card');
     Route::get('/business-id-card/{id}', [HomeController::class, 'businessIdCard'])->name('business-id-card.show');
     Route::get('/business-card/{username}/{organizationId}', [HomeController::class, 'businessCardOrg'])->name('business-card.org');
+    
     Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
     Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
     // Admin routes
@@ -116,7 +119,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/view/{id}', 'show')->name('.show');
             Route::get('/delete/{id}', 'destroy')->name('.destroy');
             Route::put('/update/{id}', 'update')->name('.update');
-        });
+        }); 
 
         // Portfolio management
         Route::controller(PortfolioController::class)->prefix('portfolio')->name('user.portfolio')->group(function () {
@@ -126,6 +129,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/delete/{id}', 'destroy')->name('.destroy');
             Route::put('/update/{id}', 'update')->name('.update');
         });
+
 
         // Appointment settings
         Route::controller(AppointmentSettingController::class)->prefix('appointment')->name('appointment.settings')->group(function () {
