@@ -232,10 +232,13 @@
                         </div>
                     </div>
                 </div>
+                @php
+                $qrCodeUrl = url('/company/'.$userDetails->username);
+                @endphp
 
                 <div class="back pb-3">
                     <img class="qr-code" 
-                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? 'https://proffid.com/' }}" 
+                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $qrCodeUrl }}" 
                          alt="QR Code">
                     <p class="scan-text">Scan to connect</p>
                     <p class="company-info">{{ $organization->description }}</p> <!-- Company Info -->

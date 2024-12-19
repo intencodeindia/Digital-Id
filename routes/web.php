@@ -16,6 +16,7 @@ use App\Http\Controllers\{
     ContactController,
     DepartmentController,
     LeadController,
+    PaymentController,
     EntryLogController,
     Auth\LoginController,
     Auth\RegisterController
@@ -40,6 +41,20 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/terms-and-conditions', [HomeController::class, 'termsAndConditions'])->name('terms-and-conditions');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/refund-policy', [HomeController::class, 'refundPolicy'])->name('refund-policy');
+
+//payment routes
+
+//PAYMENT FORM
+Route::get('payment', [\App\Http\Controllers\PaymentController::class, 'index'])->name('payment');
+
+//SUBMIT PAYMENT FORM ROUTE
+Route::post('pay-now', [\App\Http\Controllers\PaymentController::class, 'submitPaymentForm'])->name('pay-now');
+
+//CALLBACK ROUTE
+Route::post('confirm', [\App\Http\Controllers\PaymentController::class, 'confirmPayment'])
+    ->name('confirm')
+    ->withoutMiddleware(['web']);
+
 
 // Route to show the OTP verification page
 // Route to handle OTP verification
@@ -70,7 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/company-business-card/{username}', [HomeController::class, 'businessCardCompany'])->name('company-business-card');
     Route::get('/business-id-card/{id}', [HomeController::class, 'businessIdCard'])->name('business-id-card.show');
     Route::get('/business-card/{username}/{organizationId}', [HomeController::class, 'businessCardOrg'])->name('business-card.org');
-    
+
     Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
     Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
 
@@ -120,7 +135,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/view/{id}', 'show')->name('.show');
             Route::get('/delete/{id}', 'destroy')->name('.destroy');
             Route::put('/update/{id}', 'update')->name('.update');
-        }); 
+        });
 
         // Portfolio management
         Route::controller(PortfolioController::class)->prefix('portfolio')->name('user.portfolio')->group(function () {
