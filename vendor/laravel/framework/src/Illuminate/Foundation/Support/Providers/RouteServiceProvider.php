@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route; // Correct reference to Route facade
 use Illuminate\Support\Traits\ForwardsCalls;
 
 /**
@@ -73,7 +74,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Any boot logic can go here
     }
 
     /**
@@ -142,7 +143,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         if (! is_null(self::$alwaysLoadCachedRoutesUsing)) {
             $this->app->call(self::$alwaysLoadCachedRoutesUsing);
-
             return;
         }
 
@@ -170,6 +170,31 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
+     * Map the API routes.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes()
+    {
+        Route::prefix('api-v1-dev') // Define API prefix
+            ->middleware('api') // Apply API middleware
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php')); // Point to the api.php file for routes
+    }
+
+    /**
+     * Map the web routes.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web') // Apply web middleware
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php')); // Point to the web.php file for routes
+    }
+
+    /**
      * Pass dynamic methods onto the router instance.
      *
      * @param  string  $method
@@ -181,5 +206,16 @@ class RouteServiceProvider extends ServiceProvider
         return $this->forwardCallTo(
             $this->app->make(Router::class), $method, $parameters
         );
+    }
+
+    /**
+     * Map both API and Web routes.
+     *
+     * @return void
+     */
+    public function map()
+    {
+        $this->mapApiRoutes(); // Map API routes
+        $this->mapWebRoutes(); // Map web routes
     }
 }
