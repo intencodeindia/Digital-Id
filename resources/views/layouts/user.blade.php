@@ -222,28 +222,14 @@
                                                                 </i>
                                                             </span>
                                                             <span class="d-flex flex-column">
-                                                                <span class="fs-6 fw-bold text-gray-800">Organization Card</span>
-                                                                <span class="fs-7 fw-semibold text-muted">Manage your organization's digital ID</span>
+                                                                <span class="fs-6 fw-bold text-gray-800">Business Card</span>
+                                                                <span class="fs-7 fw-semibold text-muted">Manage your Business's digital ID</span>
                                                             </span>
                                                         </a>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-lg-12 mb-3">
-                                                    <div class="menu-item p-0 m-0">
-                                                        <a href="/business-id-card" class="menu-link">
-                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
-                                                                <i class="ki-duotone ki-abstract-26 text-primary fs-1">
-                                                                    <span class="path1"></span><span class="path2"></span>
-                                                                </i>
-                                                            </span>
-                                                            <span class="d-flex flex-column">
-                                                                <span class="fs-6 fw-bold text-gray-800">Business Card</span>
-                                                                <span class="fs-7 fw-semibold text-muted">View your business card</span>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                               
                                                 @elseif(Auth::user()->hasRole('user'))
                                                 <!-- If the user is a regular user, show Digital ID and Business Card -->
                                                 <div class="col-lg-12 mb-3">
