@@ -19,7 +19,8 @@ use App\Http\Controllers\{
     PaymentController,
     EntryLogController,
     Auth\LoginController,
-    Auth\RegisterController
+    Auth\RegisterController,
+    OAuth\AuthController
 };
 
 // Public routes
@@ -202,4 +203,13 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::put('/profile/update-banner', [ProfileController::class, 'updateBanner'])->name('profile.update.banner');
+});
+
+// OAuth routes
+Route::prefix('oauth')->group(function () {
+    Route::get('/authorize', [AuthController::class, 'authorize'])->name('oauth.authorize');
+    Route::post('/token', [AuthController::class, 'token'])->name('oauth.token');
+    Route::get('/userinfo', [AuthController::class, 'userInfo'])
+        ->middleware('auth:api')
+        ->name('oauth.userinfo');
 });
