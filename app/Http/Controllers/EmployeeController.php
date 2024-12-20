@@ -14,6 +14,9 @@ use Illuminate\Support\Str;
 use App\Models\Lead;
 use App\Models\EntryLog;
 use App\Models\EntryPermission;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\GeneralHtmlEmail;
+
 
 class EmployeeController extends Controller
 {
@@ -41,19 +44,19 @@ class EmployeeController extends Controller
             'joining_date' => 'required|date',
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'employee_id' => 'nullable|string|unique:employees,employee_id',
-            'password' => 'required|string|min:8',
             'status' => 'required|boolean',
             'work_type' => 'required|in:Full Time,Part Time'
         ]);
 
         try {
             DB::beginTransaction();
-
             // Handle profile photo
             $profilePhotoPath = null;
             if ($request->hasFile('profile_photo')) {
-                $profilePhotoPath = $request->file('profile_photo')
-                    ->store('uploads/employees', 'public');
+                $photo = $request->file('profile_photo');
+                $filename = time() . '.' . $photo->getClientOriginalExtension();
+                $photo->move(public_path('uploads/avatars'), $filename);
+                $profilePhotoPath = $filename;
             }
 
             // Generate username from email
@@ -67,13 +70,14 @@ class EmployeeController extends Controller
                 $counter++;
             }
 
+            $password = Str::random(10);
             // Create user
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'username' => $username,
                 'phone' => $request->phone,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($password),
                 'status' => $request->status,
                 'role' => 'employee',
                 'profile_photo' => $profilePhotoPath,
@@ -92,7 +96,35 @@ class EmployeeController extends Controller
             ]);
 
             DB::commit();
+ // Subject of the email
+ $subject = "Two-factor authentication enabled successfully";
 
+ // Dynamic content for the email body
+ $content = "
+ <strong>Hello {$user->username},</strong><br>
+ Your two-factor authentication has been successfully enabled on your Proffid account. This will enhance the security of your account by requiring an additional step to verify your identity whenever you log in.<br><br>
+
+ <strong>What is Two-Factor Authentication?</strong><br>
+ Two-factor authentication (2FA) adds an extra layer of security to your account. Now, in addition to your password, you'll need to enter a verification code sent to your mobile device or authentication app.<br><br>
+
+ <strong>How it works:</strong><br>
+ <ul>
+     <li>When you log in, you will be prompted to enter a verification code that is sent to your mobile device or authentication app.</li>
+     <li>The code changes every 30 seconds, providing a higher level of security for your account.</li>
+ </ul>
+
+ <p>If you didn't request this change, please contact our support team immediately at <a href='mailto:support@proffid.com'>support@proffid.com</a>.</p>
+
+ <p>We recommend keeping your authentication app up to date for the best security experience.</p>
+
+ <p>If you have any issues or questions, feel free to reach out to our <a href='https://proffid.com/support'>Support Team</a>.</p>
+
+ <br>Thank you for securing your account!<br>
+ Best regards,<br>The Proffid Team
+ ";
+
+ // Send the email using the GeneralHtmlEmail Mailable
+ Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
             return response()->json([
                 'success' => true,
                 'message' => 'Employee added successfully!',

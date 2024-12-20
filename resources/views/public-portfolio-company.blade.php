@@ -34,7 +34,10 @@
                             <div class="card-body pt-9 pb-0">
                                 <div class="mb-5">
                                     <h3 class="fs-2x mb-0">{{ $organization->name }}</h3>
-                                    <p class="text-muted fs-4">{{ $vcardDetails->title }}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="text-muted fs-4">{{ $vcardDetails->title }}</p>
+                                        <a href="{{ $vcardDetails->website }}" target="_blank" class="btn btn-primary btn-sm">Visit our Website</a>
+                                    </div>
                                 </div>
 
                                 <!-- About Section -->
