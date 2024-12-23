@@ -177,28 +177,24 @@
                                             </div>
                                             <div id="selected-colors-{{ $organization->id }}" class="d-flex mb-3">
                                                 @if($organization->border_color_top)
-                                                    <div class="color-preview" 
-                                                         data-color="{{ $organization->border_color_top }}" 
-                                                         style="background-color:{{ $organization->border_color_top }}"
-                                                    ></div>
+                                                <div class="color-preview"
+                                                    data-color="{{ $organization->border_color_top }}"
+                                                    style="background-color:{{ $organization->border_color_top }}"></div>
                                                 @endif
                                                 @if($organization->border_color_right)
-                                                    <div class="color-preview" 
-                                                         data-color="{{ $organization->border_color_right }}" 
-                                                         style="background-color:{{ $organization->border_color_right }}"
-                                                    ></div>
+                                                <div class="color-preview"
+                                                    data-color="{{ $organization->border_color_right }}"
+                                                    style="background-color:{{ $organization->border_color_right }}"></div>
                                                 @endif
                                                 @if($organization->border_color_bottom)
-                                                    <div class="color-preview" 
-                                                         data-color="{{ $organization->border_color_bottom }}" 
-                                                         style="background-color:{{ $organization->border_color_bottom }}"
-                                                    ></div>
+                                                <div class="color-preview"
+                                                    data-color="{{ $organization->border_color_bottom }}"
+                                                    style="background-color:{{ $organization->border_color_bottom }}"></div>
                                                 @endif
                                                 @if($organization->border_color_left)
-                                                    <div class="color-preview" 
-                                                         data-color="{{ $organization->border_color_left }}" 
-                                                         style="background-color:{{ $organization->border_color_left }}"
-                                                    ></div>
+                                                <div class="color-preview"
+                                                    data-color="{{ $organization->border_color_left }}"
+                                                    style="background-color:{{ $organization->border_color_left }}"></div>
                                                 @endif
                                             </div>
                                         </div>
@@ -383,6 +379,8 @@
         }
     });
 
+    @if(isset($organizations) && $organizations -> count() > 0)
+    @foreach($organizations as $organization)
     document.querySelector('#editOrganizationModal{{ $organization->id }} input[name="logo"]').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -410,29 +408,57 @@
                         colorDiv.title = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
                         colorDiv.addEventListener('click', function() {
-                            if (selectedColorsContainer.children.length < 4) {
+                            const selectedColorPreviews = selectedColorsContainer.querySelectorAll('.color-preview'); // Get the selected color previews
+
+                            if (selectedColorPreviews.length < 4) { // Limit to 4 colors
                                 const selectedColorDiv = document.createElement('div');
                                 selectedColorDiv.style.backgroundColor = this.style.backgroundColor;
                                 selectedColorDiv.style.width = '30px';
                                 selectedColorDiv.style.height = '30px';
                                 selectedColorDiv.style.marginRight = '5px';
+                                selectedColorDiv.classList.add('color-preview'); // Add the color-preview class
 
                                 const input = document.createElement('input');
                                 input.type = 'hidden';
-                                input.name = `border_color_${selectedColorsContainer.children.length}`;
+                                input.name = `border_color_${selectedColorPreviews.length}`; // Use the length of selected color previews
                                 input.value = this.style.backgroundColor;
 
                                 selectedColorsContainer.appendChild(selectedColorDiv);
                                 selectedColorsContainer.appendChild(input);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'You can only select 4 colors!',
+                                });
                             }
                         });
 
+
                         colorsContainer.appendChild(colorDiv);
                     });
+
+                    // Add reset button for edit form
+                    const resetButton = document.createElement('button');
+                    resetButton.textContent = 'Reset Selected Colors';
+                    resetButton.className = 'reset-button';
+                    resetButton.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        selectedColorsContainer.innerHTML = '';
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Colors Reset',
+                            text: 'Selected colors have been reset!',
+                        });
+                    });
+
+                    colorsContainer.appendChild(resetButton);
                 };
             };
             reader.readAsDataURL(file);
         }
     });
+    @endforeach
+    @endif
 </script>
 @endsection

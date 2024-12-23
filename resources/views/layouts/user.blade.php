@@ -229,7 +229,7 @@
                                                     </div>
                                                 </div>
 
-                                               
+
                                                 @elseif(Auth::user()->hasRole('user'))
                                                 <!-- If the user is a regular user, show Digital ID and Business Card -->
                                                 <div class="col-lg-12 mb-3">
@@ -269,8 +269,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 @endif
                                 @endif
                                 @if(Auth::check())
@@ -318,15 +316,85 @@
                                         <span class="menu-icon"><i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
                                         <span class="menu-title">Appointments</span></a></div>
                                 @elseif(Auth::user()->hasRole('organization'))
-                                <div class="menu-item"><a class="menu-link" href="/employees" title="Organization Employees" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon"><i class="ki-duotone ki-profile-user fs-2"><span class="path1"></span><span class="path2"></span></i></span>
-                                        <span class="menu-title">Employees</span></a></div>
-                                <div class="menu-item"><a class="menu-link" href="/departments" title="Organization Departments" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon"><i class="ki-duotone ki-nexo fs-2"><span class="path1"></span><span class="path2"></span></i></span>
-                                        <span class="menu-title">Departments</span></a></div>
-                                <div class="menu-item"><a class="menu-link" href="/designations" title="Organization Designations" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon"><i class="ki-duotone ki-briefcase fs-2"><span class="path1"></span><span class="path2"></span></i></span>
-                                        <span class="menu-title">Designations</span></a></div>
+
+                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion">
+                                    <span class="menu-link">
+                                        <span class="menu-icon">
+                                            <i class="ki-duotone ki-user-tick fs-2">
+                                                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                            </i>
+                                        </span>
+                                        <span class="menu-title">Management</span>
+                                        <span class="menu-arrow d-lg-none"></span>
+                                    </span>
+                                    <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-300px">
+                                        <div class="menu-state-bg py-3 px-3 py-lg-6 px-lg-6" data-kt-menu-dismiss="true">
+                                            <div class="row pt-1">
+
+                                                <!-- Menu Items (shown for all users) -->
+
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/employees" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-user-tick text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Employees</span>
+                                                                <span class="fs-7 fw-semibold text-muted">Manage your employees</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/departments" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-nexo fs-2">
+                                                                    <span class="path1"></span><span class="path2"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Departments</span>
+                                                                <span class="fs-7 fw-semibold text-muted">Manage your departments</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/designations" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-briefcase fs-2">
+                                                                    <span class="path1"></span><span class="path2"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Designations</span>
+                                                                <span class="fs-7 fw-semibold text-muted">Manage your designations</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item"><a class="menu-link" href="/documents" title="Access and manage your important documents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-icon"><i class="ki-duotone ki-document fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
+                                        <span class="menu-title">Documents</span></a></div>
+
+                                <div class="menu-item"><a class="menu-link" href="/services" title="Browse and access available services" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-icon"><i class="ki-duotone ki-briefcase fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
+                                        <span class="menu-title">Services</span></a></div>
+
+                                <div class="menu-item"><a class="menu-link" href="/portfolio" title="View and manage your portfolio items" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-icon"><i class="ki-duotone ki-note fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
+                                        <span class="menu-title">Portfolio</span></a></div>
                                 <div class="menu-item"><a class="menu-link" href="/leads" title="Organization Leads" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon"><i class="ki-duotone ki-user-tick fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                         <span class="menu-title">Leads</span></a></div>

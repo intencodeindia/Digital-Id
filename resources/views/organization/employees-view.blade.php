@@ -19,7 +19,7 @@
                             <div class="d-flex flex-center flex-column py-5">
                                 <div class="symbol symbol-100px symbol-circle mb-7">
                                     @if($employee->profile_photo)
-                                    <img src="{{ asset('storage/' . $employee->profile_photo) }}" alt="{{ $employee->name }}">
+                                    <img src="{{ asset('uploads/avatars/' . $employee->profile_photo) }}" alt="{{ $employee->name }}">
                                     @else
                                     <img src="https://ui-avatars.com/api/?name={{ urlencode($employee->name) }}" alt="Default Avatar">
                                     @endif
@@ -90,81 +90,163 @@
                                 </div>
                                 <div class="card-body p-9 pt-4">
                                     <div class="table-responsive">
-                                        <form id="kt_modal_add_employee_form" class="form" action="{{ route('employees.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+
+                                        @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                        @endif
+
+                                        <form id="kt_modal_update_employee_form" class="form" action="{{ route('employees.update', $employee->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
+                                            
+                                            <!-- Employee Name -->
                                             <div class="fv-row mb-7">
-                                                <!-- Employee Name -->
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Name</label>
-                                                <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee name" value="{{ $employee->name }}" required />
+                                                <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0 @error('name') is-invalid @enderror" 
+                                                    value="{{ old('name', $employee->name) }}" required />
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Email -->
+                                            <!-- Employee Email -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Email</label>
-                                                <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee email" value="{{ $user->email }}" required />
+                                                <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0 @error('email') is-invalid @enderror" 
+                                                    value="{{ old('email', $user->email) }}" required />
+                                                @error('email')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Phone -->
+                                            <!-- Employee Phone -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Phone</label>
-                                                <input type="tel" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee phone" value="{{ $employee->phone }}" required />
+                                                <input type="tel" name="phone" class="form-control form-control-solid mb-3 mb-lg-0 @error('phone') is-invalid @enderror" 
+                                                    value="{{ old('phone', $employee->phone) }}" required />
+                                                @error('phone')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Department -->
+                                            <!-- Employee Department -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Department</label>
-                                                <select name="department" class="form-select form-select-solid mb-3 mb-lg-0" required>
+                                                <select name="department" class="form-select form-select-solid @error('department') is-invalid @enderror" required>
                                                     <option value="">Select Department</option>
                                                     @foreach ($departments as $department)
-                                                    <option value="{{ $department->id }}" {{ $employee->department_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                                    <option value="{{ $department->id }}" {{ old('department', $employee->department_id) == $department->id ? 'selected' : '' }}>
+                                                        {{ $department->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
+                                                @error('department')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Designation -->
+                                            <!-- Employee Designation -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Designation</label>
-                                                <select name="designation" class="form-select form-select-solid mb-3 mb-lg-0" required>
+                                                <select name="designation" class="form-select form-select-solid @error('designation') is-invalid @enderror" required>
                                                     <option value="">Select Designation</option>
                                                     @foreach ($designations as $designation)
-                                                    <option value="{{ $designation->id }}" {{ $employee->designation_id == $designation->id ? 'selected' : '' }}>{{ $designation->name }}</option>
+                                                    <option value="{{ $designation->id }}" {{ old('designation', $employee->designation_id) == $designation->id ? 'selected' : '' }}>
+                                                        {{ $designation->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
+                                                @error('designation')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Joining Date -->
+                                            <!-- Employee Joining Date -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Joining Date</label>
-                                                <input type="date" name="joining_date" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $employee->joining_date }}" required />
+                                                <input type="date" name="joining_date" class="form-control form-control-solid mb-3 mb-lg-0 @error('joining_date') is-invalid @enderror" 
+                                                    value="{{ old('joining_date', $employee->joining_date) }}" required />
+                                                @error('joining_date')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee ID (Optional) -->
+                                            <!-- Employee ID (Optional) -->
+                                            <div class="fv-row mb-7">
                                                 <label class="fw-semibold fs-6 mb-2">Employee ID (Optional)</label>
-                                                <input type="text" name="employee_id" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee ID (Optional)" value="{{ $employee->employee_id }}" />
+                                                <input type="text" name="employee_id" class="form-control form-control-solid mb-3 mb-lg-0 @error('employee_id') is-invalid @enderror" 
+                                                    value="{{ old('employee_id', $employee->employee_id) }}" />
+                                                @error('employee_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Password -->
-                                                <label class="required fw-semibold fs-6 mb-2">Employee Password</label>
-                                                <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee password" />
+                                            <!-- Employee Password (Optional) -->
+                                            <div class="fv-row mb-7">
+                                                <label class="fw-semibold fs-6 mb-2">Change Password (Optional)</label>
+                                                <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0 @error('password') is-invalid @enderror" 
+                                                    placeholder="Enter new password" />
+                                                @error('password')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Confirm Password -->
-                                                <label class="required fw-semibold fs-6 mb-2">Employee Confirm Password</label>
-                                                <input type="password" name="confirm_password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter employee confirm password" />
+                                            <!-- Employee Confirm Password -->
+                                            <div class="fv-row mb-7">
+                                                <label class="fw-semibold fs-6 mb-2">Confirm New Password</label>
+                                                <input type="password" name="confirm_password" class="form-control form-control-solid mb-3 mb-lg-0 @error('confirm_password') is-invalid @enderror" 
+                                                    placeholder="Confirm new password" />
+                                                @error('confirm_password')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Status -->
+                                            <!-- Employee Status -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-5">Employee Status</label>
-                                                <select name="status" class="form-select form-select-solid mb-3 mb-lg-0" required>
-                                                    <option value="1" {{ $employee->status == 1 ? 'selected' : '' }}>Active</option>
-                                                    <option value="0" {{ $employee->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                                <select name="status" class="form-select form-select-solid @error('status') is-invalid @enderror" required>
+                                                    <option value="1" {{ old('status', $employee->status) == 1 ? 'selected' : '' }}>Active</option>
+                                                    <option value="0" {{ old('status', $employee->status) == 0 ? 'selected' : '' }}>Inactive</option>
                                                 </select>
-                                                <br>
+                                                @error('status')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                                <!-- Employee Work Type (Full Time / Part Time) -->
+                                            <!-- Employee Work Type -->
+                                            <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Employee Work Type</label>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="work_type" id="work_type_full_time" value="Full Time" {{ $employee->work_type == 'Full Time' ? 'checked' : '' }} required />
+                                                    <input class="form-check-input" type="radio" name="work_type" id="work_type_full_time" 
+                                                        value="Full Time" {{ old('work_type', $employee->work_type) == 'Full Time' ? 'checked' : '' }} required />
                                                     <label class="form-check-label" for="work_type_full_time">Full Time</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="work_type" id="work_type_part_time" value="Part Time" {{ $employee->work_type == 'Part Time' ? 'checked' : '' }} required />
+                                                    <input class="form-check-input" type="radio" name="work_type" id="work_type_part_time" 
+                                                        value="Part Time" {{ old('work_type', $employee->work_type) == 'Part Time' ? 'checked' : '' }} required />
                                                     <label class="form-check-label" for="work_type_part_time">Part Time</label>
                                                 </div>
+                                                @error('work_type')
+                                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
-                                            <div class="text-center pt-10">
-                                                <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                                            <div class="text-center pt-15">
+                                                <button type="reset" class="btn btn-light me-3">Reset</button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <span class="indicator-label">Submit</span>
-                                                    <span class="indicator-progress">Please wait...
+                                                    <span class="indicator-label">Update Employee</span>
+                                                    <span class="indicator-progress">Please wait... 
                                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                                     </span>
                                                 </button>

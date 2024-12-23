@@ -42,6 +42,7 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/terms-and-conditions', [HomeController::class, 'termsAndConditions'])->name('terms-and-conditions');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/refund-policy', [HomeController::class, 'refundPolicy'])->name('refund-policy');
+Route::get('/qr-scan-form/{username}', [HomeController::class, 'qrScanForm'])->name('qr.scan.form');
 
 //payment routes
 
@@ -68,7 +69,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'register'])->name('registeruser');
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('loginuser');
-    Route::get('/organization/register', [RegisterController::class, 'organizationRegister'])->name('organization.register');
+    Route::get('/organization/register', [RegisterController::class, 'organizationIndex'])->name('organization.register');
+    Route::post('/organization/register', [RegisterController::class, 'organizationRegister'])->name('organization.register.action');
+    Route::get('/verify-email/verify/{token}', [RegisterController::class, 'verifyEmail'])->name('email.verify');
+    
 });
 
 // Authenticated routes
@@ -113,6 +117,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/subscription', function () {
             return view('user.subscription');
         });
+        // Family management
+        Route::controller(FamilymemberController::class)->prefix('family')->name('user.family')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store')->name('.store');
+            Route::get('/view/{id}', 'show')->name('-view');
+            Route::put('/update/{id}', 'update')->name('-update');
+        });
         // Document management
         Route::controller(DocumentController::class)->prefix('documents')->name('user.documents')->group(function () {
             Route::get('/', 'index');
@@ -122,13 +133,6 @@ Route::middleware('auth')->group(function () {
             Route::put('/update/{id}', 'update')->name('.update');
         });
 
-        // Family management
-        Route::controller(FamilymemberController::class)->prefix('family')->name('user.family')->group(function () {
-            Route::get('/', 'index');
-            Route::post('/', 'store')->name('.store');
-            Route::get('/view/{id}', 'show')->name('-view');
-            Route::put('/update/{id}', 'update')->name('-update');
-        });
         // Services management
         Route::controller(ServiceController::class)->prefix('services')->name('user.services')->group(function () {
             Route::get('/', 'index');
@@ -163,7 +167,32 @@ Route::middleware('auth')->group(function () {
     // Organization routes
     Route::middleware(['role:organization', 'auth'])->group(function () {
         Route::get('dashboard', [HomeController::class, 'organizationDashboard'])->name('organization.dashboard');
+ // Document management
+ Route::controller(DocumentController::class)->prefix('documents')->name('user.documents')->group(function () {
+    Route::get('/', 'index');
+    Route::get('/view/{id}', 'show')->name('.show');
+    Route::post('/store', 'store')->name('.store');
+    Route::get('/delete/{id}', 'destroy')->name('.destroy');
+    Route::put('/update/{id}', 'update')->name('.update');
+});
 
+// Services management
+Route::controller(ServiceController::class)->prefix('services')->name('user.services')->group(function () {
+    Route::get('/', 'index');
+    Route::post('/store', 'store')->name('.store');
+    Route::get('/view/{id}', 'show')->name('.show');
+    Route::get('/delete/{id}', 'destroy')->name('.destroy');
+    Route::put('/update/{id}', 'update')->name('.update');
+});
+
+// Portfolio management
+Route::controller(PortfolioController::class)->prefix('portfolio')->name('user.portfolio')->group(function () {
+    Route::get('/', 'index');
+    Route::post('/store', 'store')->name('.store');
+    Route::get('/view/{id}', 'show')->name('-view');
+    Route::get('/delete/{id}', 'destroy')->name('.destroy');
+    Route::put('/update/{id}', 'update')->name('.update');
+});
         // Employees routes
         Route::get('/employees', [EmployeeController::class, 'index'])->name('organization.employees');
         Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');

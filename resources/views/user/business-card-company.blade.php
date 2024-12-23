@@ -200,9 +200,9 @@
                     <div class="card-content">
                         <div class="left-section">
                             <img class="org-logo" 
-                                 src="{{ $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}" 
-                                 alt="{{ $organization->name }}">
-                            <small class="fs-sm-1">{{ $organization->name }}</small> <!-- Organization Name -->
+                                 src="{{ isset($organization) && $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}" 
+                                 alt="{{ isset($organization) ? $organization->name : 'Organization' }}">
+                            <small class="fs-sm-1">{{ isset($organization) ? $organization->name : '' }}</small> <!-- Organization Name -->
                         </div>
                         <div class="right-section">
                         <p class="title">{{ $userDetails->title }}</p> <!-- Title -->
@@ -216,13 +216,13 @@
                                     <i class="fas fa-phone"></i>
                                     <span>{{ $userDetails->phone }}</span>
                                 </a>
-                                @if($organization->website)
+                                 @if(isset($organization) && $organization->website)
                                 <a href="{{ $organization->website }}" target="_blank" class="contact-item">
                                     <i class="fas fa-globe"></i>
                                     <span>{{ $organization->website }}</span>
                                 </a>
                                 @endif
-                                @if($organization->address)
+                                 @if(isset($organization) && $organization->address)
                                 <div class="contact-item">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <span>{{ $organization->address }}</span>
@@ -241,7 +241,7 @@
                          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $qrCodeUrl }}" 
                          alt="QR Code">
                     <p class="scan-text">Scan to connect</p>
-                    <p class="company-info">{{ $organization->description }}</p> <!-- Company Info -->
+                   
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@
                                     And Your <br><span style="color:#04a2f1">Employees</span>
                                 </h1>
                                 <div class="d-flex flex-shrink-0 me-5">
-                                    <a href="{{ url('/register') }}" class="btn btn-primary flex-shrink-0 fw-bold me-2 me-md-4 my-1" style="background-color: #04a2f1; color: #fff;">Create Organization</a>
+                                    <a href="{{ url('organization/register') }}" class="btn btn-primary flex-shrink-0 fw-bold me-2 me-md-4 my-1" style="background-color: #04a2f1; color: #fff;">Create Organization</a>
                                     <a href="#how-it-works" class="btn btn-white btn-color-gray-700 flex-shrink-0 my-1 fw-bold btn-active-light-primary">Learn More</a>
                                 </div>
                             </div>

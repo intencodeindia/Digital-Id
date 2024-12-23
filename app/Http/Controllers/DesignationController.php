@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class DesignationController extends Controller
 {
@@ -30,15 +29,11 @@ class DesignationController extends Controller
         ]);
 
         try {
-            DB::beginTransaction();
-
             $designation = Designation::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'user_id' => Auth::id(),
             ]);
-
-            DB::commit();
 
             return response()->json([
                 'success' => true,
@@ -47,7 +42,6 @@ class DesignationController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'Error creating designation: ' . $e->getMessage()
@@ -63,14 +57,10 @@ class DesignationController extends Controller
         ]);
 
         try {
-            DB::beginTransaction();
-
             $designation->update([
                 'name' => $request->name,
                 'description' => $request->description,
             ]);
-
-            DB::commit();
 
             return response()->json([
                 'success' => true,
@@ -79,7 +69,6 @@ class DesignationController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'Error updating designation: ' . $e->getMessage()
@@ -90,8 +79,6 @@ class DesignationController extends Controller
     public function destroy(Designation $designation)
     {
         try {
-            DB::beginTransaction();
-
             if ($designation->employees()->count() > 0) {
                 return response()->json([
                     'success' => false,
@@ -101,15 +88,12 @@ class DesignationController extends Controller
 
             $designation->delete();
 
-            DB::commit();
-
             return response()->json([
                 'success' => true,
                 'message' => 'Designation deleted successfully!'
             ]);
 
         } catch (\Exception $e) {
-            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'Error deleting designation: ' . $e->getMessage()

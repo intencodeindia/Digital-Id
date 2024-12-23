@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
 
     private const IS_LIVE = true;
-    
+   
     public function index()
     {
         return view('payment.payment-form');

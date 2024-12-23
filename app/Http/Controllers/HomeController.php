@@ -101,6 +101,11 @@ class HomeController extends Controller
         return view('user.digital-id', compact('userDetails', 'organizations'));
     }
 
+    public function qrScanForm($username)
+    {
+        $user = User::where('username', $username)->first();
+        return view('user.qr-scan-form', compact('user'));
+    }
 
     public function card($username)
     {

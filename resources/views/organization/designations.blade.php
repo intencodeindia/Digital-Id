@@ -133,6 +133,10 @@
         const form = $(this);
         const submitBtn = form.find('button[type="submit"]');
         
+        // Clear previous errors
+        $('.is-invalid').removeClass('is-invalid');
+        $('.invalid-feedback').text('');
+        
         $.ajax({
             url: "{{ route('designations.store') }}",
             type: 'POST',
@@ -144,15 +148,20 @@
                 if (response.success) {
                     toastr.success(response.message);
                     $('#addDesignationModal').modal('hide');
+                    form[0].reset();
                     location.reload();
                 }
             },
             error: function(xhr) {
-                const errors = xhr.responseJSON.errors;
-                Object.keys(errors).forEach(function(key) {
-                    $(`#${key}`).addClass('is-invalid');
-                    $(`#${key}_error`).text(errors[key][0]);
-                });
+                if (xhr.status === 422) {
+                    const errors = xhr.responseJSON.errors;
+                    Object.keys(errors).forEach(function(key) {
+                        $(`[name="${key}"]`).addClass('is-invalid');
+                        $(`#${key}_error`).text(errors[key][0]);
+                    });
+                } else {
+                    toastr.error('An error occurred while saving the designation');
+                }
             },
             complete: function() {
                 submitBtn.attr('disabled', false).text('Save Designation');
@@ -175,6 +184,10 @@
         const id = $('#edit_designation_id').val();
         const submitBtn = form.find('button[type="submit"]');
         
+        // Clear previous errors
+        $('.is-invalid').removeClass('is-invalid');
+        $('.invalid-feedback').text('');
+        
         $.ajax({
             url: `/designations/${id}`,
             type: 'PUT',
@@ -184,13 +197,12 @@
             },
             beforeSend: function() {
                 submitBtn.attr('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...');
-                $('.is-invalid').removeClass('is-invalid');
-                $('.invalid-feedback').text('');
             },
             success: function(response) {
                 if (response.success) {
                     toastr.success(response.message);
                     $('#editDesignationModal').modal('hide');
+                    form[0].reset();
                     location.reload();
                 }
             },
@@ -239,7 +251,7 @@
                         if (xhr.status === 422) {
                             toastr.error(xhr.responseJSON.message);
                         } else {
-                            toastr.error('Error deleting designation');
+                            toastr.error('An error occurred while deleting the designation');
                         }
                     }
                 });

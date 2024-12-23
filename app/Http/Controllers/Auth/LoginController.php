@@ -40,6 +40,13 @@ class LoginController extends Controller
             ], 422);
         }
 
+        if ($user->email_verified_at == null) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Email not verified. Please verify your email first.'
+            ], 422);
+        }
+
         // Check if the password is correct
         if (!Hash::check($credentials['password'], $user->password)) {
             return response()->json([
