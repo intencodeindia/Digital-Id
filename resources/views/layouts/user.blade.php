@@ -212,6 +212,21 @@
                                                     </div>
                                                 </div>
                                                 @elseif(Auth::user()->hasRole('organization'))
+                                                <div class="col-lg-12 mb-3">
+                                                    <div class="menu-item p-0 m-0">
+                                                        <a href="/organization-digital-id-card" class="menu-link">
+                                                            <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
+                                                                <i class="ki-duotone ki-user-tick text-primary fs-1">
+                                                                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                                                </i>
+                                                            </span>
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fs-6 fw-bold text-gray-800">Digital ID</span>
+                                                                <span class="fs-7 fw-semibold text-muted">View and manage your digital ID</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 <!-- If the user is part of the organization, show Organization Card and Business Card -->
                                                 <div class="col-lg-12 mb-3">
                                                     <div class="menu-item p-0 m-0">

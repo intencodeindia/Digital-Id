@@ -5,19 +5,27 @@ use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Contact;
 class LeadController extends Controller
 {
-    // Display all leads
     public function index()
     {
         $user = Auth::user();
-        $employee = User::where('parent_id', $user->id)->get();
-        $employeeIds = $employee->pluck('id');
-        $leads = Lead::whereIn('user_id', $employeeIds)->get(); // Fetch all leads
-        // dd($leads);
-        return view('organization.leads', compact('leads'));
+        
+        // Get employee leads if organization
+        $employeeLeads = $user->role === 'organization' 
+            ? Lead::whereIn('user_id', User::where('parent_id', $user->id)->pluck('id'))
+                ->with('user')
+                ->get()
+            : collect();
+
+            $contactedLeads = Contact::where('user_id', $user->id)->get();
+        // Get self leads for all roles
+        $selfLeads = Lead::where('user_id', $user->id)->get();
+        return view('organization.leads', compact('employeeLeads', 'selfLeads', 'contactedLeads'));
     }
 
+    
     // Store a new lead
     public function store(Request $request)
     {

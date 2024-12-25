@@ -43,6 +43,8 @@ Route::get('/terms-and-conditions', [HomeController::class, 'termsAndConditions'
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/refund-policy', [HomeController::class, 'refundPolicy'])->name('refund-policy');
 Route::get('/qr-scan-form/{username}', [HomeController::class, 'qrScanForm'])->name('qr.scan.form');
+Route::get('/form', [ContactController::class, 'showForm'])->name('form');
+Route::post('/form', [ContactController::class, 'submitForm'])->name('form.submit');
 
 //payment routes
 
@@ -90,7 +92,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/company-business-card/{username}', [HomeController::class, 'businessCardCompany'])->name('company-business-card');
     Route::get('/business-id-card/{id}', [HomeController::class, 'businessIdCard'])->name('business-id-card.show');
     Route::get('/business-card/{username}/{organizationId}', [HomeController::class, 'businessCardOrg'])->name('business-card.org');
-
+    Route::get('/organization-digital-id-card', [HomeController::class, 'organizationDigitalId'])->name('organization-digital-id-card');
+    Route::get('/digital-id-company/{username}', [HomeController::class, 'companyDigitalId'])->name('digital-id-company');
     Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
     Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
 

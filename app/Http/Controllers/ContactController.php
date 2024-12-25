@@ -6,7 +6,8 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\GeneralHtmlEmail;
-
+use App\Models\Lead;
+use App\Models\User;
 class ContactController extends Controller
 {
     /**
@@ -120,4 +121,56 @@ class ContactController extends Controller
     {
         //
     }
+
+    // Show the form
+    public function showForm(Request $request)
+    {
+        // Get URL and user_id from query parameters
+        $qrCodeUrl = $request->query('url');
+        $userId = $request->query('userid');
+
+        return view('components.form', [
+            'qrCodeUrl' => $qrCodeUrl,
+            'userId' => $userId
+        ]);
+    }
+
+    // Handle the form submission
+    public function submitForm(Request $request)
+    {
+    
+        // Validate the incoming form data
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'mobile_number' => 'required|string|max:15', 
+            'email' => 'required|email|max:255',
+            'address' => 'required|string',
+            'qr_code_url' => 'required|url', // Validates that the QR code URL is a proper URL format
+            'user_id' => 'required|exists:users,id'  // Ensures the user_id exists in the users table
+        ]);
+
+        // Add user_id to validated data after validation
+        
+        try {
+            // Store the form data into the leads table
+            $lead = Lead::create([
+                'name' => $validated['full_name'],
+                'mobile' => $validated['mobile_number'],
+                'email' => $validated['email'],
+                'user_id' => $validated['user_id'], // Use the found user_id from the query
+                'location' => $validated['address'],
+                'status' => 0 // Default status
+            ]);
+    
+            // After successful form submission, redirect to the QR code URL
+            return redirect($validated['qr_code_url'])
+                ->with('success', 'Your details have been submitted successfully!');
+        } catch (\Exception $e) {
+            // Handle any errors
+            return back()
+                ->withInput()
+                ->with('error', 'An error occurred while submitting your details. Please try again.');
+        }
+    }
+    
 }

@@ -100,6 +100,33 @@ class HomeController extends Controller
 
         return view('user.digital-id', compact('userDetails', 'organizations'));
     }
+    public function organizationDigitalId()
+    {
+        $user = Auth::user();
+
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+        if ($user->role == 'user') {
+            $organizations = CustomOrganization::where('created_by', $user->id)->get();
+        } else {
+            $organizations = [];
+        }
+
+        return view('user.organization-digital-id-card', compact('userDetails', 'organizations'));
+    }
+
+    public function companyDigitalId($username)
+    {
+        $user = User::where('username', $username)->first();
+        $organization = CustomOrganization::where('created_by', $user->id)->first();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+        return view('user.digital-id-company', compact('user', 'organization', 'userDetails'));
+    }
 
     public function qrScanForm($username)
     {
@@ -155,6 +182,7 @@ class HomeController extends Controller
             ->where('users.id', $user->id)
             ->select('users.*', 'vcard_details.*')
             ->first();
+
 
         return view('user.organization-id-card', compact('organizations', 'userDetails'));
     }

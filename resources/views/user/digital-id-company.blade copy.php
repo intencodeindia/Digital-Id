@@ -232,48 +232,17 @@
                         </div>
                     </div>
                 </div>
-
-                @php
-                // Extract country code and number
-                $phone = $userDetails->phone;
-
-                // The regex pattern to match the country code and the phone number
-                $pattern = '/^\+(\d{1,3})\s*(\d+)$/'; // Matches a phone number starting with '+' followed by the country code and phone number
-
-                if (preg_match($pattern, $phone, $matches)) {
-                // If the phone number matches the pattern, we extract the country code and the phone number
-                $countryCode = $matches[1]; // The country code
-                $number = $matches[2]; // The rest of the number without the country code
-                $formattedPhone = "+" . $countryCode . " " . $number; // Format the phone as +<countryCode>
-                    } else {
-                    // If the phone number doesn't match the pattern, we leave it as is
-                    $formattedPhone = $phone;
-                    }
-
-                    // Generate vCard data
-                    $vcardData = "BEGIN:VCARD\n"
-                    . "VERSION:3.0\n"
-                    . "FN:" . $userDetails->name . "\n"
-                    . "TITLE:" . $userDetails->title . "\n"
-                    . "ORG:" . $userDetails->organization . "\n"
-                    . "TEL;TYPE=CELL:" . $formattedPhone . "\n"
-                    . "EMAIL:" . $userDetails->email . "\n"
-                    . "URL:" . $userDetails->website . "\n"
-                    . "ADR:" . $userDetails->address . "\n"
-                    . "NOTE:" . $userDetails->note . "\n"
-                    . "END:VCARD";
-                    @endphp
-          <!-- @php
+          @php
                 // Generate the company URL using the user's username
                 $qrCodeUrl = url('/company/'.$userDetails->username);
 
                 // Generate the form URL with qrCodeUrl as a query parameter
                 $formUrl = url('/form') . '?url=' . urlencode($qrCodeUrl) . '&useerid=' . $userDetails->id;
-                @endphp -->
+                @endphp
 
                 <div class="back pb-3">
                     <!-- Generate the QR code with the formUrl containing the qrCodeUrl as a parameter -->
-                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($vcardData) }}" alt="QR Code">
+                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($formUrl) }}" alt="QR Code">
                     <p class="scan-text">Scan to connect</p>
                 </div>
             </div>
