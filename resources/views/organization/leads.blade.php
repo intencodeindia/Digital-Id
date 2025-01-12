@@ -12,47 +12,102 @@
             <h2>Leads</h2>
         </div>
 
-        <div class="row g-5 g-xxl-10">
-            <div class="flex-lg-row-fluid ms-lg-15">
-                <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#contacted_leads" aria-selected="true" role="tab">Contacted Leads</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#qr_leads" aria-selected="false" role="tab" tabindex="-1">QR Leads</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#employee_leads" aria-selected="false" role="tab" tabindex="-1">Employee Leads</a>
-                    </li>
-                </ul>
+        @if(Auth::check())
+            @if(Auth::user()->hasRole('organization'))
+                <div class="row g-5 g-xxl-10">
+                    <div class="flex-lg-row-fluid ms-lg-15">
+                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#contacted_leads" aria-selected="true" role="tab">Contacted Leads</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#qr_leads" aria-selected="false" role="tab" tabindex="-1">QR Leads</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#employee_leads" aria-selected="false" role="tab" tabindex="-1">Employee Leads</a>
+                            </li>
+                        </ul>
 
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="contacted_leads" role="tabpanel">
-                        @include('organization.partials.leads-table', [
-                            'leads' => $contactedLeads, 
-                            'columns' => ['id', 'name', 'email', 'mobile', 'subject', 'message', 'created_at'],
-                            'tableId' => 'contacted_leads_table'
-                        ])
-                    </div>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="contacted_leads" role="tabpanel">
+                                @include('organization.partials.leads-table', [
+                                    'leads' => $contactedLeads, 
+                                    'columns' => ['id', 'name', 'email', 'mobile', 'subject', 'message', 'created_at'],
+                                    'tableId' => 'contacted_leads_table'
+                                ])
+                            </div>
 
-                    <div class="tab-pane fade" id="qr_leads" role="tabpanel">
-                        @include('organization.partials.leads-table', [
-                            'leads' => $selfLeads, 
-                            'columns' => ['id', 'name', 'email', 'mobile', 'location', 'status', 'created_at'],
-                            'tableId' => 'qr_leads_table'
-                        ])
-                    </div>
+                            <div class="tab-pane fade" id="qr_leads" role="tabpanel">
+                                @include('organization.partials.leads-table', [
+                                    'leads' => $selfLeads, 
+                                    'columns' => ['id', 'name', 'email', 'mobile', 'location', 'status', 'created_at'],
+                                    'tableId' => 'qr_leads_table'
+                                ])
+                            </div>
 
-                    <div class="tab-pane fade" id="employee_leads" role="tabpanel">
-                        @include('organization.partials.leads-table', [
-                            'leads' => $employeeLeads, 
-                            'columns' => ['id', 'name', 'email', 'mobile', 'location', 'status', 'created_at'],
-                            'tableId' => 'employee_leads_table'
-                        ])
+                            <div class="tab-pane fade" id="employee_leads" role="tabpanel">
+                                @include('organization.partials.leads-table', [
+                                    'leads' => $employeeLeads, 
+                                    'columns' => ['id', 'name', 'email', 'mobile', 'location', 'status', 'created_at'],
+                                    'tableId' => 'employee_leads_table'
+                                ])
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            @elseif(Auth::user()->hasRole('user'))
+                <div class="row g-5 g-xxl-10">
+                    <div class="flex-lg-row-fluid ms-lg-15">
+                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#contacted_leads" aria-selected="true" role="tab">Contacted Leads</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#qr_leads" aria-selected="false" role="tab" tabindex="-1">QR Leads</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="contacted_leads" role="tabpanel">
+                                @include('organization.partials.leads-table', [
+                                    'leads' => $contactedLeads, 
+                                    'columns' => ['id', 'name', 'email', 'mobile', 'subject', 'message', 'created_at'],
+                                    'tableId' => 'contacted_leads_table'
+                                ])
+                            </div>
+
+                            <div class="tab-pane fade" id="qr_leads" role="tabpanel">
+                                @include('organization.partials.leads-table', [
+                                    'leads' => $selfLeads, 
+                                    'columns' => ['id', 'name', 'email', 'mobile', 'location', 'status', 'created_at'],
+                                    'tableId' => 'qr_leads_table'
+                                ])
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="row g-5 g-xxl-10">
+                    <div class="flex-lg-row-fluid ms-lg-15">
+                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#qr-leads" aria-selected="true" role="tab">QR Leads</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="qr-leads" role="tabpanel">
+                                @include('organization.partials.leads-table', [
+                                    'leads' => $selfLeads, 
+                                    'columns' => ['id', 'name', 'email', 'mobile', 'location', 'status', 'created_at'],
+                                    'tableId' => 'qr_leads_table'
+                                ])
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endif
     </div>
 </div>
 @endsection

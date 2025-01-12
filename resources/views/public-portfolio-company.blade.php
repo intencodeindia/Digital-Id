@@ -10,7 +10,7 @@
                         <div class="position-relative">
                             <!-- Cover Photo -->
                             <div class="bgi-no-repeat bgi-position-center bgi-size-cover min-h-250px w-100"
-                                style="background-image:url('/assets/media/stock/1600x800/img-3.jpg');">
+                                style="background-image:url('{{ $vcardDetails->banner_photo ? asset('uploads/banners/' . $vcardDetails->banner_photo) : asset('assets/media/stock/1600x800/img-3.jpg') }}'); background-size: cover; background-position: center center;">
                             </div>
 
                             <!-- Profile Photo Overlapping Banner -->

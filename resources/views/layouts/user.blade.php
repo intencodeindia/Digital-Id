@@ -22,7 +22,24 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 
-
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PVXWVG8B');
+    </script>
+    <!-- End Google Tag Manager -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         if (window.top != window.self) {
@@ -34,6 +51,10 @@
 
 <body id="kt_app_body" data-kt-app-layout="light-header" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-toolbar-enabled="true" class="app-default">
     <!--begin::Theme mode setup on page load-->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVXWVG8B"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -116,11 +137,15 @@
                                             My Subscription
                                         </a>
                                     </div>
+                                    @if(Auth::check())
+                                    @if(!Auth::user()->hasRole('employee'))
                                     <div class="menu-item px-5">
                                         <a href="/organizations" class="menu-link px-5">
                                             My Organizations
                                         </a>
                                     </div>
+                                    @endif
+                                    @endif
                                     <div class="menu-item px-5">
                                         <a href="/PortfolioSetting" class="menu-link px-5">
                                             My Portfolio Settings
@@ -128,8 +153,13 @@
                                     </div>
                                     <div class="separator my-2"></div>
                                     <div class="menu-item px-5 my-1">
-                                        <a href="/settings" class="menu-link px-5">
+                                        <a href="/account-setting" class="menu-link px-5">
                                             Account Settings
+                                        </a>
+                                    </div>
+                                    <div class="menu-item px-5">
+                                        <a href="/qr-generator" class="menu-link px-5">
+                                            QR Generator
                                         </a>
                                     </div>
                                     <div class="menu-item px-5">
@@ -182,7 +212,7 @@
                                                 <!-- If the user is an employee, show Employee Card and Business Card -->
                                                 <div class="col-lg-12 mb-3">
                                                     <div class="menu-item p-0 m-0">
-                                                        <a href="/employee-id-card" class="menu-link">
+                                                        <a href="/employee-card" class="menu-link">
                                                             <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
                                                                 <i class="ki-duotone ki-abstract-25 text-primary fs-1">
                                                                     <span class="path1"></span><span class="path2"></span>
@@ -198,7 +228,7 @@
 
                                                 <div class="col-lg-12 mb-3">
                                                     <div class="menu-item p-0 m-0">
-                                                        <a href="/business-id-card" class="menu-link">
+                                                        <a href="/employee-business-id-card" class="menu-link">
                                                             <span class="d-flex flex-center flex-shrink-0 bg-gray-200 rounded w-40px h-40px me-3">
                                                                 <i class="ki-duotone ki-abstract-26 text-primary fs-1">
                                                                     <span class="path1"></span><span class="path2"></span>

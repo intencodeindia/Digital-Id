@@ -36,6 +36,10 @@ Route::get('/card/{username}', [HomeController::class, 'card'])->name('card');
 Route::get('/card/{username}/{id}', [HomeController::class, 'cardorg'])->name('card');
 Route::get('/business-card/{username}', [HomeController::class, 'businessCard'])->name('business-card');
 Route::get('/business-card/{username}/{id}', [HomeController::class, 'businessCardorg'])->name('business-card');
+Route::get('/company-business-card/{username}', [HomeController::class, 'businessCardCompany'])->name('company-business-card');
+Route::get('/digital-id-company/{username}', [HomeController::class, 'companyDigitalId'])->name('digital-id-company');
+Route::get('/employee-business-card/{username}', [HomeController::class, 'employeeBusinessCard'])->name('employee-business-card');
+Route::get('/employee-card/{username}', [HomeController::class, 'employeeCardShow'])->name('employee-card');
 Route::get('/verify-email/verify/{token}', [HomeController::class, 'verifyEmail'])->name('verify.email');
 Route::get('/support', [HomeController::class, 'support'])->name('support');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
@@ -43,7 +47,7 @@ Route::get('/terms-and-conditions', [HomeController::class, 'termsAndConditions'
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/refund-policy', [HomeController::class, 'refundPolicy'])->name('refund-policy');
 Route::get('/qr-scan-form/{username}', [HomeController::class, 'qrScanForm'])->name('qr.scan.form');
-Route::get('/form', [ContactController::class, 'showForm'])->name('form');
+Route::get('/form/{username}', [ContactController::class, 'showForm'])->name('form');
 Route::post('/form', [ContactController::class, 'submitForm'])->name('form.submit');
 
 //payment routes
@@ -74,7 +78,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/organization/register', [RegisterController::class, 'organizationIndex'])->name('organization.register');
     Route::post('/organization/register', [RegisterController::class, 'organizationRegister'])->name('organization.register.action');
     Route::get('/verify-email/verify/{token}', [RegisterController::class, 'verifyEmail'])->name('email.verify');
-    
 });
 
 // Authenticated routes
@@ -84,16 +87,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'profileUpdate'])->name('profileupdate');
     Route::get('/PortfolioSetting', [ProfileController::class, 'PortfolioSetting'])->name('PortfolioSetting');
+    Route::get('/qr-generator', [HomeController::class, 'qrGenerator'])->name('qr-generator');
+    Route::get('/account-setting', [ProfileController::class, 'accountSetting'])->name('account-setting');
     // Common routes
     Route::get('/digital-id', [HomeController::class, 'digitalId'])->name('digital-id');
     Route::get('/digital-id/{id}', [HomeController::class, 'digitalId'])->name('digital-id');
     Route::get('/business-id-card', [HomeController::class, 'businessIdCard'])->name('business-id-card');
     Route::get('/organization-id-card', [HomeController::class, 'organizationIdCard'])->name('organization-id-card');
-    Route::get('/company-business-card/{username}', [HomeController::class, 'businessCardCompany'])->name('company-business-card');
+    Route::get('/employee-card', [HomeController::class, 'employeeCard'])->name('employee-card');
+    Route::get('/employee-business-id-card', [HomeController::class, 'employeeBusinessIdCard'])->name('employee-business-id-card');
+
     Route::get('/business-id-card/{id}', [HomeController::class, 'businessIdCard'])->name('business-id-card.show');
     Route::get('/business-card/{username}/{organizationId}', [HomeController::class, 'businessCardOrg'])->name('business-card.org');
     Route::get('/organization-digital-id-card', [HomeController::class, 'organizationDigitalId'])->name('organization-digital-id-card');
-    Route::get('/digital-id-company/{username}', [HomeController::class, 'companyDigitalId'])->name('digital-id-company');
     Route::post('/two-factor-authentication', [ProfileController::class, 'twoFactorAuthentication'])->name('twofactor');
     Route::post('/two-factor-authentication-disable', [ProfileController::class, 'twoFactorAuthenticationDisable'])->name('twofactordisable');
 
@@ -102,6 +108,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/organization/view/{id}', [CustomOrganizationController::class, 'show'])->name('user.organization.view');
     Route::put('/organization/update/{id}', [CustomOrganizationController::class, 'update'])->name('user.organization.update');
     Route::delete('/organization/delete/{id}', [CustomOrganizationController::class, 'destroy'])->name('user.organization.delete');
+
+    // Services management
+    Route::controller(ServiceController::class)->prefix('services')->name('user.services')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/store', 'store')->name('.store');
+        Route::get('/view/{id}', 'show')->name('.show');
+        Route::get('/delete/{id}', 'destroy')->name('.destroy');
+        Route::put('/update/{id}', 'update')->name('.update');
+    });
+
+    // Portfolio management
+    Route::controller(PortfolioController::class)->prefix('portfolio')->name('user.portfolio')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/store', 'store')->name('.store');
+        Route::get('/view/{id}', 'show')->name('-view');
+        Route::get('/delete/{id}', 'destroy')->name('.destroy');
+        Route::put('/update/{id}', 'update')->name('.update');
+    });
     // Admin routes
     Route::middleware(['role:admin', 'auth'])->prefix('admin')->group(function () {
         Route::get('/dashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
@@ -136,23 +160,7 @@ Route::middleware('auth')->group(function () {
             Route::put('/update/{id}', 'update')->name('.update');
         });
 
-        // Services management
-        Route::controller(ServiceController::class)->prefix('services')->name('user.services')->group(function () {
-            Route::get('/', 'index');
-            Route::post('/store', 'store')->name('.store');
-            Route::get('/view/{id}', 'show')->name('.show');
-            Route::get('/delete/{id}', 'destroy')->name('.destroy');
-            Route::put('/update/{id}', 'update')->name('.update');
-        });
 
-        // Portfolio management
-        Route::controller(PortfolioController::class)->prefix('portfolio')->name('user.portfolio')->group(function () {
-            Route::get('/', 'index');
-            Route::post('/store', 'store')->name('.store');
-            Route::get('/view/{id}', 'show')->name('-view');
-            Route::get('/delete/{id}', 'destroy')->name('.destroy');
-            Route::put('/update/{id}', 'update')->name('.update');
-        });
 
 
         // Appointment settings
@@ -170,32 +178,15 @@ Route::middleware('auth')->group(function () {
     // Organization routes
     Route::middleware(['role:organization', 'auth'])->group(function () {
         Route::get('dashboard', [HomeController::class, 'organizationDashboard'])->name('organization.dashboard');
- // Document management
- Route::controller(DocumentController::class)->prefix('documents')->name('user.documents')->group(function () {
-    Route::get('/', 'index');
-    Route::get('/view/{id}', 'show')->name('.show');
-    Route::post('/store', 'store')->name('.store');
-    Route::get('/delete/{id}', 'destroy')->name('.destroy');
-    Route::put('/update/{id}', 'update')->name('.update');
-});
+        // Document management
+        Route::controller(DocumentController::class)->prefix('documents')->name('user.documents')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/view/{id}', 'show')->name('.show');
+            Route::post('/store', 'store')->name('.store');
+            Route::get('/delete/{id}', 'destroy')->name('.destroy');
+            Route::put('/update/{id}', 'update')->name('.update');
+        });
 
-// Services management
-Route::controller(ServiceController::class)->prefix('services')->name('user.services')->group(function () {
-    Route::get('/', 'index');
-    Route::post('/store', 'store')->name('.store');
-    Route::get('/view/{id}', 'show')->name('.show');
-    Route::get('/delete/{id}', 'destroy')->name('.destroy');
-    Route::put('/update/{id}', 'update')->name('.update');
-});
-
-// Portfolio management
-Route::controller(PortfolioController::class)->prefix('portfolio')->name('user.portfolio')->group(function () {
-    Route::get('/', 'index');
-    Route::post('/store', 'store')->name('.store');
-    Route::get('/view/{id}', 'show')->name('-view');
-    Route::get('/delete/{id}', 'destroy')->name('.destroy');
-    Route::put('/update/{id}', 'update')->name('.update');
-});
         // Employees routes
         Route::get('/employees', [EmployeeController::class, 'index'])->name('organization.employees');
         Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');

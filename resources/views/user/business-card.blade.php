@@ -266,8 +266,11 @@
                     . "NOTE:" . $userDetails->note . "\n"
                     . "END:VCARD";
                     @endphp
+ // Generate the form URL with qrCodeUrl as a query parameter
+                $formUrl = url('/form/'.$userDetails->username) . '?for=vcard';
+                @endphp
 
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($vcardData) }}"
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($formUrl) }}"
                         alt="QR Code" class="biz-card-qr" crossorigin="anonymous" />
 
                     <div class="biz-card-border"></div>

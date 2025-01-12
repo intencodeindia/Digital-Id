@@ -5,23 +5,31 @@
         <div class="d-flex flex-column flex-center flex-lg-row-fluid p-3 p-lg-5">
             <!-- Profile Card -->
             <div class="container">
-                <div class="overlay mb-11">
-                    <!-- Background Image: Use background-size: cover to make it responsive -->
-                    <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-325px"
-                        style="background-image:url('/assets/media/stock/1600x800/img-3.jpg'); background-size: cover; background-position: center center;">
+                <div class="position-relative mb-4">
+                    <!-- Background Banner Image -->
+                    <div class="bgi-no-repeat bgi-position-center bgi-size-cover min-h-250px rounded-3"
+                        style="background-image:url('{{ $vcardDetails->banner_photo ? asset('uploads/banners/' . $vcardDetails->banner_photo) : asset('assets/media/stock/1600x800/img-3.jpg') }}'); background-size: cover; background-position: center center;">
                     </div>
-                    <!-- Dark overlay layer for contrast -->
-                    <div class="overlay-layer card-rounded bg-dark bg-opacity-25"></div>
-                </div>
-                <div class="row justify-content-center">
-                    <!-- Profile Image in 3 columns (for medium screens and up) -->
-                    <div class="col-12 col-md-3 d-flex justify-content-center align-items-center mb-4 mb-md-0">
-                        <div class="symbol symbol-150px symbol-lg-200px">
-                            <img src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('/assets/media/avatars/300-1.webp') }}"
-                                class="rounded-circle img-fluid"
-                                alt="{{ $vcardDetails->name }}"
-                                loading="lazy" />
+                    
+                    <!-- Profile Image Container -->
+                    <div class="position-absolute" style="bottom: -75px; left: 24px;">
+                        <div class="position-relative">
+                            <!-- Profile Image -->
+                            <div class="symbol symbol-168px">
+                                <img src="{{ $userDetails->profile_photo ? asset('uploads/avatars/' . $userDetails->profile_photo) : asset('/assets/media/avatars/300-1.webp') }}"
+                                    class="border border-4 border-white rounded-circle shadow-sm"
+                                    alt="{{ $vcardDetails->name }}"
+                                    style="height: 168px; width: 168px; object-fit: cover;"
+                                    loading="lazy" />
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Spacing for profile image overflow -->
+                <div class="row mt-11">
+                    <!-- Empty space for profile image alignment -->
+                    <div class="col-12 col-md-3">
                     </div>
                     @if(session('message'))
                     <script>

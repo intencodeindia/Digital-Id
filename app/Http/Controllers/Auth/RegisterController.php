@@ -32,6 +32,9 @@ class RegisterController extends Controller
             'phone' => 'nullable|string|max:20',
         ]);
 
+        // Replace spaces with '+' (or '_' if you prefer) in the username
+        $username = str_replace(' ', '_', $validated['username']);
+
         // Debugging: Check the validated data
 
         $verifiedLink = $this->generateEmailVerificationLink();
@@ -42,7 +45,7 @@ class RegisterController extends Controller
                 'name' => $validated['first-name'] . ' ' . $validated['last-name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'username' => $validated['username'],
+                'username' => $username,
                 'phone' => $validated['phone'] ?? null,
                 'role' => 'user',  // Default role
                 'digital_id' => $this->generateDigitalId(),
@@ -95,6 +98,11 @@ class RegisterController extends Controller
             'organization-confirm-password' => 'required|string|min:8|same:organization-password',
             'organization-toc' => 'required|accepted', // Ensure the user agrees to terms
         ]);
+        // Retrieve the username after validation
+        $username = $validated['organization-username'];
+
+        // Replace spaces with '+' (or '_' if you prefer) in the username
+        $username = str_replace(' ', '_', $username);
 
         // Check validation success and log
         Log::debug('Validation passed, proceeding with registration.');
@@ -109,7 +117,7 @@ class RegisterController extends Controller
                 'email' => $validated['organization-email'],
                 'phone' => $validated['organization-phone'],
                 'password' => Hash::make($validated['organization-password']),
-                'username' => $validated['organization-username'],
+                'username' => $username,
                 'role' => 'organization',  // Set the role to 'organization'
                 'digital_id' => $this->generateDigitalId(),
                 'status' => true,   // Assuming the organization is active by default

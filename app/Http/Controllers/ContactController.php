@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\GeneralHtmlEmail;
 use App\Models\Lead;
 use App\Models\User;
+use App\Models\CustomOrganization;
 class ContactController extends Controller
 {
     /**
@@ -123,54 +124,102 @@ class ContactController extends Controller
     }
 
     // Show the form
-    public function showForm(Request $request)
+    public function showForm(Request $request, $username)
     {
         // Get URL and user_id from query parameters
-        $qrCodeUrl = $request->query('url');
-        $userId = $request->query('userid');
+        $formType = $request->query('for');
+
+        $user = User::where('username', $username)->first();
 
         return view('components.form', [
-            'qrCodeUrl' => $qrCodeUrl,
-            'userId' => $userId
+            'formType' => $formType,
+            'username' => $username,
+            'user' => $user
         ]);
     }
 
-    // Handle the form submission
     public function submitForm(Request $request)
     {
-    
         // Validate the incoming form data
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
-            'mobile_number' => 'required|string|max:15', 
+            'mobile_number' => 'required|string|max:15',
             'email' => 'required|email|max:255',
             'address' => 'required|string',
-            'qr_code_url' => 'required|url', // Validates that the QR code URL is a proper URL format
-            'user_id' => 'required|exists:users,id'  // Ensures the user_id exists in the users table
+            'for' => 'required|string',
+            'user_id' => 'required|exists:users,id'
         ]);
 
-        // Add user_id to validated data after validation
-        
         try {
-            // Store the form data into the leads table
+            // Store the lead
             $lead = Lead::create([
                 'name' => $validated['full_name'],
                 'mobile' => $validated['mobile_number'],
                 'email' => $validated['email'],
-                'user_id' => $validated['user_id'], // Use the found user_id from the query
+                'user_id' => $validated['user_id'],
                 'location' => $validated['address'],
-                'status' => 0 // Default status
+                'status' => 0
             ]);
-    
-            // After successful form submission, redirect to the QR code URL
-            return redirect($validated['qr_code_url'])
-                ->with('success', 'Your details have been submitted successfully!');
+
+            // Get user details
+            $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+                ->where('users.id', $validated['user_id'])
+                ->select('users.*', 'vcard_details.*')
+                ->first();
+
+            if ($validated['for'] === 'vcard') {
+                // Format phone number
+                $phone = $userDetails->phone;
+                $formattedPhone = preg_match('/^\+(\d{1,3})\s*(\d+)$/', $phone, $matches) 
+                    ? "+{$matches[1]} {$matches[2]}" 
+                    : $phone;
+
+                // Generate vCard data
+                $vcardData = "BEGIN:VCARD\n"
+                    . "VERSION:3.0\n"
+                    . "FN:" . $userDetails->name . "\n"
+                    . "TITLE:" . ($userDetails->title ?? '') . "\n"
+                    . "ORG:" . ($userDetails->organization ?? '') . "\n"
+                    . "TEL;TYPE=CELL:" . $formattedPhone . "\n"
+                    . "EMAIL:" . $userDetails->email . "\n"
+                    . "URL:" . ($userDetails->website ?? '') . "\n"
+                    . "ADR:" . ($userDetails->address ?? '') . "\n"
+                    . "NOTE:" . ($userDetails->note ?? '') . "\n"
+                    . "END:VCARD";
+
+                return response()->json([
+                    'status' => 'success',
+                    'vcardData' => $vcardData
+                ]);
+            } elseif($validated['for'] === 'portfolio') {
+                // For portfolio or website, return redirect URL
+                $userrole = $userDetails->role;
+                if($userrole === 'organization'){
+                    $redirectUrl = url('/company/'.$userDetails->username);
+                }else{
+                    $redirectUrl = url('/in/'.$userDetails->username);
+                }
+              
+                return response()->json([
+                    'status' => 'success',
+                    'redirectUrl' => $redirectUrl
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid form type.'
+                ], 400);
+            }
+
         } catch (\Exception $e) {
-            // Handle any errors
-            return back()
-                ->withInput()
-                ->with('error', 'An error occurred while submitting your details. Please try again.');
+            \Log::error('Form submission error: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while processing your request.'
+            ], 500);
         }
     }
+
+
     
 }

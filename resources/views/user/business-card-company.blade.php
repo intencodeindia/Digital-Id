@@ -263,17 +263,19 @@
                     . "NOTE:" . $userDetails->note . "\n"
                     . "END:VCARD";
                     @endphp
-          <!-- @php
-                // Generate the company URL using the user's username
-                $qrCodeUrl = url('/company/'.$userDetails->username);
+
+
+
+                    @php
+               
 
                 // Generate the form URL with qrCodeUrl as a query parameter
-                $formUrl = url('/form') . '?url=' . urlencode($qrCodeUrl) . '&useerid=' . $userDetails->id;
-                @endphp -->
+                $formUrl = url('/form/'.$userDetails->username) . '?for=vcard';
+                @endphp
 
                 <div class="back pb-3">
                     <!-- Generate the QR code with the formUrl containing the qrCodeUrl as a parameter -->
-                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($vcardData) }}" alt="QR Code">
+                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($formUrl) }}" alt="Vcard QR Code">
                     <p class="scan-text">Scan to connect</p>
                 </div>
             </div>

@@ -3,222 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fill Your Details</title>
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Proffid | Fill Your Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://proffid.com/assets/media/logos/favicon.ico" />
     <style>
         body {
-            background: #f8f9fa;
+            background-color: #f4f6f9;
             min-height: 100vh;
             display: flex;
             align-items: center;
+            font-family: 'Arial', sans-serif;
         }
         .card {
+            border-radius: 12px;
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .card-header {
-            background: #9727ff;
+            background-color: #9727ff;
             color: white;
-            border-radius: 15px 15px 0 0 !important;
             padding: 1.5rem;
-        }
-        .card-title {
-            margin: 0;
-            font-weight: 600;
-        }
-        .card-body {
-            padding: 2rem;
-        }
-        .form-label {
-            font-weight: 500;
-            color: #4a5568;
-        }
-        .form-control {
-            border-radius: 8px;
-            padding: 0.75rem;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
         }
         .form-control:focus {
             border-color: #9727ff;
-            box-shadow: 0 0 0 0.2rem rgba(78,115,223,0.25);
+            box-shadow: 0 0 0 0.2rem rgba(151, 39, 255, 0.25);
         }
         .btn-primary {
-            background: #9727ff;
+            background-color: #9727ff;
             border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
         }
         .btn-primary:hover {
-            background: #2e59d9;
-            transform: translateY(-1px);
-        }
-        .btn-secondary {
-            background: #6c757d;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-        }
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-1px);
-        }
-        textarea {
-            resize: none;
+            background-color: #7b1fd9;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Fill Your Details</h4>
-                </div>
-                @php
-                $qrCodeUrl = request()->query('url');
-                $userId = request()->query('id');
-                @endphp
-                <div class="card-body">
-                    @php
-                    $currentUrl = url()->full();
-                    $submittedUrls = isset($_COOKIE['submitted_urls']) ? json_decode($_COOKIE['submitted_urls'], true) : [];
-                    
-                    // Extract just the query parameters for comparison
-                    $currentUrlParts = parse_url($currentUrl);
-                    parse_str($currentUrlParts['query'] ?? '', $currentParams);
-                    
-                    $hasVisited = false;
-                    foreach ($submittedUrls as $submittedUrl) {
-                        $submittedUrlParts = parse_url($submittedUrl);
-                        parse_str($submittedUrlParts['query'] ?? '', $submittedParams);
-                        
-                        // Compare url and id parameters
-                        if (isset($submittedParams['url'], $submittedParams['id']) &&
-                            isset($currentParams['url'], $currentParams['id']) &&
-                            $submittedParams['url'] === $currentParams['url'] &&
-                            $submittedParams['id'] === $currentParams['id']) {
-                            $hasVisited = true;
-                            break;
-                        }
-                    }
-                    @endphp
-                    @if($hasVisited)
-                    <div id="skipSection" class="text-center">
-                        <p>You've already submitted your details before.</p>
-                        <button onclick="skipToRedirect()" class="btn btn-secondary">Skip to Website</button>
-                        <hr>
-                        <p>Or fill the form again:</p>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Fill Your Details</h4>
                     </div>
-                    @endif
-                    <form action="{{ url('form') }}" method="POST" id="userForm">
-                        @csrf
-                        <input type="hidden" name="qr_code_url" value="{{ $qrCodeUrl }}">
-                        <input type="hidden" name="user_id" value="{{ $userId }}">
+                    <div class="card-body p-4">
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
-                        <div class="mb-4">
-                            <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="full_name" name="full_name" 
-                                   placeholder="Enter your full name" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="mobile_number" class="form-label">Mobile Number <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" id="mobile_number" name="mobile_number" 
-                                   placeholder="Enter your mobile number" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" 
-                                   placeholder="Enter your email address" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="address" name="address" rows="3" 
-                                      placeholder="Enter your full address" required></textarea>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Submit Details</button>
-                        </div>
-                    </form>
+                        <form id="contactForm" method="POST" action="{{ route('form.submit') }}">
+                            @csrf
+                            <input type="hidden" name="for" value="{{ $formType }}">
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('full_name') is-invalid @enderror" 
+                                       name="full_name" required value="{{ old('full_name') }}">
+                                @error('full_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control @error('mobile_number') is-invalid @enderror" 
+                                       name="mobile_number" required value="{{ old('mobile_number') }}">
+                                @error('mobile_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                       name="email" required value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Address <span class="text-danger">*</span></label>
+                                <textarea class="form-control @error('address') is-invalid @enderror" 
+                                          name="address" rows="3" required>{{ old('address') }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Submit Details</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap 5.3 JS -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = $(this).find('button[type="submit"]');
+                submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Processing...');
+                
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'json'
+                })
+                .done(function(response) {
+                    if (response.vcardData) {
+                        // Get current date and time for filename
+                        const now = new Date();
+                        const dateTime = now.getFullYear() + 
+                                       ('0' + (now.getMonth() + 1)).slice(-2) +
+                                       ('0' + now.getDate()).slice(-2) + '_' +
+                                       ('0' + now.getHours()).slice(-2) +
+                                       ('0' + now.getMinutes()).slice(-2) +
+                                       ('0' + now.getSeconds()).slice(-2);
 
-<script>
-    // Function to set the cookie with expiration of one month
-    function setCookie(name, value, days) {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = name + "=" + value + ";expires=" + expires.toUTCString() + ";path=/";
-    }
+                        // Create vCard blob and trigger download
+                        const blob = new Blob([response.vcardData], { type: 'text/vcard' });
+                        const url = window.URL.createObjectURL(blob);
+                        
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = dateTime + '_vcard.vcf';
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
 
-    // Function to get the cookie value by name
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-
-    function skipToRedirect() {
-        const redirectUrl = "{{ $qrCodeUrl }}";
-        window.location.href = redirectUrl || '/';
-    }
-
-    // Handle form submission
-    document.getElementById('userForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        // Get current URL
-        const currentUrl = window.location.href;
-
-        // Get existing submitted URLs from cookie or initialize empty array
-        let submittedUrls = [];
-        const existingUrls = getCookie('submitted_urls');
-        if (existingUrls) {
-            submittedUrls = JSON.parse(existingUrls);
-        }
-
-        // Add current URL if not already in array
-        if (!submittedUrls.includes(currentUrl)) {
-            submittedUrls.push(currentUrl);
-        }
-
-        // Save updated URLs array back to cookie
-        setCookie('submitted_urls', JSON.stringify(submittedUrls), 30);
-
-        // Store form data in session storage
-        const formData = {
-            name: document.getElementById('full_name').value,
-            mobile: document.getElementById('mobile_number').value,
-            email: document.getElementById('email').value,
-            address: document.getElementById('address').value
-        };
-        sessionStorage.setItem('userFormData', JSON.stringify(formData));
-
-        // Proceed with the form submission
-        this.submit();
-    });
-</script>
-
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Contact has been downloaded to your device!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        }).then(() => {
+                            submitBtn.prop('disabled', false).html('Submit Details');
+                        });
+                    } else if (response.redirectUrl) {
+                        window.location.href = response.redirectUrl;
+                    }
+                })
+                .fail(function(xhr) {
+                    console.error('Error:', xhr);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: xhr.responseJSON?.message || 'An error occurred while processing your request.'
+                    });
+                    submitBtn.prop('disabled', false).html('Submit Details');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

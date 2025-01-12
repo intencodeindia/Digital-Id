@@ -58,11 +58,14 @@ class AuthController extends Controller
 
             Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'OTP sent to email',
-                'requires_2fa' => true
-            ]);
+           return response()->json([
+    'status' => 'success',
+    'message' => 'OTP sent to email',
+    'requires_2fa' => true,
+    'otp' => (string) $otp, // Ensure OTP is a string
+    'user' => $user,
+]);
+
         }
 
         Auth::login($user);
@@ -98,6 +101,8 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'token' => $token,
+            'requires_2fa' => false,
+            'otp' => null,
             'user' => $user,
         ]);
     }
@@ -108,25 +113,52 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logout successful']);
     }
 
+
     public function verifyOTP(Request $request)
     {
+        // Validate the request data
+        $validated = $request->validate([
+            'otp' => 'required|string',
+            'user_id' => 'required|exists:users,id',  // Ensure the user exists
+        ]);
+
         $otp = $request->input('otp');
         $user_id = $request->input('user_id');
         $storedOTP = Session::get('otp');
         $user = User::find($user_id);
 
-        $subject = "OTP Verification Successful";
-        $content = "
-            <strong>Hello {$user->username},</strong><br>
-            Your OTP has been verified successfully. You can now proceed to log in to your account.<br><br>
-            Thank you for using Proffid!<br>
-            Best regards,<br>
-            The Proffid Team";
+        // Check if user exists and OTP is stored in session
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
-        Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
-
+        // Handle OTP verification
         if ($otp === $storedOTP) {
-            return response()->json(['message' => 'OTP verified successfully']);
+            try {
+                // Send OTP verification success email
+                $subject = "OTP Verification Successful";
+                $content = "
+                    <strong>Hello {$user->username},</strong><br>
+                    Your OTP has been verified successfully. You can now proceed to log in to your account.<br><br>
+                    Thank you for using Proffid!<br>
+                    Best regards,<br>
+                    The Proffid Team";
+
+                Mail::to($user->email)->send(new GeneralHtmlEmail($subject, $content));
+
+                // Check for any errors in the email sending
+                if (Mail::failures()) {
+                    return response()->json(['message' => 'OTP verified, but failed to send confirmation email. Please try again.'], 500);
+                }
+
+                return response()->json(['message' => 'OTP verified successfully']);
+            } catch (\Exception $e) {
+                // Handle any error that occurs during email sending
+                return response()->json(['message' => 'Failed to send email: ' . $e->getMessage()], 500);
+            }
+        } else {
+            // OTP is incorrect
+            return response()->json(['message' => 'Incorrect OTP. Please try again.'], 400);
         }
     }
 

@@ -209,14 +209,16 @@
                     </div>
                 </div>
 
-                @php
-                $qrCodeUrl = url('/company/'.$userDetails->username);
-                $formUrl = url('/form') . '?url=' . urlencode($qrCodeUrl) . '&useerid=' . $userDetails->id;
+              @php
+               
+
+                // Generate the form URL with qrCodeUrl as a query parameter
+                $formUrl = url('/form/'.$userDetails->username) . '?for=portfolio';
                 @endphp
 
                 <div class="back">
                     <div class="qr-section">
-                        <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $qrCodeUrl }}" alt="QR Code">
+                        <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($formUrl) }}" alt="QR Code">
                         <p class="scan-text">Scan to connect</p>
                     </div>
                 </div>

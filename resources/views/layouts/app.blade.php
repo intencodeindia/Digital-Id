@@ -45,7 +45,24 @@
     <meta name="msapplication-TileColor" content="#126bc6" />
     <meta name="msapplication-TileImage" content="https://proffid.com/assets/images/ms-icon.png" /> <!-- Update with actual icon URL -->
     <meta name="msapplication-config" content="https://proffid.com/browserconfig.xml" />
-
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PVXWVG8B');
+    </script>
+    <!-- End Google Tag Manager -->
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
@@ -84,6 +101,12 @@
 </head>
 
 <body id="kt_app_body" data-bs-spy="scroll" data-bs-target="#kt_landing_menu" data-bs-offset="200" data-kt-app-layout="light-sidebar" class="body-bg position-relative app-blank">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVXWVG8B"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -226,9 +249,23 @@
                                 <a href="/">
                                     <img alt="Logo" src="{{ asset('assets/media/logos/logo-color.png') }}" class="h-30px h-md-40px" />
                                 </a>
-                                <span class="mx-5 fs-6 fw-semibold text-gray-700 pt-1" href="https://proffid.com">
-                                    Copyright &copy; Proffid 2024
+                                <span class="mx-5 fs-6 fw-semibold text-gray-700 pt-1">
+                                    © {{ date('Y') }} Proffid. All rights reserved.
                                 </span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 order-1 order-md-2">
+                                <a href="{{ url('downloadable/proffid-app.apk') }}"
+                                    class="btn btn-outline fw-bold px-4"
+                                    style="border: 2px solid #c206fd; color: #c206fd;">
+                                    <i class="bi bi-google-play me-2"></i>
+                                    Download App
+                                </a>
+                                <button onclick="window.open('https://play.google.com/store/apps/details?id=com.proffid.app','','width=200,height=100')"
+                                    class="btn btn-outline fw-bold px-4"
+                                    style="border: 2px solid #c206fd; color: #c206fd;">
+                                    <i class="bi bi-person-badge me-2"></i>
+                                    View Profile
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -11,46 +11,13 @@
 
     <style>
         :root {
-            --border-top: {
-                    {
-                    $organization->border_color_top ?? '#fbd45c'
-                }
-            }
+    --border-top: <?php echo $organization->border_color_top ?? '#fbd45c'; ?>;
+    --border-right: <?php echo $organization->border_color_right ?? '#010409'; ?>;
+    --border-bottom: <?php echo $organization->border_color_bottom ?? '#010409'; ?>;
+    --border-left: <?php echo $organization->border_color_left ?? '#fbd45c'; ?>;
+    --bg-color: <?php echo $organization->background_color ?? '#ffffff'; ?>;
+}
 
-            ;
-
-            --border-right: {
-                    {
-                    $organization->border_color_right ?? '#010409'
-                }
-            }
-
-            ;
-
-            --border-bottom: {
-                    {
-                    $organization->border_color_bottom ?? '#010409'
-                }
-            }
-
-            ;
-
-            --border-left: {
-                    {
-                    $organization->border_color_left ?? '#fbd45c'
-                }
-            }
-
-            ;
-
-            --bg-color: {
-                    {
-                    $organization->background_color ?? '#ffffff'
-                }
-            }
-
-            ;
-        }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -124,9 +91,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding-left: 20px;
-            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            
         }
 
         .profile-photo {
@@ -191,8 +156,8 @@
         }
 
         .qr-code {
-            width: 120px;
-            height: 120px;
+            max-width: 120px;
+            max-height: 120px;
             padding: 8px;
             background: white;
             border-radius: 10px;
@@ -253,11 +218,16 @@
                         </div>
                     </div>
                 </div>
+ @php
+               
 
+                // Generate the form URL with qrCodeUrl as a query parameter
+                $formUrl = url('/form/'.$userDetails->username) . '?for=vcard';
+                @endphp
+
+            
                 <div class="back">
-                    <img class="qr-code"
-                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? $userDetails->website ?? 'https://proffid.com/' }}"
-                        alt="QR Code">
+                   <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($formUrl) }}" alt="Vcard QR Code">
                     <p class="scan-text">Scan to connect</p>
                 </div>
             </div>

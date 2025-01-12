@@ -237,7 +237,7 @@ class ProfileController extends Controller
 
                 $banner = $request->file('banner');
                 $bannerName = time() . '.' . $banner->getClientOriginalExtension();
-                
+
                 // Create directory if it doesn't exist
                 if (!file_exists(public_path('uploads/banners'))) {
                     mkdir(public_path('uploads/banners'), 0777, true);
@@ -261,12 +261,18 @@ class ProfileController extends Controller
                 'success' => false,
                 'message' => 'No banner image provided'
             ], 422);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
             ], 422);
         }
+    }
+
+    public function accountSetting()
+    {
+        $user = Auth::user();
+        $userDetails = User::find($user->id);
+        return view('user.accountsetting', ['user' => $user, 'userDetails' => $userDetails]);
     }
 }

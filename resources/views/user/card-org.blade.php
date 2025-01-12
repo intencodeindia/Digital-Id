@@ -128,7 +128,7 @@
 
         .org-logo {
             max-width: 150px;
-            height: auto;
+            max-height: 100px;
             margin-top: auto;
             padding: 10px 0;
         }
@@ -195,8 +195,14 @@
                     <img class="org-logo"
                         src="{{ $organization->logo ? asset($organization->logo) : asset('assets/media/logos/default.png') }}"
                         alt="{{ $organization->name }}">
+                        
+                        @php
+
+                // Generate the form URL with qrCodeUrl as a query parameter
+                $formUrl = url('/form/'.$userDetails->username) . '?for=portfolio';
+                @endphp
                     <img class="qr-code"
-                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $organization->website ?? $userDetails->website ?? 'https://proffid.com/' }}"
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($formUrl) }}"
                         alt="QR Code">
                     <p class="scan-text">Scan to connect</p>
                 </div>

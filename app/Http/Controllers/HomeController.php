@@ -117,6 +117,56 @@ class HomeController extends Controller
         return view('user.organization-digital-id-card', compact('userDetails', 'organizations'));
     }
 
+    public function employeeCard()
+    {
+        $user = Auth::user();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+
+        return view('user.employee-card', compact('userDetails', 'user'));
+    }
+
+    public function employeeCardShow($username)
+    {
+        $user = User::where('username', $username)->first();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+        $createdBy = $user->parent_id;
+
+        $organization = CustomOrganization::where('created_by', $createdBy)->first();
+        return view('user.employee-id-card', compact('userDetails', 'user', 'organization'));
+    }
+
+    public function employeeBusinessIdCard()
+    {
+        $user = Auth::user();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+            $createdBy = $user->parent_id;
+
+        $organization = CustomOrganization::where('created_by', $createdBy)->first();
+        return view('user.employee-business-id-card', compact('userDetails', 'user', 'organization'));
+    }
+
+    public function employeeBusinessCard($username)
+    {
+        $user = User::where('username', $username)->first();
+        $userDetails = User::join('vcard_details', 'users.id', '=', 'vcard_details.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.*', 'vcard_details.*')
+            ->first();
+            $createdBy = $user->parent_id;
+
+        $organization = CustomOrganization::where('created_by', $createdBy)->first();
+        return view('user.employee-business-card', compact('userDetails', 'user', 'organization'));
+    }
+
     public function companyDigitalId($username)
     {
         $user = User::where('username', $username)->first();
@@ -145,6 +195,7 @@ class HomeController extends Controller
             ->first();
         return view('user.card', compact('userDetails'));
     }
+
     public function cardorg($username, $organizationId)
     {
         $user = User::where('username', $username)->first();
@@ -304,5 +355,10 @@ class HomeController extends Controller
     public function refundPolicy()
     {
         return view('refund-policy');
+    }
+
+    public function qrGenerator()
+    {
+        return view('qr-generator');
     }
 }
