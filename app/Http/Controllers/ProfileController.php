@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\GeneralHtmlEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -274,5 +275,81 @@ class ProfileController extends Controller
         $user = Auth::user();
         $userDetails = User::find($user->id);
         return view('user.accountsetting', ['user' => $user, 'userDetails' => $userDetails]);
+    }
+
+    public function updateProfilePhoto(Request $request)
+    {
+        $request->validate([
+            'profile_photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->hasFile('profile_photo')) {
+            // Delete old photo if exists
+            if ($user->profile_photo && file_exists(public_path('uploads/avatars/' . $user->profile_photo))) {
+                unlink(public_path('uploads/avatars/' . $user->profile_photo));
+            }
+
+            $photo = $request->file('profile_photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+
+            // Create directory if it doesn't exist
+            if (!file_exists(public_path('uploads/avatars'))) {
+                mkdir(public_path('uploads/avatars'), 0777, true);
+            }
+
+            $photo->move(public_path('uploads/avatars'), $photoName);
+            $user->profile_photo = $photoName;
+            $user->save();
+
+            return redirect()->back()->with('success', 'Profile photo updated successfully');
+        }
+
+        return redirect()->back()->with('error', 'No photo uploaded');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect']);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password updated successfully');
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'emailaddress' => 'required|email|unique:users,email,' . Auth::id(),
+            'confirmemailpassword' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->confirmemailpassword, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Password confirmation is incorrect'
+            ], 422);
+        }
+
+        $user->email = $request->emailaddress;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email updated successfully'
+        ]);
     }
 }

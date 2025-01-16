@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, Notifiable;
 
     protected $fillable = [
         'name',
@@ -43,9 +40,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * Check if user has a specific role.
+     */
+    public function hasRole($role): bool
+    {
+        if (is_array($role)) {
+            return in_array($this->role, $role);
+        }
+        return $this->role === $role;
+    }
+
+    /**
      * Get the family members associated with the user.
      */
-    public function familyMembers(): HasMany
+    public function familyMembers()
     {
         return $this->hasMany(User::class, 'parent_id');
     }
@@ -58,14 +66,30 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'parent_id');
     }
 
-    /**
-     * Check if user has a specific role.
-     */
-    public function hasRole($role): bool
+    public function payments()
     {
-        if (is_array($role)) {
-            return in_array($this->role, $role);
-        }
-        return $this->role === $role;
+        return $this->hasMany(Payment::class);
+    }
+
+    public function hasActiveSubscription(): bool
+    {
+        return $this->payments()
+            ->where('subscription_status', 'active')
+            ->where('subscription_end_date', '>', now())
+            ->exists();
+    }
+
+    public function isInTrialPeriod(): bool
+    {
+        return $this->created_at->addDays(15)->gt(now());
+    }
+
+    public function currentSubscription()
+    {
+        return $this->payments()
+            ->where('subscription_status', 'active')
+            ->where('subscription_end_date', '>', now())
+            ->latest()
+            ->first();
     }
 }

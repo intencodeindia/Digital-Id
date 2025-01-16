@@ -77,18 +77,17 @@
                             </section>
                             <div class="text-end mt-5 mb-5">
                                 @if(Auth::check())
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">
-                                    Book Appointment
-                                </button>
+                                    @if(Auth::user()->username != $userDetails->username)
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">
+                                        Book Appointment
+                                    </button>
+                                    @endif
                                 @else
                                 <a href="{{ route('login') }}" class="btn btn-secondary">
                                     Login to Book Appointment
                                 </a>
                                 @endif
                             </div>
-
-
-
                             <!-- Book Appointment Modal -->
                             <div class="modal fade" id="bookAppointmentModal" tabindex="-1" aria-labelledby="bookAppointmentModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">

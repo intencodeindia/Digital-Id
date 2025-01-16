@@ -226,6 +226,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::put('/profile/update-banner', [ProfileController::class, 'updateBanner'])->name('profile.update.banner');
+    Route::put('/profile/update/email', [ProfileController::class, 'updateEmail'])->name('profile.update.email');
 });
 
 // OAuth routes
@@ -235,4 +236,16 @@ Route::prefix('oauth')->group(function () {
     Route::get('/userinfo', [AuthController::class, 'userInfo'])
         ->middleware('auth:api')
         ->name('oauth.userinfo');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::put('/profile/update/photo', [ProfileController::class, 'updateProfilePhoto'])->name('profile.update.photo');
+    Route::put('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/subscription', [PaymentController::class, 'showSubscription'])->name('subscription');
+    Route::get('/subscribe', [PaymentController::class, 'showSubscriptionPlans'])->name('subscribe');
+    Route::post('/process-subscription', [PaymentController::class, 'processSubscription'])->name('process.subscription');
+    Route::post('/payment/callback', [PaymentController::class, 'confirmPayment'])->name('payment.callback');
 });
